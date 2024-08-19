@@ -12,7 +12,7 @@ instance.interceptors.response.use(
   }
 );
 
-export const loginCall = async (user, dispatch) => {
+const loginCall = async (user, dispatch) => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
   dispatch({ type: "LOGIN_START" });
@@ -36,3 +36,5 @@ export const loginCall = async (user, dispatch) => {
     dispatch({ type: "LOGIN_ERROR", payload: error });
   }
 };
+
+export default loginCall;
