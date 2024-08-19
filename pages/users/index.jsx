@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import AllFriend from "../../components/allFriend/AllFriend";
