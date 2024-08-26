@@ -3,6 +3,7 @@ import "./Login.css";
 import { loginCall } from "../actionCalls";
 import { AuthContext } from "../../state/AuthContext";
 import { useRouter } from "next/router";
+import UpdateInfo from "./../../components/updateInfo/index";
 
 export default function Login() {
   const email = useRef();
@@ -44,6 +45,7 @@ export default function Login() {
         <div className="loginLeft">
           <h3 className="loginLogo">Real SNS</h3>
           <span className="loginDesc">本格的なSNSを、自分の手で。</span>
+          <UpdateInfo />
         </div>
         {/*-- 右側のログインフォーム --*/}
         <div className="loginRight">
