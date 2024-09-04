@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import EditProfile from "../../components/Setting/Setting";
-import "./Settings.css";
+import SettingComponent from "../../components/Setting/index";
 import { AuthContext } from "../../state/AuthContext";
 import { useRouter } from "next/router";
+import "./index.css";
 
 function Setting() {
   const router = useRouter();
@@ -27,7 +27,7 @@ function Setting() {
       <div className="profile">
         <Sidebar />
         <div className="profileRight">
-          <EditProfile username={username} />
+          <SettingComponent username={username} />
         </div>
       </div>
     </>

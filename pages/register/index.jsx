@@ -1,14 +1,14 @@
 import React, { useContext, useRef } from "react";
-import "./Register.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { AuthContext } from "../../state/AuthContext";
+import "./index.css";
 
 export default function Register() {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const router = useRouter();
-  const { user, isFetching, error } = useContext(AuthContext);
+  const { isFetching, error } = useContext(AuthContext);
 
   const username = useRef();
   const email = useRef();
@@ -22,7 +22,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // パスワードと確認用の確認用のパスワードがあっているかどうか確認
+    // パスワードと確認用のパスワードがあっているか確認
     if (password.current.value !== passwordConfirmation.current.value) {
       passwordConfirmation.current.setCustomValidity("パスワードが違います");
     } else {
@@ -32,19 +32,12 @@ export default function Register() {
           email: email.current.value,
           password: password.current.value,
         };
-        // registerAPIをたたく
-        await axios.post(PUBLIC_FOLDER + "/api/auth/register", user);
+        await axios.post(`${PUBLIC_FOLDER}/api/auth/register`, user);
         navigate("/login");
       } catch (error) {
-        // if (error.response && error.response.status === 500) {
-        //   alert(
-        //     "このメールアドレスは既に登録されています。別のメールアドレスをお試しください。"
-        //   );
-        // } else {
         window.alert("エラーが発生しました。");
         console.log(error);
         window.location.reload();
-        // }
       }
     }
   };

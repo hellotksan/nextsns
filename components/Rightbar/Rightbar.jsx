@@ -1,31 +1,20 @@
-import React, { useContext } from "react";
-import "./Rightbar.css";
+import React from "react";
 import CloseFriend from "../closeFriend/CloseFriend";
-import { AuthContext } from "../../state/AuthContext";
 import { useParams } from "react-router-dom";
+import "./index.css";
 
 function Rightbar({ user }) {
   const { username: showingUsername } = useParams();
-  const { isFetching, error } = useContext(AuthContext);
-
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   // ホームページ用の右サイドバー
   const HomeRightbar = () => {
     return <></>;
   };
 
-  // プロフィールページ用の右サイドバー
+  // ユーザに関する情報を表示するプロフィールページ用の右サイドバー
   const ProfileRightbar = () => {
     return (
       <>
-        {/* ユーザに関する情報を表示する */}
         <h4 className="rightbarTitle">ユーザ情報</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">

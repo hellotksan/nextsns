@@ -4,10 +4,10 @@ import { AuthContext } from "../../state/AuthContext";
 import { useRouter } from "next/router";
 import "../../pages/output.css";
 
-const EditPost = (query, postid) => {
+const EditPost = (query) => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
-  const { user, isFetching, error } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const router = useRouter();
   const [post, setPost] = useState({});
   const [postDesc, setPostDesc] = useState("");
@@ -46,7 +46,7 @@ const EditPost = (query, postid) => {
         alert("更新権限がありません。");
       }
     } catch (error) {
-      console.error("Error editing user:", error);
+      console.error(error);
     }
   };
 
@@ -72,14 +72,6 @@ const EditPost = (query, postid) => {
       console.error(error);
     }
   };
-
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error occurred</div>;
-  }
 
   return (
     <div className="profileRightTop p-6 bg-white shadow-md rounded-md">
@@ -116,28 +108,6 @@ const EditPost = (query, postid) => {
         </div>
       </div>
     </div>
-
-    // <div className="profileRightTop">
-    //   <h2>投稿設定</h2>
-    //   <div>
-    //     <div>投稿者名：{user.username}</div>
-    //     <div>投稿番号：{post._id}</div>
-    //     <div>投稿時間：{post.updatedAt}</div>
-    //     <div>いいね数：{post.likes ? post.likes.length : "N/A"}</div>
-    //     <span>内容：</span>
-    //     <input
-    //       type="text"
-    //       value={postDesc}
-    //       onChange={(e) => setPostDesc(e.target.value)}
-    //     />
-    //     <div>
-    //       <button onClick={handleEdit}>編集</button>
-    //     </div>
-    //     <div>
-    //       <button onClick={handleDelete}>投稿削除</button>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

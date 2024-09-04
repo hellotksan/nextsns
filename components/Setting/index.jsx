@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
-import "./Setting.css";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
-const EditProfile = ({ username }) => {
+const SettingComponent = ({ username }) => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
   const { user } = useContext(AuthContext);
@@ -55,7 +55,7 @@ const EditProfile = ({ username }) => {
             },
           });
           alert("ユーザを削除しました。");
-          localStorage.clear();
+          Cookies.remove("user", { path: "/" });
           router.push("/login");
           window.location.reload();
         } else {
@@ -99,26 +99,7 @@ const EditProfile = ({ username }) => {
         </div>
       </div>
     </div>
-
-    // <div className="profileRightTop">
-    //   <h2>ユーザ設定</h2>
-    //   <div>
-    //     <h4>ユーザ名：{user.username}</h4>
-    //     <span>ユーザ情報：</span>
-    //     <input
-    //       type="text"
-    //       value={desc}
-    //       onChange={(e) => setDesc(e.target.value)}
-    //     />
-    //     <div>
-    //       <button onClick={handleEdit}>編集</button>
-    //     </div>
-    //     <div>
-    //       <button onClick={handleDelete}>ユーザ削除</button>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
-export default EditProfile;
+export default SettingComponent;

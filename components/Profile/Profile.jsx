@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./Profile.css";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
+import "./index.css";
 
 function ShowProfile(props) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
   const username = props.username;
 
-  const { user, isFetching, error } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isFollowing, setIsFollowing] = useState(false);
   const [showingUser, setShowingUser] = useState({});
 
@@ -75,16 +75,6 @@ function ShowProfile(props) {
     }
     setIsFollowing(false);
   };
-
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  if (!user) {
-    return <div>User not found</div>;
-  }
 
   return (
     <div className="profileRightTop">

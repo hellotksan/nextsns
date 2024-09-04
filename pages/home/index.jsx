@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import "./Home.css";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Timeline from "../../components/Timeline/Timeline";
 import Rightbar from "../../components/Rightbar/Rightbar";
 import { AuthContext } from "../../state/AuthContext";
+import "./index.css";
 
 function Home() {
   const { user, isFetching, error } = useContext(AuthContext);

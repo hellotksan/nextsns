@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from "react";
-import "./Login.css";
 import { loginCall } from "../actionCalls";
 import { AuthContext } from "../../state/AuthContext";
 import { useRouter } from "next/router";
 import UpdateInfo from "./../../components/updateInfo/index";
+import "./index.css";
 
 export default function Login() {
   const email = useRef();

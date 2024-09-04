@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./Post.css";
 import { MoreVert } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -8,6 +7,7 @@ import { format } from "timeago.js";
 import { AuthContext } from "../../state/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
+import "./index.css";
 
 function Post({ post }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -16,7 +16,7 @@ function Post({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
 
-  const { user: currentUser, isFetching, error } = useContext(AuthContext);
+  const { user: currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -44,14 +44,6 @@ function Post({ post }) {
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
-
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <div className="post">

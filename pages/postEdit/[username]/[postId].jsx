@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import Topbar from "../../../components/topbar/Topbar";
 import Sidebar from "../../../components/Sidebar/Sidebar";
-import EditPost from "../../../components/EditPost/EditPost";
-import "./PostEdit.css";
-import axios from "axios";
+import EditPost from "../../../components/EditPost/index";
 import { AuthContext } from "../../../state/AuthContext";
 import { useRouter } from "next/router";
+import axios from "axios";
+import "./index.css";
 
 function PostEdit() {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
