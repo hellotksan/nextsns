@@ -29,8 +29,6 @@ export const loginCall = async (user, dispatch) => {
     } else if (error.response.status === 404) {
       alert("ユーザーが見つかりません");
     } else {
-      // その他のエラーの場合のエラーアラート
-      console.error("Login error:", error);
       alert("ログインに失敗しました");
     }
     dispatch({ type: "LOGIN_ERROR", payload: error });

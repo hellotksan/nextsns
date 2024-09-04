@@ -6,6 +6,7 @@ import { AuthContext } from "../../state/AuthContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import Cookies from "js-cookie";
 
 export default function Topbar() {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -17,7 +18,7 @@ export default function Topbar() {
     const confirmLogout = window.confirm("ログアウトしますか？");
     if (confirmLogout) {
       try {
-        localStorage.removeItem("user");
+        Cookies.remove("user", { path: "/" });
         router.push("/login");
         window.location.reload();
       } catch (error) {
