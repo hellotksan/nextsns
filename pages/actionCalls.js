@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 
 const instance = axios.create();
@@ -24,13 +25,27 @@ export const loginCall = async (user, dispatch) => {
     );
     dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
   } catch (error) {
-    if (error.response && error.response.status === 400) {
-      alert("パスワードが間違っています");
-    } else if (error.response.status === 404) {
-      alert("ユーザーが見つかりません");
+    if (error.response) {
+      if (error.response && error.response.status === 400) {
+        alert("パスワードが間違っています");
+      } else if (error.response.status === 404) {
+        alert("ユーザーが見つかりません");
+      } else {
+        alert("ログインに失敗しました");
+      }
     } else {
-      alert("ログインに失敗しました");
+      alert("ネットワークエラーが発生しました。再度お試しください。");
     }
     dispatch({ type: "LOGIN_ERROR", payload: error });
   }
 };
+
+const ActionCalls = () => {
+  return (
+    <>
+      <h1>Action Calls Page</h1>
+    </>
+  );
+};
+
+export default ActionCalls;

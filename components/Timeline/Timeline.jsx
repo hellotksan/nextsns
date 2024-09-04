@@ -9,19 +9,7 @@ function Timeline({ toHome = false, username }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
   const [posts, setPosts] = useState([]);
-  const { user, isFetching, error } = useContext(AuthContext);
-
-  // if (!user) {
-  //   return <div>User not found</div>;
-  // }
-
-  // if (isFetching) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,7 +23,7 @@ function Timeline({ toHome = false, username }) {
       );
     };
     fetchPosts();
-  }, [PUBLIC_FOLDER, username]);
+  }, [PUBLIC_FOLDER, username, user._id]);
 
   return (
     <div className="timeline">
