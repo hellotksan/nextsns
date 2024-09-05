@@ -3,6 +3,7 @@ import { loginCall } from "../actionCalls";
 import { AuthContext } from "../../state/AuthContext";
 import { useRouter } from "next/router";
 import UpdateInfo from "./../../components/updateInfo/index";
+import SiteInfoComponent from "./../../components/siteInfo/index";
 import "./index.css";
 
 export default function Login() {
@@ -45,6 +46,7 @@ export default function Login() {
         <div className="loginLeft">
           <h3 className="loginLogo">Real SNS</h3>
           <span className="loginDesc">本格的なSNSを、自分の手で。</span>
+          <SiteInfoComponent />
           <UpdateInfo />
         </div>
         {/*-- 右側のログインフォーム --*/}

@@ -2,6 +2,8 @@ import React, { useContext, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { AuthContext } from "../../state/AuthContext";
+import UpdateInfo from "./../../components/updateInfo/index";
+import SiteInfoComponent from "./../../components/siteInfo/index";
 import "./index.css";
 
 export default function Register() {
@@ -45,7 +47,6 @@ export default function Register() {
   if (isFetching) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -56,6 +57,8 @@ export default function Register() {
         <div className="loginLeft">
           <h3 className="loginLogo">Real SNS</h3>
           <span className="loginDesc">本格的なSNSを、自分の手で。</span>
+          <SiteInfoComponent />
+          <UpdateInfo />
         </div>
         <div className="loginRight">
           <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>

@@ -13,6 +13,12 @@ function Profile() {
   const { username } = router.query;
   const { user, isFetching, error } = useContext(AuthContext);
 
+  if (!username) {
+    return <div>ユーザー名が存在しません。</div>;
+  }
+  if (!user) {
+    return <div>ユーザーが存在しません。</div>;
+  }
   if (isFetching) {
     return <div>Loading...</div>;
   }
