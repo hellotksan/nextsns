@@ -112,9 +112,9 @@ function Post({ post }) {
             </span>
           </div>
           {/* コメント数の表示 */}
-          <div className="postButtomRight">
+          {/* <div className="postButtomRight">
             <span className="postCommentText">{post.comment}コメント</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

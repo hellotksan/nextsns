@@ -1,17 +1,17 @@
 import React, { useContext, useRef } from "react";
-import "./Share.css";
 import { Analytics, Face, Gif } from "@mui/icons-material";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
 import PersonIcon from "@mui/icons-material/Person";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import "./index.css";
 
 function Share({ toHome = false, username }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
   const router = useRouter();
-  const { user, isFetching, error } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const desc = useRef();
   // const [file, setFile] = useState(null);
 
@@ -47,18 +47,6 @@ function Share({ toHome = false, username }) {
     }
   };
 
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!user) {
-    return <div>User not found</div>;
-  }
-
   if (!toHome && username !== user.username) {
     return <div>You only post with your account.</div>;
   }
@@ -87,8 +75,8 @@ function Share({ toHome = false, username }) {
         <hr className="shareHr" />
 
         <form className="shareButtons" onSubmit={(e) => handleSubmit(e)}>
-          <div className="shareOptions">
-            {/* <label className="shareOption" htmlFor="file">
+          {/* <div className="shareOptions">
+            <label className="shareOption" htmlFor="file">
               <Image className="shareIcon" htmlColor="blue" />
               <span className="shareOptionText">写真</span>
               <input
@@ -98,7 +86,7 @@ function Share({ toHome = false, username }) {
                 style={{ display: "none" }}
                 onChange={(e) => setFile(e.target.files[0])}
               />
-            </label> */}
+            </label>
             <div className="shareOption">
               <Gif className="shareIcon" htmlColor="hotpink" />
               <span className="shareOptionText">GIF</span>
@@ -111,7 +99,7 @@ function Share({ toHome = false, username }) {
               <Analytics className="shareIcon" htmlColor="red" />
               <span className="shareOptionText">投票</span>
             </div>
-          </div>
+          </div> */}
           <button className="shareButton" type="submit">
             投稿
           </button>

@@ -33,9 +33,9 @@ function Profile() {
         <Sidebar />
         <div className="profileRight">
           <ShowProfile username={username} />
+          <Rightbar user={user} />
           <div className="profileRightBottom">
             <Timeline username={username} />
-            <Rightbar user={user} />
           </div>
         </div>
       </div>

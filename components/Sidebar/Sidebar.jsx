@@ -7,26 +7,14 @@ import {
   // Search,
   Settings,
 } from "@mui/icons-material";
-import "./Sidebar.css";
 import React, { useContext } from "react";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { AuthContext } from "../../state/AuthContext";
 import Link from "next/link";
+import "./index.css";
 
 function Sidebar() {
-  const { user, isFetching, error } = useContext(AuthContext);
-
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!user) {
-    return <div>User not found</div>;
-  }
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="sidebar">

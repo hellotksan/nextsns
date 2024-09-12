@@ -96,13 +96,16 @@ export default function Register() {
             <button className="loginButton" type="submit">
               サインアップ
             </button>
+          </form>
+          <div className="loginRight">
+            <p className="loginMsg">すでにアカウントをお持ちの方はこちら</p>
             <button
               className="loginRegisterButton"
               onClick={handleLoginRedirect}
             >
               ログイン
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>

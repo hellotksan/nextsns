@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./Timeline.css";
+import { AuthContext } from "../../state/AuthContext";
 import Share from "../share/Share";
 import Post from "../Post/Post";
 import axios from "axios";
-import { AuthContext } from "../../state/AuthContext";
+import "./index.css";
 
 function Timeline({ toHome = false, username }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;

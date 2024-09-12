@@ -3,7 +3,6 @@ import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
-import "./index.css";
 
 function ShowProfile(props) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -77,44 +76,43 @@ function ShowProfile(props) {
   };
 
   return (
-    <div className="profileRightTop">
-      <div className="profileCover">
-        {/* <img
-          src={
-            user.coverPicture
-              ? PUBLIC_FOLDER + "/images" + user.coverPicture
-              : PUBLIC_FOLDER + "/images/post/3.jpeg"
-          }
-          alt=""
-          className="profileCoverImg"
-        /> */}
-        {showingUser.profilePicture ? (
-          <Image
-            src={`${PUBLIC_FOLDER}/images/${showingUser.profilePicture}`}
-            alt=""
-            className="profileUserImg"
-            width={150}
-            height={150}
-          />
-        ) : (
-          <PersonIcon className="profileUserImg" />
-        )}
-      </div>
-      <div className="profileInfo">
-        <h4 className="profileInfoName">{showingUser.username}</h4>
-        <span className="profileInfoDesc">{showingUser.desc}</span>
-        {username !== user.username &&
-          (isFollowing ? (
-            <button className="followButton unfollow" onClick={handleUnfollow}>
-              Unfollow
-            </button>
+    <>
+      <div className="">
+        <div className="text-2xl">
+          ユーザーアイコン:
+          {showingUser.profilePicture ? (
+            <Image
+              src={`${PUBLIC_FOLDER}/images/${showingUser.profilePicture}`}
+              alt=""
+              width={15}
+              height={15}
+            />
           ) : (
-            <button className="followButton follow" onClick={handleFollow}>
-              Follow
-            </button>
-          ))}
+            <PersonIcon />
+          )}
+        </div>
+        <div className="">
+          <h4 className="text-2xl">ユーザー名: {showingUser.username}</h4>
+          <span className="text-lg">ユーザー情報: {showingUser.desc}</span>
+          {username !== user.username &&
+            (isFollowing ? (
+              <button
+                className="mt-2 px-5 py-2 rounded bg-red-500 text-white hover:bg-red-600"
+                onClick={handleUnfollow}
+              >
+                Unfollow
+              </button>
+            ) : (
+              <button
+                className="mt-2 px-5 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+                onClick={handleFollow}
+              >
+                Follow
+              </button>
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
