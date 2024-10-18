@@ -1,13 +1,19 @@
 "use client";
 
-import axios from "axios";
-import React, { useContext, useEffect } from "react";
-import Topbar from "../../../../components/topbar/Topbar";
-import Sidebar from "../../../../components/Sidebar/Sidebar";
-import EditPost from "../../../../components/EditPost/index";
 import { AuthContext } from "../../../../state/AuthContext";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "next/navigation";
-import styles from "./Post.module.css";
+import axios from "axios";
+
+// components
+import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
+import Loading from "@/components/layouts/loading/Loading";
+import Sidebar from "@/components/layouts/leftbar/Leftbar";
+import Topbar from "@/components/layouts/header/Header";
+import Error from "@/components/layouts/error/Error";
+
+// features
+import EditPost from "@/features/editPost/EditPost";
 
 function PostEdit() {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -26,18 +32,17 @@ function PostEdit() {
       }
     };
     fetchUser();
-  }, [PUBLIC_FOLDER, user.username]);
+  }, [PUBLIC_FOLDER]);
 
   if (!user) {
-    return <div>User not found!</div>;
+    return <UserNotFound />;
   }
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (error) {
-    return <div>Error occurred</div>;
+    return <Error />;
   }
-
   if (!username || !postId) {
     return <div>Invalid post or user information!</div>;
   }
@@ -45,12 +50,8 @@ function PostEdit() {
   return (
     <>
       <Topbar />
-      <div className={styles.profile}>
-        <Sidebar />
-        <div className={styles.profileRight}>
-          <EditPost username={username} postId={postId}/>
-        </div>
-      </div>
+      <Sidebar />
+      <EditPost username={username} postId={postId} />
     </>
   );
 }

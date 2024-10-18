@@ -1,0 +1,39 @@
+.loginBox {
+  height: 400px;
+  padding: 20px;
+  background-color: #aaa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 3px 7px 13px -10px #65789f;
+  border-radius: 10px;
+}
+
+.loginMsg {
+  text-align: center;
+  font-weight: 550;
+  font-style: 20px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.loginInput {
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  font-size: 18px;
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.loginButton {
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #41428b;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}

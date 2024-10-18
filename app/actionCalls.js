@@ -41,11 +41,7 @@ export const loginCall = async (user, dispatch) => {
 };
 
 const ActionCalls = () => {
-  return (
-    <>
-      <h1>Action Calls Page</h1>
-    </>
-  );
+  return <></>;
 };
 
 export default ActionCalls;

@@ -1,36 +1,38 @@
 "use client";
 
-import React, { useContext } from "react";
-import Topbar from "../../../components/topbar/Topbar";
-import Sidebar from "../../../components/Sidebar/Sidebar";
-import SettingComponent from "../../../components/Setting/index";
 import { AuthContext } from "../../../state/AuthContext";
 import { useParams } from "next/navigation";
-import styles from "./Setting.module.css";
+import React, { useContext } from "react";
+
+// components
+import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
+import Loading from "@/components/layouts/loading/Loading";
+import Error from "@/components/layouts/error/Error";
+import Sidebar from "../../../components/layouts/leftbar/Leftbar";
+import Topbar from "../../../components/layouts/header/Header";
+
+// features
+import SettingComponent from "../../../features/setting/Setting";
 
 function Setting() {
   const { username } = useParams();
   const { user, isFetching, error } = useContext(AuthContext);
 
   if (!user) {
-    return <div>User not found!</div>;
+    return <UserNotFound />;
   }
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (error) {
-    return <div>Error occurred</div>;
+    return <Error />;
   }
 
   return (
     <>
       <Topbar />
-      <div className={styles.profile}>
-        <Sidebar />
-        <div className={styles.profileRight}>
-          <SettingComponent username={username} />
-        </div>
-      </div>
+      <Sidebar />
+      <SettingComponent username={username} />
     </>
   );
 }

@@ -1,17 +1,21 @@
 "use client";
 
-import React, { useContext } from "react";
-import Topbar from "../../../components/topbar/Topbar";
-import Sidebar from "../../../components/Sidebar/Sidebar";
-import ShowProfile from "../../../components/Profile/Profile";
-import Timeline from "../../../components/Timeline/Timeline";
-import Rightbar from "../../../components/Rightbar/Rightbar";
 import { AuthContext } from "../../../state/AuthContext";
-import { useRouter, useParams } from "next/navigation";
-import styles from "./Profile.module.css";
+import { useParams } from "next/navigation";
+import React, { useContext } from "react";
+
+// components
+import UserNotFound from "../../../components/layouts/userNotFound/UserNotFound";
+import Timeline from "../../../components/layouts/timeline/Timeline";
+import Loading from "../../../components/layouts/loading/Loading";
+import Sidebar from "../../../components/layouts/leftbar/Leftbar";
+import Topbar from "../../../components/layouts/header/Header";
+import Error from "../../../components/layouts/error/Error";
+
+// features
+import ShowProfile from "../../../features/profile/Profile";
 
 function Profile() {
-  const router = useRouter();
   const { username } = useParams();
   const { user, isFetching, error } = useContext(AuthContext);
 
@@ -19,28 +23,21 @@ function Profile() {
     return <div>ユーザー名が存在しません。</div>;
   }
   if (!user) {
-    return <div>ユーザーが存在しません。</div>;
+    return <UserNotFound />;
   }
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (error) {
-    return <div>Error occurred</div>;
+    return <Error />;
   }
 
   return (
     <>
       <Topbar />
-      <div className={styles.profile}>
-        <Sidebar />
-        <div className={styles.profileRight}>
-          <ShowProfile username={username} />
-          <Rightbar user={user} />
-          <div className={styles.profileRightBottom}>
-            <Timeline username={username} />
-          </div>
-        </div>
-      </div>
+      <Sidebar />
+      <ShowProfile username={username} />
+      <Timeline username={username} />
     </>
   );
 }
