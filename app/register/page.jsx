@@ -1,10 +1,12 @@
+"use client";
+
 import React, { useContext, useRef } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { AuthContext } from "../../state/AuthContext";
 import UpdateInfo from "./../../components/updateInfo/index";
 import SiteInfoComponent from "./../../components/siteInfo/index";
-import "./index.css";
+import styles from "./Register.module.css";
 
 export default function Register() {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -52,34 +54,34 @@ export default function Register() {
   }
 
   return (
-    <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">Real SNS</h3>
-          <span className="loginDesc">本格的なSNSを、自分の手で。</span>
-          <SiteInfoComponent />
-          <UpdateInfo />
+    <div className={styles.login}>
+      <div className={styles.loginWrapper}>
+        <div className={styles.loginLeft}>
+          <h3 className={styles.loginLogo}>Next SNS</h3>
+          {/* <span className={styles.loginDesc}>次世代のSNSアプリを、OSSで</span> */}
+          {/* <SiteInfoComponent /> */}
+          {/* <UpdateInfo /> */}
         </div>
-        <div className="loginRight">
-          <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
-            <p className="loginMsg">新規登録はこちら</p>
+        <div className={styles.loginRight}>
+          <form className={styles.loginBox} onSubmit={(e) => handleSubmit(e)}>
+            <p className={styles.loginMsg}>新規登録はこちら</p>
             <input
               type="text"
-              className="loginInput"
+              className={styles.loginInput}
               placeholder="ユーザ名"
               required
               ref={username}
             />
             <input
               type="email"
-              className="loginInput"
+              className={styles.loginInput}
               placeholder="Eメール"
               required
               ref={email}
             />
             <input
               type="password"
-              className="loginInput"
+              className={styles.loginInput}
               placeholder="パスワード"
               required
               minLength="6"
@@ -87,20 +89,20 @@ export default function Register() {
             />
             <input
               type="password"
-              className="loginInput"
+              className={styles.loginInput}
               placeholder="確認用パスワード"
               required
               minLength="6"
               ref={passwordConfirmation}
             />
-            <button className="loginButton" type="submit">
+            <button className={styles.loginButton} type="submit">
               サインアップ
             </button>
           </form>
-          <div className="loginRight">
-            <p className="loginMsg">すでにアカウントをお持ちの方はこちら</p>
+          <div className={styles.loginRight}>
+            <p className={styles.loginAlreadyMsg}>すでにアカウントをお持ちの方はこちら</p>
             <button
-              className="loginRegisterButton"
+              className={styles.loginRegisterButton}
               onClick={handleLoginRedirect}
             >
               ログイン

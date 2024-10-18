@@ -1,9 +1,11 @@
+"use client";
+
 import { Chat, Notifications, Search } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import React, { useContext } from "react";
 import "./Topbar.css";
 import { AuthContext } from "../../state/AuthContext";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Cookies from "js-cookie";

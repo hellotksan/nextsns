@@ -1,7 +1,9 @@
+"use client";
+
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 const SettingComponent = ({ username }) => {

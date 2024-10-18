@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import Share from "../share/Share";

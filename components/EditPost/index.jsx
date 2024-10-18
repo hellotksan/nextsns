@@ -1,19 +1,17 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
-import { useRouter } from "next/router";
-import "../../pages/output.css";
 
-const EditPost = (query) => {
+const EditPost = (props) => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
+  const username = props.username;
+  const postId = props.postId;
+
   const { user } = useContext(AuthContext);
-  const router = useRouter();
+
   const [post, setPost] = useState({});
   const [postDesc, setPostDesc] = useState("");
-
-  const username = query["username"];
-  const postId = query["postId"];
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -23,12 +21,15 @@ const EditPost = (query) => {
         );
         setPost(response.data);
         setPostDesc(response.data.desc);
+
+        console.log(post.username);
+        console.log(postDesc);
       } catch (error) {
         console.error(error);
       }
     };
     fetchPost();
-  }, [PUBLIC_FOLDER, postId]);
+  }, [PUBLIC_FOLDER]);
 
   const handleEdit = async () => {
     try {
@@ -77,7 +78,7 @@ const EditPost = (query) => {
     <div className="profileRightTop p-6 bg-white shadow-md rounded-md">
       <h2 className="text-2xl font-bold mb-4">投稿設定</h2>
       <div className="space-y-4">
-        <div className="text-lg font-medium">投稿者名：{user.username}</div>
+        <div className="text-lg font-medium">投稿者ID：{post.userId}</div>
         <div className="text-lg font-medium">投稿番号：{post._id}</div>
         <div className="text-lg font-medium">投稿時間：{post.updatedAt}</div>
         <div className="text-lg font-medium">

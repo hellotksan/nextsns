@@ -1,14 +1,15 @@
+"use client";
+
 import React, { useContext } from "react";
-import Topbar from "../../components/topbar/Topbar";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import SettingComponent from "../../components/Setting/index";
-import { AuthContext } from "../../state/AuthContext";
-import { useRouter } from "next/router";
-import "./index.css";
+import Topbar from "../../../components/topbar/Topbar";
+import Sidebar from "../../../components/Sidebar/Sidebar";
+import SettingComponent from "../../../components/Setting/index";
+import { AuthContext } from "../../../state/AuthContext";
+import { useParams } from "next/navigation";
+import styles from "./Setting.module.css";
 
 function Setting() {
-  const router = useRouter();
-  const { username } = router.query;
+  const { username } = useParams();
   const { user, isFetching, error } = useContext(AuthContext);
 
   if (!user) {
@@ -24,9 +25,9 @@ function Setting() {
   return (
     <>
       <Topbar />
-      <div className="profile">
+      <div className={styles.profile}>
         <Sidebar />
-        <div className="profileRight">
+        <div className={styles.profileRight}>
           <SettingComponent username={username} />
         </div>
       </div>

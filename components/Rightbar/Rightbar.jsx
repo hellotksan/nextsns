@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { useParams } from "react-router-dom";

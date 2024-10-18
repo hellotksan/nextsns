@@ -3,7 +3,7 @@ import { Analytics, Face, Gif } from "@mui/icons-material";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
 import PersonIcon from "@mui/icons-material/Person";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import "./index.css";
 

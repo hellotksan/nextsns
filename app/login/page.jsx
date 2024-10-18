@@ -1,12 +1,14 @@
+"use client";
+
 import React, { useContext, useRef } from "react";
 import { loginCall } from "../actionCalls";
 import { AuthContext } from "../../state/AuthContext";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import UpdateInfo from "./../../components/updateInfo/index";
 import SiteInfoComponent from "./../../components/siteInfo/index";
-import "./index.css";
+import styles from "./Login.module.css";
 
-export default function Login() {
+function Login() {
   const email = useRef();
   const password = useRef();
   const router = useRouter();
@@ -40,41 +42,41 @@ export default function Login() {
   }
 
   return (
-    <div className="login">
-      <div className="loginWrapper">
+    <div className={styles.login}>
+      <div className={styles.loginWrapper}>
         {/*-- 左側のロゴとタイトル --*/}
-        <div className="loginLeft">
-          <h3 className="loginLogo">Real SNS</h3>
-          <span className="loginDesc">本格的なSNSを、自分の手で。</span>
-          <SiteInfoComponent />
-          <UpdateInfo />
+        <div className={styles.loginLeft}>
+          <h3 className={styles.loginLogo}>Next SNS</h3>
+          {/* <span className={styles.loginDesc}>次世代のSNSアプリを、OSSで</span> */}
+          {/* <SiteInfoComponent /> */}
+          {/* <UpdateInfo /> */}
         </div>
         {/*-- 右側のログインフォーム --*/}
-        <div className="loginRight">
-          <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
-            <p className="loginMsg">ログインはこちら</p>
+        <div className={styles.loginRight}>
+          <form className={styles.loginBox} onSubmit={(e) => handleSubmit(e)}>
+            <p className={styles.loginMsg}>ログインはこちら</p>
             <input
               type="email"
-              className="loginInput"
+              className={styles.loginInput}
               placeholder="Eメール"
               required
               ref={email}
             />
             <input
               type="password"
-              className="loginInput"
+              className={styles.loginInput}
               placeholder="パスワード"
               required
               minLength="6"
               ref={password}
             />
-            <button className="loginButton">ログイン</button>
+            <button className={styles.loginButton}>ログイン</button>
             {/* <span className="loginForgot">パスワードを忘れた方へ</span> */}
           </form>
-          <div className="loginRight">
-            <p className="loginMsg">アカウント作成はこちら</p>
+          <div className={styles.loginRight}>
+            <p className={styles.loginAlreadyMsg}>アカウント作成はこちら</p>
             <button
-              className="loginRegisterButton"
+              className={styles.loginRegisterButton}
               onClick={handleRegisterRedirect}
             >
               アカウント作成
@@ -85,3 +87,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default Login;

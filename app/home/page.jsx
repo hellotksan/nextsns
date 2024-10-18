@@ -1,34 +1,36 @@
+"use client";
+
 import React, { useContext } from "react";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import AllFriend from "../../components/allFriend/AllFriend";
+import Timeline from "../../components/Timeline/Timeline";
+import Rightbar from "../../components/Rightbar/Rightbar";
 import { AuthContext } from "../../state/AuthContext";
-import "./index.css";
+import styles from "./Home.module.css";
 
-function Users() {
+function Home() {
   const { user, isFetching, error } = useContext(AuthContext);
 
   if (!user) {
-    return <div>User not found.</div>;
+    return <div>User not found</div>;
   }
   if (isFetching) {
     return <div>Loading...</div>;
   }
   if (error) {
-    return <div>Error occurred</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (
     <>
       <Topbar />
-      <div className="profile">
+      <div className={styles.homeContainer}>
         <Sidebar />
-        <div className="profileRight">
-          <AllFriend />
-        </div>
+        <Timeline toHome={true} />
+        <Rightbar />
       </div>
     </>
   );
 }
 
-export default Users;
+export default Home;
