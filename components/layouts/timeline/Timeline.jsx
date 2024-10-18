@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../../../state/AuthContext";
 import PersonIcon from "@mui/icons-material/Person";
-import Post from "../Post/Post";
+import Post from "../post/Post";
 import Image from "next/image";
 import axios from "axios";
 

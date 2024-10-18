@@ -61,7 +61,6 @@ const EditPost = (props) => {
           });
           alert("投稿が削除されました。");
           router.push("/");
-          window.location.reload();
         } else {
           alert("削除をキャンセルしました。");
         }
