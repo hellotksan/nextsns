@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
+import { useRouter } from "next/navigation";
 
 const EditPost = (props) => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -9,6 +10,7 @@ const EditPost = (props) => {
   const postId = props.postId;
 
   const { user } = useContext(AuthContext);
+  const router = useRouter();
 
   const [post, setPost] = useState({});
   const [postDesc, setPostDesc] = useState("");
@@ -21,15 +23,12 @@ const EditPost = (props) => {
         );
         setPost(response.data);
         setPostDesc(response.data.desc);
-
-        console.log(post.username);
-        console.log(postDesc);
       } catch (error) {
         console.error(error);
       }
     };
     fetchPost();
-  }, [PUBLIC_FOLDER]);
+  }, [PUBLIC_FOLDER, postId]);
 
   const handleEdit = async () => {
     try {
