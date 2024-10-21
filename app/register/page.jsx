@@ -1,24 +1,20 @@
 "use client";
 
-import React, { useContext, useRef } from "react";
-import axios from "axios";
+import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "../../state/AuthContext";
+import React, { useContext } from "react";
+import axios from "axios";
 
 // components
-import Loading from "../../components/layouts/loading/Loading";
-import Error from "../../components/layouts/error/Error";
+import Loading from "@/components/layouts/loading/Loading";
+import Error from "@/components/layouts/error/Error";
 
 // features
-import RegisterForm from "../../features/registerForm/RegisterForm";
-import LoginRedirectButton from "../../features/loginRedirectButton/LoginRedirectButton";
-
-// module css files
-import styles from "./Register.module.css";
+import LoginRedirectButton from "@/features/loginRedirectButton/LoginRedirectButton";
+import RegisterForm from "@/features/registerForm/RegisterForm";
 
 function Register() {
-  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-
+  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const { isFetching, error } = useContext(AuthContext);
 
@@ -29,11 +25,10 @@ function Register() {
   const handleSubmit = async (user) => {
     try {
       await axios.post(`${PUBLIC_FOLDER}/api/auth/register`, user);
-      navigate("/login");
+      router.push("/login");
     } catch (error) {
-      window.alert("エラーが発生しました。");
+      alert("エラーが発生しました。");
       console.log(error);
-      window.location.reload();
     }
   };
 
@@ -45,13 +40,17 @@ function Register() {
   }
 
   return (
-    <div className={styles.login}>
-      <div className={styles.loginWrapper}>
-        <div className={styles.loginLeft}>
-          <h3 className={styles.loginLogo}>Next SNS</h3>
-          {/* <span className={styles.loginDesc}>次世代のSNSアプリを、OSSで</span> */}
+    <div className="w-screen h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+      <div className="w-[70%] h-[70%] flex rounded-lg p-6">
+        <div className="flex-1 flex flex-col justify-center">
+          <h3 className="text-5xl font-extrabold text-gray-800 mb-2">
+            Next SNS
+          </h3>
+          <span className="text-lg text-gray-800">
+            次世代のSNSアプリを、OSSで
+          </span>
         </div>
-        <div className={styles.loginRight}>
+        <div className="flex-1 flex flex-col justify-center space-y-4">
           <RegisterForm onSubmit={handleSubmit} />
           <LoginRedirectButton onClick={handleLoginRedirect} />
         </div>

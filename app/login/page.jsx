@@ -13,9 +13,6 @@ import Error from "@/components/layouts/loading/Loading";
 import RegisterButton from "../../features/registerButton/RegisterButton";
 import LoginForm from "../../features/loginForm/LoginForm";
 
-// module css files
-import styles from "./Login.module.css";
-
 function Login() {
   const router = useRouter();
   const { isFetching, error, dispatch } = useContext(AuthContext);
@@ -41,16 +38,17 @@ function Login() {
   }
 
   return (
-    <div className={styles.login}>
-      <div className={styles.loginWrapper}>
-        {/* left side */}
-        <div className={styles.loginLeft}>
-          <h3 className={styles.loginLogo}>Next SNS</h3>
-          {/* <span className={styles.loginDesc}>次世代のSNSアプリを、OSSで</span> */}
+    <div className="w-screen h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+      <div className="w-[70%] h-[70%] flex rounded-lg p-6">
+        <div className="flex-1 flex flex-col justify-center">
+          <h3 className="text-5xl font-extrabold text-gray-800 mb-2">
+            Next SNS
+          </h3>
+          <span className="text-lg text-gray-800">
+            次世代のSNSアプリを、OSSで
+          </span>
         </div>
-
-        {/* right side */}
-        <div className={styles.loginRight}>
+        <div className="flex-1 flex flex-col justify-center space-y-4">
           <LoginForm onSubmit={handleLoginSubmit} />
           <RegisterButton onClick={handleRegisterRedirect} />
         </div>
