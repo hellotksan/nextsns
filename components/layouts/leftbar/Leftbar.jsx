@@ -1,4 +1,4 @@
-import { AuthContext } from "../../../state/AuthContext";
+import { AuthContext } from "@/state/AuthContext";
 import React, { useContext } from "react";
 import Link from "next/link";
 import {

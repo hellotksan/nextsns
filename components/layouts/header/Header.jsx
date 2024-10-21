@@ -1,8 +1,8 @@
 "use client";
 
-// import { Chat, Notifications, Search } from "@mui/icons-material";
-import { AuthContext } from "../../../state/AuthContext";
+import { Chat, Notifications, Search } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
+import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import Cookies from "js-cookie";
@@ -20,7 +20,6 @@ function Topbar() {
       try {
         Cookies.remove("user", { path: "/" });
         router.push("/login");
-        window.location.reload();
       } catch (error) {
         alert("ログアウトに失敗しました。もう一度お試しください。");
         console.log(error);
@@ -51,14 +50,18 @@ function Topbar() {
 
       {/* 右側のアイコンとログアウトボタン */}
       <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
-        {/* <div className="topbarIconItem">
-            <Chat />
-            <span className="topbarIconBadge">1</span>
-          </div> */}
-        {/* <div className="topbarIconItem">
-            <Notifications />
-            <span className="topbarIconBadge">2</span>
-          </div> */}
+        <div>
+          <Chat
+            className="w-8 h-8"
+            style={{ textDecoration: "none", color: "white" }}
+          />
+        </div>
+        <div>
+          <Notifications
+            className="w-8 h-8"
+            style={{ textDecoration: "none", color: "white" }}
+          />
+        </div>
         <Link
           href={`/profile/${user.username}`}
           style={{ textDecoration: "none", color: "black" }}

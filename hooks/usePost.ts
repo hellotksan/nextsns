@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 // 投稿データの型定義
@@ -22,11 +23,12 @@ interface UsePostResult {
 
 const usePost = (
   postId: string,
-  username: string,
+  userId: string,
   apiUrl: string
 ): UsePostResult => {
   const [post, setPost] = useState<Post | null>(null);
   const [postDesc, setPostDesc] = useState<string>("");
+  const router = useRouter();
 
   useEffect(() => {
     fetchPost();
@@ -43,7 +45,7 @@ const usePost = (
   };
 
   const handleEdit = async (userId: string) => {
-    if (username !== post?.userId) {
+    if (userId !== post?.userId) {
       alert("更新権限がありません。");
       return;
     }
@@ -54,6 +56,7 @@ const usePost = (
           desc: postDesc,
         });
         alert("更新しました。");
+        router.push("/");
       } catch (error) {
         console.error("投稿の更新に失敗しました:", error);
       }
@@ -61,7 +64,7 @@ const usePost = (
   };
 
   const handleDelete = async (userId: string) => {
-    if (username !== post?.userId) {
+    if (userId !== post?.userId) {
       alert("削除権限がありません。");
       return;
     }
@@ -71,6 +74,7 @@ const usePost = (
           data: { userId },
         });
         alert("投稿が削除されました。");
+        router.push("/");
       } catch (error) {
         console.error("投稿の削除に失敗しました:", error);
       }

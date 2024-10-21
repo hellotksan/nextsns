@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../state/AuthContext";
 import PersonIcon from "@mui/icons-material/Person";
+import { AuthContext } from "@/state/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";

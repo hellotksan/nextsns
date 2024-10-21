@@ -1,5 +1,5 @@
-import React from "react";
 import styles from "./RegisterButton.module.css";
+import React from "react";
 
 function RegisterButton({ onClick }) {
   return (

@@ -49,7 +49,7 @@ function PostEdit() {
     <>
       <Topbar />
       <Sidebar />
-      <EditPost username={username} postId={postId} />
+      <EditPost postId={postId} />
     </>
   );
 }

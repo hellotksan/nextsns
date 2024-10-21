@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../state/AuthContext";
+import { AuthContext } from "@/state/AuthContext";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
 import axios from "axios";
+
+import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
 function ShowProfile(props) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -21,7 +23,7 @@ function ShowProfile(props) {
         const response = await axios.get(
           `${PUBLIC_FOLDER}/api/users?username=${username}`
         );
-        if (data) {
+        if (response.data) {
           setShowingUser(response.data);
         } else {
           setError("ユーザーが見つかりませんでした。");
@@ -86,17 +88,23 @@ function ShowProfile(props) {
     setError("アクションの実行に失敗しました。");
   };
 
-  if (loading) {
-    return <p className="text-center">読み込み中...</p>;
-  }
-
   if (error) {
     return (
       <div className="p-4 bg-white shadow-lg rounded-lg max-w-2xl mx-auto">
         <div className="flex items-center mb-4">
-          <p className="text-red-500 text-center">{error}</p>
+          <p className="text-red-500 text-center">
+            ユーザーが見つかりませんでした。
+          </p>
         </div>
       </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <>
+        <LoadingSpinner />
+      </>
     );
   }
 
@@ -104,7 +112,7 @@ function ShowProfile(props) {
     <>
       <div className="p-4 bg-white shadow-lg rounded-lg max-w-2xl mx-auto">
         <div className="flex items-center mb-4">
-          <div className="text-2xl">ユーザーアイコン:</div>
+          <div className="text-lg">ユーザアイコン:</div>
           {showingUser.profilePicture ? (
             <Image
               src={`${PUBLIC_FOLDER}/images/${showingUser.profilePicture}`}
@@ -117,46 +125,25 @@ function ShowProfile(props) {
             <PersonIcon fontSize="large" className="ml-2" />
           )}
         </div>
-        <div className="">
-          <div className="mb-4">
-            <h4 className="text-2xl">ユーザー名: {showingUser.username}</h4>
-            <span className="text-lg">ユーザー情報: {showingUser.desc}</span>
-            <div>
-              <span className="text-lg">出身: 未設定</span>
-            </div>
-          </div>
-          {/* {username !== user.username &&
-            (isFollowing ? (
-              <button
-                className="mt-2 px-5 py-2 rounded bg-red-500 text-white hover:bg-red-600"
-                onClick={handleUnfollow}
-              >
-                Unfollow
-              </button>
-            ) : (
-              <button
-                className="mt-2 px-5 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
-                onClick={handleFollow}
-              >
-                Follow
-              </button>
-            ))} */}
-
-          {username !== user.username && (
-            <div className="text-center">
-              <button
-                className={`mt-2 px-5 py-2 rounded text-white ${
-                  isFollowing
-                    ? "bg-red-500 hover:bg-red-600"
-                    : "bg-blue-500 hover:bg-blue-600"
-                }`}
-                onClick={isFollowing ? handleUnfollow : handleFollow}
-              >
-                {isFollowing ? "Unfollow" : "Follow"}
-              </button>
-            </div>
-          )}
+        <div className="mb-4">
+          <div className="text-lg">ユーザ名: {showingUser.username}</div>
+          <div className="text-lg">ユーザ情報: {showingUser.desc}</div>
         </div>
+
+        {username !== user.username && (
+          <div className="text-center">
+            <button
+              className={`mt-2 px-5 py-2 rounded text-white ${
+                isFollowing
+                  ? "bg-red-500 hover:bg-red-600"
+                  : "bg-blue-500 hover:bg-blue-600"
+              }`}
+              onClick={isFollowing ? handleUnfollow : handleFollow}
+            >
+              {isFollowing ? "Unfollow" : "Follow"}
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

@@ -1,16 +1,17 @@
-import { AuthContext } from "../../state/AuthContext";
+import { AuthContext } from "@/state/AuthContext";
 import React, { useContext } from "react";
 
 // hooks
-import usePost from "../../hooks/usePost";
+import usePost from "@/hooks/usePost";
 
-const EditPost = ({ username, postId }) => {
+const EditPost = ({ postId }) => {
   const { user } = useContext(AuthContext) ?? {};
+  const userId = user._id;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const { post, postDesc, setPostDesc, handleEdit, handleDelete } = usePost(
     postId,
-    username,
+    userId,
     apiUrl
   );
 

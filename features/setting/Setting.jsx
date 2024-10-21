@@ -8,7 +8,6 @@ import axios from "axios";
 
 const SettingComponent = ({ username }) => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-
   const { user } = useContext(AuthContext);
   const router = useRouter();
   const [desc, setDesc] = useState("");
