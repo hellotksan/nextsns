@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../state/AuthContext";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonIcon from "@mui/icons-material/Person";
-import { MoreVert } from "@mui/icons-material";
+// import { MoreVert } from "@mui/icons-material";
 import { format } from "timeago.js";
 import Image from "next/image";
 import Link from "next/link";
@@ -72,9 +72,9 @@ function Post({ post }) {
             </Link>
             <span className={styles.postDate}>{format(post.createdAt)}</span>
           </div>
-          <div className={styles.postTopRight}>
+          {/* <div className={styles.postTopRight}>
             <MoreVert />
-          </div>
+          </div> */}
         </div>
 
         {/* 投稿した内容を表示する */}
@@ -110,7 +110,7 @@ function Post({ post }) {
               }}
             />
             <span className={styles.postLikeCounter}>
-              {like}人がいいねを押しました
+              {like}
             </span>
           </div>
           {/* コメント数の表示 */}

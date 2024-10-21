@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import PersonIcon from "@mui/icons-material/Person";
@@ -6,12 +8,12 @@ import axios from "axios";
 
 function ShowProfile(props) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-
   const username = props.username;
-
   const { user } = useContext(AuthContext);
   const [isFollowing, setIsFollowing] = useState(false);
   const [showingUser, setShowingUser] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchShowingUser = async () => {
@@ -19,13 +21,20 @@ function ShowProfile(props) {
         const response = await axios.get(
           `${PUBLIC_FOLDER}/api/users?username=${username}`
         );
-        setShowingUser(response.data);
+        if (data) {
+          setShowingUser(response.data);
+        } else {
+          setError("ユーザーが見つかりませんでした。");
+        }
       } catch (error) {
         console.error(error);
+        setError("ユーザーが見つかりませんでした。");
+      } finally {
+        setLoading(false);
       }
     };
     fetchShowingUser();
-  }, [username, PUBLIC_FOLDER]);
+  }, [username]);
 
   useEffect(() => {
     const checkFollowingStatus = async () => {
@@ -48,7 +57,7 @@ function ShowProfile(props) {
       }
     };
     checkFollowingStatus();
-  }, [user, username, PUBLIC_FOLDER]);
+  }, [user, username]);
 
   const handleFollow = async () => {
     try {
@@ -59,6 +68,7 @@ function ShowProfile(props) {
       console.log(error);
     }
     setIsFollowing(true);
+    setError("アクションの実行に失敗しました。");
   };
 
   const handleUnfollow = async () => {
@@ -73,11 +83,26 @@ function ShowProfile(props) {
       console.log(error);
     }
     setIsFollowing(false);
+    setError("アクションの実行に失敗しました。");
   };
+
+  if (loading) {
+    return <p className="text-center">読み込み中...</p>;
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 bg-white shadow-lg rounded-lg max-w-2xl mx-auto">
+        <div className="flex items-center mb-4">
+          <p className="text-red-500 text-center">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
-      <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto">
+      <div className="p-4 bg-white shadow-lg rounded-lg max-w-2xl mx-auto">
         <div className="flex items-center mb-4">
           <div className="text-2xl">ユーザーアイコン:</div>
           {showingUser.profilePicture ? (

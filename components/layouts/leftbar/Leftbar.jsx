@@ -1,5 +1,4 @@
 import { AuthContext } from "../../../state/AuthContext";
-import CloseFriend from "../closeFriend/CloseFriend";
 import React, { useContext } from "react";
 import Link from "next/link";
 import {
@@ -70,6 +69,16 @@ function Sidebar() {
           </Link>
 
           <Link
+            href={`/followers`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <li className={styles.sidebarListItem}>
+              <Person className={styles.sidebarIcon} />
+              <span className={styles.sidebarListItemText}>フォロワー</span>
+            </li>
+          </Link>
+
+          <Link
             href={`/users`}
             style={{ textDecoration: "none", color: "black" }}
           >
@@ -79,10 +88,6 @@ function Sidebar() {
             </li>
           </Link>
         </ul>
-
-        {/* close friend component */}
-        <hr className={styles.sidebarHr} />
-        <CloseFriend users={user} />
       </div>
     </div>
   );

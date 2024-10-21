@@ -12,8 +12,6 @@ import Error from "../../components/layouts/loading/Loading";
 // features
 import RegisterButton from "../../features/registerButton/RegisterButton";
 import LoginForm from "../../features/loginForm/LoginForm";
-// import UpdateInfo from "./../../components/updateInfo/index";
-// import SiteInfoComponent from "./../../components/siteInfo/index";
 
 // module css files
 import styles from "./Login.module.css";
@@ -49,8 +47,6 @@ function Login() {
         <div className={styles.loginLeft}>
           <h3 className={styles.loginLogo}>Next SNS</h3>
           {/* <span className={styles.loginDesc}>次世代のSNSアプリを、OSSで</span> */}
-          {/* <SiteInfoComponent /> */}
-          {/* <UpdateInfo /> */}
         </div>
 
         {/* right side */}

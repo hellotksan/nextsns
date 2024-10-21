@@ -1,0 +1,64 @@
+import { AuthContext } from "../../state/AuthContext";
+import React, { useContext } from "react";
+
+// hooks
+import usePost from "../../hooks/usePost";
+
+interface EditPostProps {
+  username: string;
+  postId: string;
+}
+
+const EditPost: React.FC<EditPostProps> = ({ username, postId }) => {
+  const { user } = useContext(AuthContext) ?? {};
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL as string;
+
+  const { post, postDesc, setPostDesc, handleEdit, handleDelete } = usePost(
+    postId,
+    username,
+    apiUrl
+  );
+
+  if (!post) return <div>Loading...</div>;
+
+  return (
+    <div className="flex justify-center p-6 bg-gray-100 min-h-screen">
+      <div className="profileRightTop p-6 bg-white shadow-md rounded-md w-full max-w-lg">
+        <h2 className="text-2xl font-bold mb-4">投稿設定</h2>
+        <div className="space-y-4">
+          <div className="text-lg font-medium">投稿者ID: {post.userId}</div>
+          <div className="text-lg font-medium">投稿番号: {post._id}</div>
+          <div className="text-lg font-medium">投稿時間: {post.updatedAt}</div>
+          <div className="text-lg font-medium">
+            いいね数：{post.likes ? post.likes.length : "N/A"}
+          </div>
+          <div>
+            <span className="text-lg font-medium">内容：</span>
+            <input
+              type="text"
+              value={postDesc}
+              onChange={(e) => setPostDesc(e.target.value)}
+              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <div className="flex space-x-4">
+            <button
+              onClick={() => handleEdit(user?._id || "")}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              編集
+            </button>
+            <button
+              onClick={() => handleDelete(user?._id || "")}
+              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+            >
+              投稿削除
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EditPost;

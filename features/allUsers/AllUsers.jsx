@@ -1,27 +1,21 @@
 "use client";
 
 import PersonIcon from "@mui/icons-material/Person";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 
+// hooks
+import useUsers from "../../hooks/useUsers";
+
+// using allUsers features
 const AllUsers = () => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
-  const [users, setUsers] = useState([]);
+  const { users, loading, error } = useUsers(PUBLIC_FOLDER);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get(`${PUBLIC_FOLDER}/api/users/all`);
-        setUsers(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUsers();
-  }, [PUBLIC_FOLDER]);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>エラーが発生しました: </div>;
 
   return (
     <div className="flex justify-center p-4">

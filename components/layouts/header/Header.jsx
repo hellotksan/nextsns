@@ -9,12 +9,8 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 
-// module css files
-import styles from "./Header.module.css";
-
-export default function Topbar() {
+function Topbar() {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-
   const router = useRouter();
   const { user } = useContext(AuthContext);
 
@@ -26,65 +22,71 @@ export default function Topbar() {
         router.push("/login");
         window.location.reload();
       } catch (error) {
+        alert("ログアウトに失敗しました。もう一度お試しください。");
         console.log(error);
       }
     }
   };
 
   return (
-    <div className={styles.topbarContainer}>
-      <div className={styles.topbarLeft}>
+    <div className="bg-blue-800 h-12 w-full flex items-center sticky top-0 z-50">
+      {/* 左側のロゴ */}
+      <div className="flex-1 ml-5">
         <Link href="/" style={{ textDecoration: "none" }}>
-          <span className={styles.logo}>Next SNS</span>
+          <span className="text-white font-bold text-2xl">Next SNS</span>
         </Link>
       </div>
 
-      {/* <div className="topbarCenter">
-        <div className="searchbar">
-          <Search className="searchbar" />
+      {/* 中央の検索バー */}
+      {/* <div className="flex-1 hidden md:flex items-center">
+        <div className="w-full h-8 bg-white rounded-full flex items-center px-3">
+          <span className="material-icons text-gray-500"></span>
           <input
             type="text"
-            className="searchInput"
-            placeholder="探し物は何ですか？"
+            placeholder="検索"
+            className="w-full border-none focus:outline-none"
           />
         </div>
       </div> */}
 
-      <div className={styles.topbarRight}>
-        <div className={styles.topbarIconItems}>
-          {/* <div className="topbarIconItem">
+      {/* 右側のアイコンとログアウトボタン */}
+      <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
+        {/* <div className="topbarIconItem">
             <Chat />
             <span className="topbarIconBadge">1</span>
           </div> */}
-          {/* <div className="topbarIconItem">
+        {/* <div className="topbarIconItem">
             <Notifications />
             <span className="topbarIconBadge">2</span>
           </div> */}
-          <Link
-            href={`/profile/${user.username}`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            {user.profilePicture ? (
-              <Image
-                src={`${PUBLIC_FOLDER}/images/${user.profilePicture}`}
-                alt=""
-                className={styles.topbarImg}
-                width={32}
-                height={32}
-              />
-            ) : (
-              <PersonIcon
-                className={styles.topbarImg}
-                style={{ textDecoration: "none", color: "white" }}
-              />
-            )}
-            <span className={styles.topbarLogout}>{user.username}</span>
-          </Link>
-          <button className={styles.topbarLogout} onClick={handleLogout}>
-            ログアウト
-          </button>
-        </div>
+        <Link
+          href={`/profile/${user.username}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          {user.profilePicture ? (
+            <Image
+              src={`${PUBLIC_FOLDER}/images/${user.profilePicture}`}
+              alt="Profile"
+              className="w-8 h-8 rounded-full object-cover"
+              width={32}
+              height={32}
+            />
+          ) : (
+            <PersonIcon
+              className="w-8 h-8"
+              style={{ textDecoration: "none", color: "white" }}
+            />
+          )}
+        </Link>
+        <button
+          className="text-sm hover:text-pink-400 transition-colors"
+          onClick={handleLogout}
+        >
+          ログアウト
+        </button>
       </div>
     </div>
   );
 }
+
+export default Topbar;

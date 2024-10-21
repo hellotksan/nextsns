@@ -14,14 +14,19 @@ import Error from "@/components/layouts/error/Error";
 function Home() {
   const { user, isFetching, error } = useContext(AuthContext);
 
-  if (!user) {
-    return <UserNotFound />;
-  }
   if (isFetching) {
     return <Loading />;
   }
   if (error) {
     return <Error />;
+  }
+
+  if (!user) {
+    return (
+      <>
+        <UserNotFound />
+      </>
+    );
   }
 
   return (

@@ -12,8 +12,6 @@ import Error from "../../components/layouts/error/Error";
 // features
 import RegisterForm from "../../features/registerForm/RegisterForm";
 import LoginRedirectButton from "../../features/loginRedirectButton/LoginRedirectButton";
-// import UpdateInfo from "./../../components/updateInfo/index";
-// import SiteInfoComponent from "./../../components/siteInfo/index";
 
 // module css files
 import styles from "./Register.module.css";
@@ -52,8 +50,6 @@ function Register() {
         <div className={styles.loginLeft}>
           <h3 className={styles.loginLogo}>Next SNS</h3>
           {/* <span className={styles.loginDesc}>次世代のSNSアプリを、OSSで</span> */}
-          {/* <SiteInfoComponent /> */}
-          {/* <UpdateInfo /> */}
         </div>
         <div className={styles.loginRight}>
           <RegisterForm onSubmit={handleSubmit} />

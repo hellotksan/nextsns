@@ -1,0 +1,16 @@
+.sidebar {
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  margin-top: 2%;
+  margin: 2% 10%;
+  transform: translateY(240px);
+}
+
+.sidebarWrapper {
+  padding: 20px;
+}
+
+.sidebarHr {
+  margin: 20px 0;
+}
