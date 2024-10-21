@@ -4,14 +4,9 @@ import React, { useContext } from "react";
 // hooks
 import usePost from "../../hooks/usePost";
 
-interface EditPostProps {
-  username: string;
-  postId: string;
-}
-
-const EditPost: React.FC<EditPostProps> = ({ username, postId }) => {
+const EditPost = ({ username, postId }) => {
   const { user } = useContext(AuthContext) ?? {};
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL as string;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const { post, postDesc, setPostDesc, handleEdit, handleDelete } = usePost(
     postId,
@@ -30,7 +25,7 @@ const EditPost: React.FC<EditPostProps> = ({ username, postId }) => {
           <div className="text-lg font-medium">投稿番号: {post._id}</div>
           <div className="text-lg font-medium">投稿時間: {post.updatedAt}</div>
           <div className="text-lg font-medium">
-            いいね数：{post.likes ? post.likes.length : "N/A"}
+            いいね数：{post.likes ? post.likes.length : "0"}
           </div>
           <div>
             <span className="text-lg font-medium">内容：</span>

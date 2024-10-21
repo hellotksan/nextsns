@@ -17,10 +17,8 @@ import EditPost from "@/features/editPost/EditPost";
 
 function PostEdit() {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-
   const params = useParams();
   const { username, postId } = params;
-
   const { user, isFetching, error } = useContext(AuthContext);
 
   useEffect(() => {
@@ -32,7 +30,7 @@ function PostEdit() {
       }
     };
     fetchUser();
-  }, [PUBLIC_FOLDER]);
+  }, [PUBLIC_FOLDER, user.username]);
 
   if (!user) {
     return <UserNotFound />;
