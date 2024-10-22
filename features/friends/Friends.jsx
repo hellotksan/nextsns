@@ -47,8 +47,8 @@ function Friends() {
                 <div className="flex items-center" key={friend._id}>
                   {friend.profilePicture ? (
                     <Image
-                      src={`${PUBLIC_FOLDER}/images/${friend.profilePicture}`}
-                      alt=""
+                      src={`/assets/person/${user.profilePicture}`}
+                      alt="user-profile-picture"
                       className="rounded-full"
                       width={32}
                       height={32}

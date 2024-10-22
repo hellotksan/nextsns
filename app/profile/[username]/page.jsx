@@ -3,18 +3,13 @@
 import { AuthContext } from "@/state/AuthContext";
 import { useParams } from "next/navigation";
 import React, { useContext } from "react";
-
-// components
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Loading from "@/components/layouts/loading/Loading";
 import Sidebar from "@/components/layouts/leftbar/Leftbar";
 import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
-
-// features
 import ShowProfile from "@/features/profile/Profile";
-
 import "./index.css";
 
 function Profile() {

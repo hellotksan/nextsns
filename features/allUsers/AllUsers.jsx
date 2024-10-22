@@ -30,7 +30,7 @@ const AllUsers = () => {
               <div className="flex items-center">
                 {user.profilePicture ? (
                   <Image
-                    src={`${PUBLIC_FOLDER}/images/${user.profilePicture}`}
+                    src={`/assets/person/${user.profilePicture}`}
                     alt={user.username}
                     className="rounded-full"
                     width={32}

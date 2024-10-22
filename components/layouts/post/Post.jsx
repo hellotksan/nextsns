@@ -55,7 +55,7 @@ function Post({ post }) {
             >
               {user.profilePicture ? (
                 <Image
-                  src={`${PUBLIC_FOLDER}/images/${user.profilePicture}`}
+                  src={`/assets/person/${user.profilePicture}`}
                   alt="user-profile-picture"
                   className="w-8 h-8 rounded-full object-cover"
                   width={32}
