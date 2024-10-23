@@ -2,8 +2,6 @@
 
 import { AuthContext } from "@/state/AuthContext";
 import React, { useContext } from "react";
-
-// components
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Loading from "@/components/layouts/loading/Loading";
@@ -32,7 +30,7 @@ function Home() {
   return (
     <>
       <Topbar />
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Timeline toHome={true} />
     </>
   );

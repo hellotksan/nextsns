@@ -32,7 +32,7 @@ function Profile() {
   return (
     <>
       <Topbar />
-      <Sidebar />
+      {/* <Sidebar /> */}
       <ShowProfile username={username} />
       <Timeline username={username} />
     </>

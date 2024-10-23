@@ -1,18 +1,26 @@
 "use client";
 
-import { Chat, Notifications, Search } from "@mui/icons-material";
+import {
+  Chat,
+  Notifications,
+  Menu as MenuIcon,
+  Close as CloseIcon,
+} from "@mui/icons-material";
+import {} from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
+import Sidebar from "@/components/layouts/leftbar/Leftbar";
 
 function Topbar() {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const { user } = useContext(AuthContext);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("ログアウトしますか？");
@@ -29,24 +37,39 @@ function Topbar() {
 
   return (
     <div className="bg-blue-800 h-12 w-full flex items-center sticky top-0 z-50">
+      {/* ハンバーガーメニューアイコン - モバイル専用 */}
+      <button
+        onClick={toggleSidebar}
+        className="ml-5 z-20 lg:hidden"
+        aria-label="ham-menu"
+      >
+        {isSidebarOpen ? (
+          <CloseIcon className="text-white" />
+        ) : (
+          <MenuIcon className="text-white" />
+        )}
+      </button>
+
+      {/* PCサイズのときはサイドバーを常時表示 */}
+      {window.innerWidth >= 1020 && (
+        <div className="lg:block">
+          <Sidebar />
+        </div>
+      )}
+
+      {/* モバイルサイズでサイドバーをトグル */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-10">
+          <Sidebar />
+        </div>
+      )}
+
       {/* 左側のロゴ */}
       <div className="flex-1 ml-5">
         <Link href="/" style={{ textDecoration: "none" }}>
           <span className="text-white font-bold text-2xl">Next SNS</span>
         </Link>
       </div>
-
-      {/* 中央の検索バー */}
-      {/* <div className="flex-1 hidden md:flex items-center">
-        <div className="w-full h-8 bg-white rounded-full flex items-center px-3">
-          <span className="material-icons text-gray-500"></span>
-          <input
-            type="text"
-            placeholder="検索"
-            className="w-full border-none focus:outline-none"
-          />
-        </div>
-      </div> */}
 
       {/* 右側のアイコンとログアウトボタン */}
       <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">

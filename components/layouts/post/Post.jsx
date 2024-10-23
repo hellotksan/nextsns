@@ -50,7 +50,6 @@ function Post({ post }) {
           <div className="flex items-center">
             <Link
               href={`/profile/${user.username}`}
-              style={{ textDecoration: "none", color: "black" }}
               className="no-underline text-black flex items-center"
             >
               {user.profilePicture ? (
