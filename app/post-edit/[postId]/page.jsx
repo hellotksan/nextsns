@@ -1,22 +1,18 @@
 "use client";
 
-import { AuthContext } from "../../../state/AuthContext";
-import { useParams } from "next/navigation";
+import { AuthContext } from "@/state/AuthContext";
 import React, { useContext } from "react";
-
-// components
+import { useParams } from "next/navigation";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import Loading from "@/components/layouts/loading/Loading";
+import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
-import Sidebar from "../../../components/layouts/leftbar/Leftbar";
-import Topbar from "../../../components/layouts/header/Header";
+import EditPost from "@/features/editPost/EditPost";
 
-// features
-import SettingComponent from "../../../features/setting/Setting";
-
-function Setting() {
-  const { username } = useParams();
+function PostEdit() {
   const { user, isFetching, error } = useContext(AuthContext);
+  const params = useParams();
+  const { postId } = params;
 
   if (!user) {
     return <UserNotFound />;
@@ -31,10 +27,9 @@ function Setting() {
   return (
     <>
       <Topbar />
-      <Sidebar />
-      <SettingComponent username={username} />
+      <EditPost postId={postId} />
     </>
   );
 }
 
-export default Setting;
+export default PostEdit;

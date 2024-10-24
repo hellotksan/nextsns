@@ -4,12 +4,8 @@ import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import axios from "axios";
-
-// components
 import Loading from "@/components/layouts/loading/Loading";
 import Error from "@/components/layouts/error/Error";
-
-// features
 import LoginRedirectButton from "@/features/loginRedirectButton/LoginRedirectButton";
 import RegisterForm from "@/features/registerForm/RegisterForm";
 

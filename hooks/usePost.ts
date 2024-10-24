@@ -21,11 +21,7 @@ interface UsePostResult {
   handleDelete: (userId: string) => Promise<void>;
 }
 
-const usePost = (
-  postId: string,
-  userId: string,
-  apiUrl: string
-): UsePostResult => {
+const usePost = (postId: string, apiUrl: string): UsePostResult => {
   const [post, setPost] = useState<Post | null>(null);
   const [postDesc, setPostDesc] = useState<string>("");
   const router = useRouter();
@@ -40,7 +36,7 @@ const usePost = (
       setPost(response.data);
       setPostDesc(response.data.desc);
     } catch (error) {
-      console.error("投稿の取得に失敗しました:", error);
+      alert("投稿の取得に失敗しました:");
     }
   };
 
@@ -58,7 +54,7 @@ const usePost = (
         alert("更新しました。");
         router.push("/");
       } catch (error) {
-        console.error("投稿の更新に失敗しました:", error);
+        alert("投稿の更新に失敗しました:");
       }
     }
   };
@@ -76,7 +72,7 @@ const usePost = (
         alert("投稿が削除されました。");
         router.push("/");
       } catch (error) {
-        console.error("投稿の削除に失敗しました:", error);
+        alert("投稿の削除に失敗しました:");
       }
     }
   };

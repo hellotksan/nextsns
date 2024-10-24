@@ -1,0 +1,11 @@
+/* デフォルトでは非表示 */
+.sidebarWrapper {
+  display: none;
+}
+
+/* 1020px以上で表示 */
+@media (min-width: 1020px) {
+  .sidebarWrapper {
+    display: block;
+  }
+}

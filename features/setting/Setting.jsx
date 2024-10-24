@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../state/AuthContext";
+import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-const SettingComponent = ({ username }) => {
+const SettingComponent = () => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -16,57 +16,48 @@ const SettingComponent = ({ username }) => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `${PUBLIC_FOLDER}/api/users?username=${username}`
+          `${PUBLIC_FOLDER}/api/users?username=${user.username}`
         );
         setDesc(response.data.desc);
       } catch (error) {
-        console.error(error);
+        alert("ユーザ情報の取得に失敗しました。");
       }
     };
     fetchUser();
-  }, [username, PUBLIC_FOLDER]);
+  }, [user.username, PUBLIC_FOLDER]);
 
   const handleEdit = async () => {
     try {
-      if (user.username === username) {
-        if (window.confirm("本当に変更してもよろしいですか？")) {
-          await axios.put(`${PUBLIC_FOLDER}/api/users/${user._id}`, {
-            userId: user._id,
-            desc: desc,
-          });
-          alert("ユーザ情報を更新しました");
-        } else {
-          alert("変更をキャンセルしました。");
-        }
+      if (window.confirm("本当に変更してもよろしいですか？")) {
+        await axios.put(`${PUBLIC_FOLDER}/api/users/${user._id}`, {
+          userId: user._id,
+          desc: desc,
+        });
+        alert("ユーザ情報を更新しました");
       } else {
-        alert("編集権限がありません");
+        alert("変更をキャンセルしました。");
       }
     } catch (error) {
-      console.error(error);
+      alert("エラーが発生しました。");
     }
   };
 
   const handleDelete = async () => {
     try {
-      if (user.username === username) {
-        if (window.confirm("本当に削除してもよろしいですか？")) {
-          await axios.delete(`${PUBLIC_FOLDER}/api/users/${user._id}`, {
-            data: {
-              userId: user._id,
-            },
-          });
-          alert("ユーザを削除しました。");
-          Cookies.remove("user", { path: "/" });
-          router.push("/login");
-          window.location.reload();
-        } else {
-          alert("ユーザ削除をキャンセルしました");
-        }
+      if (window.confirm("本当に削除してもよろしいですか？")) {
+        await axios.delete(`${PUBLIC_FOLDER}/api/users/${user._id}`, {
+          data: {
+            userId: user._id,
+          },
+        });
+        alert("ユーザを削除しました。");
+        Cookies.remove("user", { path: "/" });
+        router.push("/login");
       } else {
-        alert("削除権限がありません。");
+        alert("ユーザ削除をキャンセルしました");
       }
     } catch (error) {
-      console.error(error);
+      alert("エラーが発生しました。");
     }
   };
 

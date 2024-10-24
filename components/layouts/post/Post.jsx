@@ -23,7 +23,7 @@ function Post({ post }) {
         );
         setUser(response.data);
       } catch (error) {
-        console.error(error);
+        alert("エラーが発生しました。");
       }
     };
     fetchUser();
@@ -36,7 +36,7 @@ function Post({ post }) {
         userId: currentUser._id,
       });
     } catch (error) {
-      console.log(error);
+      alert("エラーが発生しました。");
     }
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
@@ -69,28 +69,26 @@ function Post({ post }) {
             </Link>
             <span className="text-xs ml-2">{format(post.createdAt)}</span>
           </div>
-          {/* <div className="">
-            <MoreVert />
-          </div> */}
+          {/* <MoreVert /> */}
         </div>
 
         {/* 投稿した内容を表示する */}
         <div className="my-5">
           <Link
-            href={`/postEdit/${user.username}/${post._id}`}
+            href={`/post-edit/${post._id}`}
             style={{ textDecoration: "none", color: "black" }}
             className="no-underline text-black"
           >
             <span className="block text-base">{post.desc}</span>
-            {post.img && (
+            {/* {post.img && (
               <Image
-                src={`${PUBLIC_FOLDER}/images/${post.img}`}
+                src={`/assets/person/${user.profilePicture}`}
                 alt="post-image"
                 className="mt-5 w-full max-h-500 object-contain"
                 width={50}
                 height={50}
               />
-            )}
+            )} */}
           </Link>
         </div>
 
@@ -108,9 +106,6 @@ function Post({ post }) {
             <span className="text-base">{like}</span>
           </div>
           {/* コメント数の表示 */}
-          {/* <div className="">
-            <span className="">{post.comment}コメント</span>
-          </div> */}
         </div>
       </div>
     </div>

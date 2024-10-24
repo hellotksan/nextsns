@@ -4,11 +4,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-// hooks
 import useUsers from "../../hooks/useUsers";
 
-// using allUsers features
 const AllUsers = () => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const { users, loading, error } = useUsers(PUBLIC_FOLDER);

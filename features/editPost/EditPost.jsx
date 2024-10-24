@@ -1,21 +1,23 @@
 import { AuthContext } from "@/state/AuthContext";
 import React, { useContext } from "react";
-
-// hooks
 import usePost from "@/hooks/usePost";
+import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
 const EditPost = ({ postId }) => {
-  const { user } = useContext(AuthContext) ?? {};
-  const userId = user._id;
+  const { user } = useContext(AuthContext);
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const { post, postDesc, setPostDesc, handleEdit, handleDelete } = usePost(
     postId,
-    userId,
     apiUrl
   );
 
-  if (!post) return <div>Loading...</div>;
+  if (!post)
+    return (
+      <>
+        <LoadingSpinner />
+      </>
+    );
 
   return (
     <div className="flex justify-center p-6 bg-gray-100 min-h-screen">

@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "@/components/layouts/leftbar/Leftbar";
+import styles from "./Header.module.css";
 
 function Topbar() {
   const router = useRouter();
@@ -30,13 +31,12 @@ function Topbar() {
         router.push("/login");
       } catch (error) {
         alert("ログアウトに失敗しました。もう一度お試しください。");
-        console.log(error);
       }
     }
   };
 
   return (
-    <div className="bg-blue-800 h-12 w-full flex items-center sticky top-0 z-50">
+    <div className="bg-blue-800 h-12 w-full flex items-center sticky top-0 z-20">
       {/* ハンバーガーメニューアイコン - モバイル専用 */}
       <button
         onClick={toggleSidebar}
@@ -50,12 +50,9 @@ function Topbar() {
         )}
       </button>
 
-      {/* PCサイズのときはサイドバーを常時表示 */}
-      {window.innerWidth >= 1020 && (
-        <div className="lg:block">
-          <Sidebar />
-        </div>
-      )}
+      <div className={styles.sidebarWrapper}>
+        <Sidebar />
+      </div>
 
       {/* モバイルサイズでサイドバーをトグル */}
       {isSidebarOpen && (

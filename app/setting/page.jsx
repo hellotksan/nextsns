@@ -1,17 +1,19 @@
+"use client";
+
 import React from "react";
 import Topbar from "@/components/layouts/header/Header";
-import AllUsers from "@/features/allUsers/AllUsers";
+import SettingComponent from "@/features/setting/Setting";
 import ClientComponent from "@/components/layouts/clientComponent/ClientComponent";
 
-function Users() {
+function Setting() {
   return (
     <>
       <ClientComponent>
         <Topbar />
-        <AllUsers />
+        <SettingComponent />
       </ClientComponent>
     </>
   );
 }
 
-export default Users;
+export default Setting;
