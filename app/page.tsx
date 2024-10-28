@@ -8,7 +8,7 @@ function Home() {
     <>
       <ClientComponent>
         <Topbar />
-        <Timeline toHome={true} />
+        <Timeline toHome={true} username={undefined} />
       </ClientComponent>
     </>
   );

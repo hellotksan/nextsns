@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState, useCallback } from "react";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import PostForm from "@/components/layouts/postForm/PostForm";
 
-function Timeline({ toHome = false, username }) {
+function Timeline({ toHome = false, username = undefined }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);

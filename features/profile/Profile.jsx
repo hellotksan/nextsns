@@ -106,7 +106,7 @@ function ShowProfile(props) {
 
         {/* フォロー人数とフォロワー人数の表示 */}
         <div className="mt-4 flex text-gray-500">
-          <span className="ml-2">{followerCount} follwer</span>
+          <span className="ml-2">{followerCount} follower</span>
           <span className="ml-3">{followingCount} following</span>
         </div>
 
