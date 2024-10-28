@@ -37,7 +37,6 @@ function PostEdit() {
 
   return (
     <>
-      {" "}
       <Suspense fallback={<Loading />}>
         <Topbar />
         <EditPost postId={postId} />
