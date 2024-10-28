@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthContext } from "@/state/AuthContext";
-import React, { useContext, useEffect } from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
@@ -37,9 +37,12 @@ function PostEdit() {
 
   return (
     <>
-      <Topbar />
-      <EditPost postId={postId} />
-      <Footer />
+      {" "}
+      <Suspense fallback={<Loading />}>
+        <Topbar />
+        <EditPost postId={postId} />
+        <Footer />
+      </Suspense>
     </>
   );
 }
