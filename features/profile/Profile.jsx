@@ -25,27 +25,16 @@ function ShowProfile({ username }) {
     isLoading,
   } = useSWR(`${PUBLIC_FOLDER}/api/users?username=${username}`, fetcher);
 
-  // フォローチェック
-  // const { data: followingData } = useSWR(
-  //   user.followings
-  //     ? user.followings.map((id) => `${PUBLIC_FOLDER}/api/users/${id}`)
-  //     : null,
-  //   fetcher
-  // );
-
   // ユーザーのフォロー状態を確認
   useEffect(() => {
     if (user && showingUser) {
-      setIsFollowing(
-        showingUser.followers?.some((follower) => follower._id === user._id)
+      const following = showingUser.followers?.some(
+        (followerId) => followerId === user._id
       );
+
+      setIsFollowing(following || false);
     }
   }, [user, showingUser]);
-
-  // フォロー状態のチェック
-  // const isFollowing = Array.isArray(followingData)
-  //   ? followingData.some((followedUser) => followedUser.username === username)
-  //   : false;
 
   // ユーザーが見つからない場合は何も表示しない
   if (userError) {
@@ -94,49 +83,47 @@ function ShowProfile({ username }) {
     : 0;
 
   return (
-    <>
-      <div className="p-4 mt-5 bg-white shadow-2xl rounded-lg max-w-2xl mx-auto">
-        <div className="flex items-center space-x-4">
-          {showingUser.profilePicture ? (
-            <Image
-              src={`/assets/person/${showingUser.profilePicture}`}
-              alt="profile-picture"
-              width={50}
-              height={50}
-              className="ml-2 rounded-full"
-            />
-          ) : (
-            <PersonIcon fontSize="large" className="ml-2" />
-          )}
-          <h2 className="text-xl font-semibold">{showingUser.username}</h2>
-          <p className="text-gray-500">@{showingUser.username}</p>
-        </div>
-        <div className="mt-5 text-lg">
-          {showingUser.desc || "自己紹介がありません。"}
-        </div>
-
-        {/* フォロー人数とフォロワー人数の表示 */}
-        <div className="mt-4 flex text-gray-500">
-          <span className="ml-2">{followerCount} follower</span>
-          <span className="ml-3">{followingCount} following</span>
-        </div>
-
-        {username !== user.username && (
-          <div className="text-center">
-            <button
-              className={`mt-2 px-5 py-2 rounded text-white ${
-                isFollowing
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-blue-500 hover:bg-blue-600"
-              }`}
-              onClick={isFollowing ? handleUnfollow : handleFollow}
-            >
-              {isFollowing ? "フォロー解除" : "フォロー"}
-            </button>
-          </div>
+    <div className="p-4 mt-5 bg-white shadow-2xl rounded-lg max-w-2xl mx-auto">
+      <div className="flex items-center space-x-4">
+        {showingUser.profilePicture ? (
+          <Image
+            src={`/assets/person/${showingUser.profilePicture}`}
+            alt="profile-picture"
+            width={50}
+            height={50}
+            className="ml-2 rounded-full"
+          />
+        ) : (
+          <PersonIcon fontSize="large" className="ml-2" />
         )}
+        <h2 className="text-xl font-semibold">{showingUser.username}</h2>
+        <p className="text-gray-500">@{showingUser.username}</p>
       </div>
-    </>
+      <div className="mt-5 text-lg">
+        {showingUser.desc || "自己紹介がありません。"}
+      </div>
+
+      {/* フォロー人数とフォロワー人数の表示 */}
+      <div className="mt-4 flex text-gray-500">
+        <span className="ml-2">{followerCount} follower</span>
+        <span className="ml-3">{followingCount} following</span>
+      </div>
+
+      {username !== user.username && (
+        <div className="text-center">
+          <button
+            className={`mt-2 px-5 py-2 rounded text-white ${
+              isFollowing
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
+            onClick={isFollowing ? handleUnfollow : handleFollow}
+          >
+            {isFollowing ? "フォロー解除" : "フォロー"}
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

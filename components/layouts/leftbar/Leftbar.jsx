@@ -18,7 +18,8 @@ const sidebarItems = [
   },
   { name: "設定", icon: <Settings />, link: "/setting" },
   { name: "フォロワー", icon: <PersonAddAlt1Icon />, link: "/followers" },
-  { name: "全ユーザー", icon: <GroupsIcon />, link: "/users" },
+  { name: "フォロー中のユーザー", icon: <PersonAddAlt1Icon />, link: "/followings" },
+  { name: "全ユーザー", icon: <GroupsIcon />, link: "/all-users" },
 ];
 
 function Sidebar() {

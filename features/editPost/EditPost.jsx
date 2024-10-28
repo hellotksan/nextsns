@@ -15,7 +15,7 @@ const EditPost = ({ postId }) => {
   );
 
   if (post === null) {
-    return <div>投稿が見つかりません。</div>; // エラーメッセージの表示
+    return <div>投稿が見つかりません。</div>;
   }
   if (!post)
     return (
@@ -25,8 +25,8 @@ const EditPost = ({ postId }) => {
     );
 
   return (
-    <div className="flex justify-center p-6 bg-gray-100 min-h-screen">
-      <div className="profileRightTop p-6 bg-white shadow-md rounded-md w-full max-w-lg">
+    <div className="flex justify-center p-6 bg-white rounded-md max-w-2xl min-h-screen mx-auto">
+      <div className="p-6 w-full shadow-2xl">
         <h2 className="text-2xl font-bold mb-4">投稿設定</h2>
         <div className="space-y-4">
           <div className="text-lg font-medium">投稿者ID: {post.userId}</div>
@@ -37,11 +37,11 @@ const EditPost = ({ postId }) => {
           </div>
           <div>
             <span className="text-lg font-medium">内容：</span>
-            <input
-              type="text"
+            <textarea
               value={postDesc}
               onChange={(e) => setPostDesc(e.target.value)}
               className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              rows={3}
             />
           </div>
           <div className="flex space-x-4">

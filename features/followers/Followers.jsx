@@ -7,9 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
-function Friends() {
+function FollowersComponent() {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-
   const { user } = useContext(AuthContext);
   const [followingFriends, setFollowingFriends] = useState([]);
 
@@ -35,13 +34,13 @@ function Friends() {
     <>
       <div className="flex justify-center p-4">
         <div className="w-full max-w-md">
-          <h4 className="text-xl font-bold mb-4 text-center">あなたの友達</h4>
+          <h4 className="text-xl font-bold mb-4 text-center">フォロワー</h4>
           <div className="space-y-2">
             {followingFriends.map((friend) => (
               <Link
                 href={{
                   pathname: "/profile",
-                  query: user?.username ? { username: user.username } : {},
+                  query: friend?.username ? { username: friend.username } : {},
                 }}
                 key={friend._id}
                 className="no-underline text-black flex items-center p-2 rounded hover:bg-gray-200 transition duration-200"
@@ -72,4 +71,4 @@ function Friends() {
   );
 }
 
-export default Friends;
+export default FollowersComponent;

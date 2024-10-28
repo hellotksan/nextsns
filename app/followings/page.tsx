@@ -1,7 +1,7 @@
 import React from "react";
 import Topbar from "@/components/layouts/header/Header";
-import FollowersComponent from "@/features/followers/Followers";
 import Footer from "@/components/layouts/footer/Footer";
+import FollowingUsersComponent from "@/features/followingUsers/FollowingUsers";
 import ClientComponent from "@/components/layouts/clientComponent/ClientComponent";
 
 function Followers() {
@@ -9,7 +9,7 @@ function Followers() {
     <>
       <ClientComponent>
         <Topbar />
-        <FollowersComponent />
+        <FollowingUsersComponent />
         <Footer />
       </ClientComponent>
     </>

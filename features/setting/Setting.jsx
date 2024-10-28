@@ -62,18 +62,18 @@ const SettingComponent = () => {
   };
 
   return (
-    <div className="flex justify-center p-6 bg-gray-100 min-h-screen">
-      <div className="profileRightTop p-6 bg-white shadow-md rounded-md w-full max-w-lg">
+    <div className="flex justify-center p-6 rounded-lg bg-white shadow-2xl max-w-2xl min-h-screen mx-auto">
+      <div className="p-6 w-full">
         <h2 className="text-2xl font-bold mb-4">ユーザ設定</h2>
         <div className="space-y-4">
           <h4 className="text-lg font-medium">ユーザ名：{user.username}</h4>
           <div>
             <span className="text-lg font-medium">ユーザ情報：</span>
-            <input
-              type="text"
+            <textarea
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              rows={3}
             />
           </div>
           <div className="flex space-x-4">

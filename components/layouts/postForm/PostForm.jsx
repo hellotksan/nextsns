@@ -34,7 +34,7 @@ const PostForm = ({ onPostSuccess }) => {
   };
 
   return (
-    <div className="sticky top-10 bg-white h-[170px] shadow-lg rounded-lg py-5 z-10">
+    <div className="sticky top-5 bg-white h-auto shadow-lg rounded-lg py-5 z-10">
       <div className="p-2">
         <div className="flex items-center">
           {user.profilePicture ? (
@@ -52,6 +52,7 @@ const PostForm = ({ onPostSuccess }) => {
             className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 resize-vertical"
             placeholder="今何してるの？"
             ref={desc}
+            rows={3}
           />
         </div>
         <hr className="my-5" />
