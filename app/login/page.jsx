@@ -22,7 +22,8 @@ function Login() {
       await loginCall({ email, password }, dispatch);
       router.push("/");
     } catch (error) {
-      console.log(error);
+      alert("エラーが発生しました。");
+      router.refresh();
     }
   };
 

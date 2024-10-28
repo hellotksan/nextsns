@@ -87,7 +87,7 @@ function Topbar() {
           href={`/profile/${user.username}`}
           style={{ textDecoration: "none", color: "black" }}
         > */}
-          {user.profilePicture ? (
+          {user?.profilePicture ? (
             <Image
               src={`/assets/person/${user.profilePicture}`}
               alt="Profile"

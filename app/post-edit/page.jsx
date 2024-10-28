@@ -8,10 +8,10 @@ import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
 import EditPost from "@/features/editPost/EditPost";
 import Footer from "@/components/layouts/footer/Footer";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useSearchParams, useRouter } from "next/navigation";
+import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
-function PostEdit() {
+function PostEditContent() {
   const { user, isFetching, error } = useContext(AuthContext);
   const searchParams = useSearchParams();
   const postId = searchParams.get("post-id");
@@ -35,13 +35,17 @@ function PostEdit() {
     return <Error />;
   }
 
+  return <EditPost postId={postId} />;
+}
+
+function PostEdit() {
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Topbar />
-        <EditPost postId={postId} />
-        <Footer />
+      <Topbar />
+      <Suspense fallback={<LoadingSpinner />}>
+        <PostEditContent />
       </Suspense>
+      <Footer />
     </>
   );
 }

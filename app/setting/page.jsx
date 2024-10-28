@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Topbar from "@/components/layouts/header/Header";
 import SettingComponent from "@/features/setting/Setting";

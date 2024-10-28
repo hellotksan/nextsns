@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/state/AuthContext";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
@@ -12,38 +12,49 @@ import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner"
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-function ShowProfile(props) {
+function ShowProfile({ username }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-  const username = props.username;
   const { user } = useContext(AuthContext);
   const router = useRouter();
+  const [isFollowing, setIsFollowing] = useState(false);
 
   // ユーザー情報の取得
-  const { data: showingUser, error: userError } = useSWR(
-    `${PUBLIC_FOLDER}/api/users?username=${username}`,
-    fetcher
-  );
+  const {
+    data: showingUser,
+    error: userError,
+    isLoading,
+  } = useSWR(`${PUBLIC_FOLDER}/api/users?username=${username}`, fetcher);
 
   // フォローチェック
-  const { data: followingData } = useSWR(
-    user.followings
-      ? user.followings.map((id) => `${PUBLIC_FOLDER}/api/users/${id}`)
-      : null,
-    fetcher
-  );
+  // const { data: followingData } = useSWR(
+  //   user.followings
+  //     ? user.followings.map((id) => `${PUBLIC_FOLDER}/api/users/${id}`)
+  //     : null,
+  //   fetcher
+  // );
+
+  // ユーザーのフォロー状態を確認
+  useEffect(() => {
+    if (user && showingUser) {
+      setIsFollowing(
+        showingUser.followers?.some((follower) => follower._id === user._id)
+      );
+    }
+  }, [user, showingUser]);
 
   // フォロー状態のチェック
-  const isFollowing = Array.isArray(followingData)
-    ? followingData.some((followedUser) => followedUser.username === username)
-    : false;
+  // const isFollowing = Array.isArray(followingData)
+  //   ? followingData.some((followedUser) => followedUser.username === username)
+  //   : false;
 
+  // ユーザーが見つからない場合は何も表示しない
   if (userError) {
     toast.error("ユーザーが見つかりませんでした。");
     router.push("/");
-    return null; // ユーザーが見つからない場合は何も表示しない
+    return null;
   }
 
-  if (!showingUser) {
+  if (isLoading || !showingUser) {
     return <LoadingSpinner />;
   }
 
@@ -89,7 +100,7 @@ function ShowProfile(props) {
           {showingUser.profilePicture ? (
             <Image
               src={`/assets/person/${showingUser.profilePicture}`}
-              alt=""
+              alt="profile-picture"
               width={50}
               height={50}
               className="ml-2 rounded-full"

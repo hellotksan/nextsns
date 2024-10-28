@@ -1,28 +1,30 @@
 "use client";
 
-import React, { useContext, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import React, { Suspense, useContext, useEffect } from "react";
 import { AuthContext } from "@/state/AuthContext";
-import { redirect } from "next/navigation";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
 import ShowProfile from "@/features/profile/Profile";
-import { useSearchParams } from "next/navigation";
+import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
-function Profile() {
+// クエリ取得と認証のチェックを行うコンポーネント
+function ProfileContent() {
   const { user, isFetching, error } = useContext(AuthContext);
   const searchParams = useSearchParams();
   const username = searchParams.get("username");
+  const router = useRouter();
 
   // クエリがない場合にリダイレクト
   useEffect(() => {
     if (!username) {
       alert("ユーザーが存在しません。");
-      redirect("/");
+      router.replace("/");
     }
-  }, [username]);
+  }, [username, router]);
 
   if (!user) {
     return <UserNotFound />;
@@ -36,9 +38,20 @@ function Profile() {
 
   return (
     <>
-      <Topbar />
       <ShowProfile username={username} />
       <Timeline username={username} />
+    </>
+  );
+}
+
+// Suspenseを使用してProfileContentをラップする
+function Profile() {
+  return (
+    <>
+      <Topbar />
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProfileContent />
+      </Suspense>
     </>
   );
 }

@@ -1,17 +1,22 @@
+"use client";
+
 import { AuthContext } from "@/state/AuthContext";
 import React, { useContext } from "react";
 import usePost from "@/hooks/usePost";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
 const EditPost = ({ postId }) => {
-  const { user } = useContext(AuthContext);
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const { user } = useContext(AuthContext);
 
   const { post, postDesc, setPostDesc, handleEdit, handleDelete } = usePost(
     postId,
     apiUrl
   );
 
+  if (post === null) {
+    return <div>投稿が見つかりません。</div>; // エラーメッセージの表示
+  }
   if (!post)
     return (
       <>
@@ -57,6 +62,20 @@ const EditPost = ({ postId }) => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const { postId } = context.query;
+
+  // postIdが無ければ404にする
+  if (!postId) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { postId },
+  };
 };
 
 export default EditPost;
