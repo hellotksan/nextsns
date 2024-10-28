@@ -7,6 +7,7 @@ import { format } from "timeago.js";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
 function Post({ post }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -14,16 +15,21 @@ function Post({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const { user: currentUser } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(
           `${PUBLIC_FOLDER}/api/users?userId=${post.userId}`
         );
         setUser(response.data);
       } catch (error) {
         alert("エラーが発生しました。");
+      } finally {
+        // ローディング終了
+        setIsLoading(false);
       }
     };
     fetchUser();
@@ -42,6 +48,15 @@ function Post({ post }) {
     setIsLiked(!isLiked);
   };
 
+  // ローディング中の表示
+  if (isLoading) {
+    return (
+      <>
+        <LoadingSpinner />
+      </>
+    );
+  }
+
   return (
     <div className="w-full shadow-md rounded-lg mt-2">
       <div className="p-2">
@@ -49,7 +64,10 @@ function Post({ post }) {
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center">
             <Link
-              href={`/profile/${user.username}`}
+              href={{
+                pathname: "/profile",
+                query: user?.username ? { username: user.username } : {},
+              }}
               className="no-underline text-black flex items-center"
             >
               {user.profilePicture ? (
@@ -75,8 +93,10 @@ function Post({ post }) {
         {/* 投稿した内容を表示する */}
         <div className="my-5">
           <Link
-            href={`/post-edit/${post._id}`}
-            style={{ textDecoration: "none", color: "black" }}
+            href={{
+              pathname: "/post-edit",
+              query: post?._id ? { "post-id": post._id } : {},
+            }}
             className="no-underline text-black"
           >
             <span className="block text-base">{post.desc}</span>

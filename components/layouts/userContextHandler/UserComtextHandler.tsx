@@ -23,13 +23,15 @@ interface AuthContextValue {
 // AuthWrapperコンポーネントの定義
 const AuthWrapper: FC<AuthWrapperProps> = ({ children }) => {
   const { userId } = useParams();
-  const { user, isFetching, error: isError } = useContext(
-    AuthContext
-  ) as AuthContextValue;
+  const {
+    user,
+    isFetching,
+    error: isError,
+  } = useContext(AuthContext) as AuthContextValue;
 
+  if (!user) return <UserNotFound />;
   if (isFetching) return <Loading />;
   if (isError) return <Error />;
-  if (!user || user.id !== userId) return <UserNotFound />;
 
   return <>{children}</>;
 };

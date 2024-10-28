@@ -39,10 +39,12 @@ function Friends() {
           <div className="space-y-2">
             {followingFriends.map((friend) => (
               <Link
-                href={`/profile/${friend.username}`}
+                href={{
+                  pathname: "/profile",
+                  query: user?.username ? { username: user.username } : {},
+                }}
                 key={friend._id}
-                style={{ textDecoration: "none", color: "black" }}
-                className="flex items-center p-2 rounded hover:bg-gray-200 transition duration-200"
+                className="no-underline text-black flex items-center p-2 rounded hover:bg-gray-200 transition duration-200"
               >
                 <div className="flex items-center" key={friend._id}>
                   {friend.profilePicture ? (

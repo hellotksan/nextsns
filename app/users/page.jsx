@@ -1,6 +1,7 @@
 import React from "react";
 import Topbar from "@/components/layouts/header/Header";
 import AllUsers from "@/features/allUsers/AllUsers";
+import Footer from "@/components/layouts/footer/Footer";
 import ClientComponent from "@/components/layouts/clientComponent/ClientComponent";
 
 function Users() {
@@ -9,6 +10,7 @@ function Users() {
       <ClientComponent>
         <Topbar />
         <AllUsers />
+        <Footer />
       </ClientComponent>
     </>
   );

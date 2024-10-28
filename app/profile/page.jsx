@@ -1,27 +1,29 @@
 "use client";
 
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "@/state/AuthContext";
-import { useParams } from "next/navigation";
-import React, { useContext } from "react";
+import { redirect } from "next/navigation";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
 import ShowProfile from "@/features/profile/Profile";
+import { useSearchParams } from "next/navigation";
 
 function Profile() {
-  const { username } = useParams();
   const { user, isFetching, error } = useContext(AuthContext);
+  const searchParams = useSearchParams();
+  const username = searchParams.get("username");
 
-  if (!username) {
-    return (
-      <>
-        <Topbar />
-        <div>ユーザー名が存在しません。</div>
-      </>
-    );
-  }
+  // クエリがない場合にリダイレクト
+  useEffect(() => {
+    if (!username) {
+      alert("ユーザーが存在しません。");
+      redirect("/");
+    }
+  }, [username]);
+
   if (!user) {
     return <UserNotFound />;
   }

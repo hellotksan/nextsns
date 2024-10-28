@@ -11,7 +11,10 @@ const sidebarItems = [
   {
     name: "プロフィール",
     icon: <Person />,
-    link: (user) => (user?.username ? `/profile/${user.username}` : "/login"),
+    link: (user) =>
+      user?.username
+        ? { pathname: "/profile", query: { username: user.username } }
+        : { pathname: "/login", query: {} },
   },
   { name: "設定", icon: <Settings />, link: "/setting" },
   { name: "フォロワー", icon: <PersonAddAlt1Icon />, link: "/followers" },

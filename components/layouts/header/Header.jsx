@@ -71,21 +71,22 @@ function Topbar() {
       {/* 右側のアイコンとログアウトボタン */}
       <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
         <div>
-          <Chat
-            className="w-8 h-8"
-            style={{ textDecoration: "none", color: "white" }}
-          />
+          <Chat className="w-8 h-8 no-underline text-white" />
         </div>
         <div>
-          <Notifications
-            className="w-8 h-8"
-            style={{ textDecoration: "none", color: "white" }}
-          />
+          <Notifications className="w-8 h-8 no-underline text-white" />
         </div>
         <Link
+          href={{
+            pathname: "/profile",
+            query: user?.username ? { username: user.username } : {},
+          }}
+          className="no-underline text-black"
+        >
+          {/* <Link
           href={`/profile/${user.username}`}
           style={{ textDecoration: "none", color: "black" }}
-        >
+        > */}
           {user.profilePicture ? (
             <Image
               src={`/assets/person/${user.profilePicture}`}
