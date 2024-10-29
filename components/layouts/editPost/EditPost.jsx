@@ -6,13 +6,10 @@ import usePost from "@/hooks/usePost";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
 const EditPost = ({ postId }) => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const { user } = useContext(AuthContext);
 
-  const { post, postDesc, setPostDesc, handleEdit, handleDelete } = usePost(
-    postId,
-    apiUrl
-  );
+  const { post, postDesc, setPostDesc, handleEdit, handleDelete } =
+    usePost(postId);
 
   if (post === null) {
     return <div>投稿が見つかりません。</div>;

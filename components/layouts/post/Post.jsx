@@ -7,10 +7,10 @@ import { format } from "timeago.js";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { USERS_ENDPOINT, POSTS_ENDPOINT } from "@/constants/api";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
 function Post({ post }) {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const [like, setLike] = useState(post.likes ? post.likes.length : 0);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
@@ -21,9 +21,9 @@ function Post({ post }) {
     const fetchUser = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(
-          `${PUBLIC_FOLDER}/api/users?userId=${post.userId}`
-        );
+        const response = await axios.get(USERS_ENDPOINT, {
+          params: { userId: post.userId },
+        });
         setUser(response.data);
       } catch (error) {
         alert("エラーが発生しました。");
@@ -33,12 +33,12 @@ function Post({ post }) {
       }
     };
     fetchUser();
-  }, [post.userId, PUBLIC_FOLDER]);
+  }, [post.userId]);
 
   // いいねボタンの処理
   const handleLike = async () => {
     try {
-      await axios.put(`${PUBLIC_FOLDER}/api/posts/${post._id}/like`, {
+      await axios.put(`${POSTS_ENDPOINT}/${post._id}/like`, {
         userId: currentUser._id,
       });
     } catch (error) {

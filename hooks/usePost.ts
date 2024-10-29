@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { POSTS_ENDPOINT } from "@/constants/api";
 
 // 投稿データの型定義
 interface Post {
@@ -21,18 +22,18 @@ interface UsePostResult {
   handleDelete: (userId: string) => Promise<void>;
 }
 
-const usePost = (postId: string, apiUrl: string): UsePostResult => {
+const usePost = (postId: string): UsePostResult => {
   const [post, setPost] = useState<Post | null>(null);
   const [postDesc, setPostDesc] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
     fetchPost();
-  }, [postId, apiUrl]);
+  }, [postId]);
 
   const fetchPost = async () => {
     try {
-      const response = await axios.get<Post>(`${apiUrl}/api/posts/${postId}`);
+      const response = await axios.get<Post>(`${POSTS_ENDPOINT}/${postId}`);
       setPost(response.data);
       setPostDesc(response.data.desc);
     } catch (error) {
@@ -47,12 +48,12 @@ const usePost = (postId: string, apiUrl: string): UsePostResult => {
     }
     if (window.confirm("本当に更新してもよろしいですか？")) {
       try {
-        await axios.put(`${apiUrl}/api/posts/${post._id}`, {
+        await axios.put(`${POSTS_ENDPOINT}/${post._id}`, {
           userId,
           desc: postDesc,
         });
         alert("更新しました。");
-        router.push("/");
+        router.refresh();
       } catch (error) {
         alert("投稿の更新に失敗しました:");
       }
@@ -66,11 +67,11 @@ const usePost = (postId: string, apiUrl: string): UsePostResult => {
     }
     if (window.confirm("本当に削除してもよろしいですか？")) {
       try {
-        await axios.delete(`${apiUrl}/api/posts/${post._id}`, {
+        await axios.delete(`${POSTS_ENDPOINT}/${post._id}`, {
           data: { userId },
         });
         alert("投稿が削除されました。");
-        router.push("/");
+        router.refresh();
       } catch (error) {
         alert("投稿の削除に失敗しました:");
       }

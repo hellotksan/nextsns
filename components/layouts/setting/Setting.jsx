@@ -5,31 +5,31 @@ import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { USERS_ENDPOINT } from "@/constants/api";
 
 const SettingComponent = () => {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const { user } = useContext(AuthContext);
-  const router = useRouter();
   const [desc, setDesc] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(
-          `${PUBLIC_FOLDER}/api/users?username=${user.username}`
-        );
+        const response = await axios.get(USERS_ENDPOINT, {
+          params: { username: user.username },
+        });
         setDesc(response.data.desc);
       } catch (error) {
         alert("ユーザ情報の取得に失敗しました。");
       }
     };
     fetchUser();
-  }, [user.username, PUBLIC_FOLDER]);
+  }, [user.username]);
 
   const handleEdit = async () => {
     try {
       if (window.confirm("本当に変更してもよろしいですか？")) {
-        await axios.put(`${PUBLIC_FOLDER}/api/users/${user._id}`, {
+        await axios.put(`${USERS_ENDPOINT}/${user._id}`, {
           userId: user._id,
           desc: desc,
         });
@@ -45,7 +45,7 @@ const SettingComponent = () => {
   const handleDelete = async () => {
     try {
       if (window.confirm("本当に削除してもよろしいですか？")) {
-        await axios.delete(`${PUBLIC_FOLDER}/api/users/${user._id}`, {
+        await axios.delete(`${USERS_ENDPOINT}/${user._id}`, {
           data: {
             userId: user._id,
           },

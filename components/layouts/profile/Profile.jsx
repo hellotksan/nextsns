@@ -9,6 +9,7 @@ import useSWR from "swr";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
+import { USERS_ENDPOINT } from "@/constants/api";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -49,7 +50,7 @@ function ShowProfile({ username }) {
 
   const handleFollow = async () => {
     try {
-      await axios.put(`${PUBLIC_FOLDER}/api/users/${showingUser._id}/follow`, {
+      await axios.put(`${USERS_ENDPOINT}/${showingUser._id}/follow`, {
         userId: user._id,
       });
       setIsFollowing(true);
@@ -61,12 +62,9 @@ function ShowProfile({ username }) {
 
   const handleUnfollow = async () => {
     try {
-      await axios.put(
-        `${PUBLIC_FOLDER}/api/users/${showingUser._id}/unfollow`,
-        {
-          userId: user._id,
-        }
-      );
+      await axios.put(`${USERS_ENDPOINT}/${showingUser._id}/unfollow`, {
+        userId: user._id,
+      });
       setIsFollowing(false);
       toast.info("フォローを解除しました。");
     } catch (error) {

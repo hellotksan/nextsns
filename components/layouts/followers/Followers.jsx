@@ -6,9 +6,9 @@ import { AuthContext } from "@/state/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { USERS_ENDPOINT } from "@/constants/api";
 
 function FollowersComponent() {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const { user } = useContext(AuthContext);
   const [followingFriends, setFollowingFriends] = useState([]);
 
@@ -17,7 +17,7 @@ function FollowersComponent() {
       if (user && user.followings) {
         try {
           const friendsPromises = user.followings.map((id) =>
-            axios.get(`${PUBLIC_FOLDER}/api/users/${id}`)
+            axios.get(`${USERS_ENDPOINT}/${id}`)
           );
           const friendsResponses = await Promise.all(friendsPromises);
           const friendsData = friendsResponses.map((response) => response.data);
@@ -28,7 +28,7 @@ function FollowersComponent() {
       }
     };
     fetchFollowingFriends();
-  }, [user, PUBLIC_FOLDER]);
+  }, [user]);
 
   return (
     <>

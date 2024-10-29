@@ -5,11 +5,11 @@ import Image from "next/image";
 import PersonIcon from "@mui/icons-material/Person";
 import axios from "axios";
 import { AuthContext } from "@/state/AuthContext";
+import { POSTS_ENDPOINT } from "@/constants/api";
 
 const PostForm = ({ onPostSuccess }) => {
   const { user } = useContext(AuthContext);
   const desc = useRef();
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const PostForm = ({ onPostSuccess }) => {
     };
 
     try {
-      await axios.post(`${PUBLIC_FOLDER}/api/posts/`, newPost);
+      await axios.post(POSTS_ENDPOINT, newPost);
       onPostSuccess({ ...newPost, _id: Date.now() }); // 新しい投稿を親コンポーネントに通知
       desc.current.value = "";
     } catch (error) {

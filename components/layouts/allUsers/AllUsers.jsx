@@ -8,8 +8,7 @@ import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner"
 import useUsers from "@/hooks/useUsers";
 
 const AllUsers = () => {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-  const { users, loading, error } = useUsers(PUBLIC_FOLDER);
+  const { users, loading, error } = useUsers();
 
   if (loading)
     return (

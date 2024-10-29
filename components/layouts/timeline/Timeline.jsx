@@ -6,9 +6,9 @@ import axios from "axios";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import PostForm from "@/components/layouts/postForm/PostForm";
 import Post from "@/components/layouts/post/Post";
+import { POSTS_ENDPOINT } from "@/constants/api";
 
 function Timeline({ toHome = false, username = undefined }) {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,8 +24,8 @@ function Timeline({ toHome = false, username = undefined }) {
       setIsFetching(true);
 
       const endpoint = username
-        ? `${PUBLIC_FOLDER}/api/posts/profile/${username}`
-        : `${PUBLIC_FOLDER}/api/posts/timeline/${user._id}`;
+        ? `${POSTS_ENDPOINT}/profile/${username}`
+        : `${POSTS_ENDPOINT}/timeline/${user._id}`;
 
       try {
         const response = await axios.get(endpoint, { params: { cursor } });
@@ -54,7 +54,7 @@ function Timeline({ toHome = false, username = undefined }) {
         setLoading(false);
       }
     },
-    [PUBLIC_FOLDER, username, user._id]
+    [username, user._id]
   );
 
   useEffect(() => {

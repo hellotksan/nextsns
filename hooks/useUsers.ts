@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ALL_USERS_ENDPOINT } from "@/constants/api";
 
 interface User {
   _id: string;
@@ -13,7 +14,7 @@ interface UseUsersResult {
   error: Error | null;
 }
 
-const useUsers = (apiUrl: string): UseUsersResult => {
+const useUsers = (): UseUsersResult => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -21,7 +22,7 @@ const useUsers = (apiUrl: string): UseUsersResult => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get<User[]>(`${apiUrl}/api/users/all`);
+        const response = await axios.get<User[]>(ALL_USERS_ENDPOINT);
         setUsers(response.data);
       } catch (err) {
         setError(err as Error);
@@ -30,7 +31,7 @@ const useUsers = (apiUrl: string): UseUsersResult => {
       }
     };
     fetchUsers();
-  }, [apiUrl]);
+  }, []);
 
   return { users, loading, error };
 };
