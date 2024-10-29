@@ -1,11 +1,11 @@
 "use client";
 
-import { AuthContext } from "@/state/AuthContext";
-import Post from "@/components/layouts/post/Post";
-import axios from "axios";
 import React, { useContext, useEffect, useState, useCallback } from "react";
+import { AuthContext } from "@/state/AuthContext";
+import axios from "axios";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import PostForm from "@/components/layouts/postForm/PostForm";
+import Post from "@/components/layouts/post/Post";
 
 function Timeline({ toHome = false, username = undefined }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;

@@ -4,8 +4,8 @@ import { ReactNode, FC, useContext } from "react";
 import { useParams } from "next/navigation";
 import { AuthContext } from "@/state/AuthContext";
 import { User } from "@/types/user";
-import Loading from "@/components/layouts/loading/Loading";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
+import Loading from "@/components/layouts/loading/Loading";
 import Error from "@/components/layouts/error/Error";
 
 // Propsの型定義

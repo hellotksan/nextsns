@@ -5,7 +5,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import useUsers from "../../hooks/useUsers";
+import useUsers from "@/hooks/useUsers";
 
 const AllUsers = () => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
@@ -33,11 +33,6 @@ const AllUsers = () => {
               key={user._id}
               className="flex items-center p-2 rounded hover:bg-gray-200 transition duration-200"
             >
-              {/* <Link
-              href={`/profile/${user.username}`}
-              key={user._id}
-              className="flex items-center p-2 rounded hover:bg-gray-200 transition duration-200"
-            > */}
               <div className="flex items-center">
                 {user.profilePicture ? (
                   <Image

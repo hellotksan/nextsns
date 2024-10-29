@@ -6,7 +6,6 @@ import {
   Menu as MenuIcon,
   Close as CloseIcon,
 } from "@mui/icons-material";
-import {} from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
@@ -18,8 +17,8 @@ import Sidebar from "@/components/layouts/leftbar/Leftbar";
 import styles from "./Header.module.css";
 
 function Topbar() {
-  const router = useRouter();
   const { user } = useContext(AuthContext);
+  const router = useRouter();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
@@ -83,10 +82,6 @@ function Topbar() {
           }}
           className="no-underline text-black"
         >
-          {/* <Link
-          href={`/profile/${user.username}`}
-          style={{ textDecoration: "none", color: "black" }}
-        > */}
           {user?.profilePicture ? (
             <Image
               src={`/assets/person/${user.profilePicture}`}

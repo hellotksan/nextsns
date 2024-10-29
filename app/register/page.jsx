@@ -4,10 +4,10 @@ import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import axios from "axios";
+import LoginRedirectButton from "@/components/layouts/loginRedirectButton/LoginRedirectButton";
+import RegisterForm from "@/components/layouts/registerButton/RegisterButton";
 import Loading from "@/components/layouts/loading/Loading";
 import Error from "@/components/layouts/error/Error";
-import LoginRedirectButton from "@/features/loginRedirectButton/LoginRedirectButton";
-import RegisterForm from "@/features/registerForm/RegisterForm";
 
 function Register() {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;

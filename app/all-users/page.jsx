@@ -1,6 +1,6 @@
 import React from "react";
 import Topbar from "@/components/layouts/header/Header";
-import AllUsers from "@/features/allUsers/AllUsers";
+import AllUsers from "@/components/layouts/allUsers/AllUsers";
 import Footer from "@/components/layouts/footer/Footer";
 import ClientComponent from "@/components/layouts/clientComponent/ClientComponent";
 

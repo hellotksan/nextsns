@@ -3,15 +3,14 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { Suspense, useContext, useEffect } from "react";
 import { AuthContext } from "@/state/AuthContext";
+import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
+import ShowProfile from "@/components/layouts/profile/Profile";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
-import ShowProfile from "@/features/profile/Profile";
-import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 
-// クエリ取得と認証のチェックを行うコンポーネント
 function ProfileContent() {
   const { user, isFetching, error } = useContext(AuthContext);
   const searchParams = useSearchParams();

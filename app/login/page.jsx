@@ -4,10 +4,10 @@ import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
 import { loginCall } from "../actionCalls";
 import React, { useContext } from "react";
+import RegisterButton from "@/components/layouts/registerButton/RegisterButton";
+import LoginForm from "@/components/layouts/loginForm/LoginForm";
 import Loading from "@/components/layouts/loading/Loading";
 import Error from "@/components/layouts/loading/Loading";
-import RegisterButton from "@/features/registerButton/RegisterButton";
-import LoginForm from "@/features/loginForm/LoginForm";
 
 function Login() {
   const router = useRouter();

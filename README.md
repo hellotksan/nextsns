@@ -85,18 +85,14 @@
 │ ├── /elements
 │ │ └── /loadingSpinner
 │ │   ├── loadingSpinner.tsx
-│ │   └── loadingSpinner.module.tsx
+│ │   └── loadingSpinner.module.css
 │ └── /layouts
 │   ├── /clientComponent
 │   │ ├── clientComponents.tsx
-│   │ └── clientComponents.module.tsx
+│   │ └── clientComponents.module.css
 │   └── /...
 │
 ├── /features
-│ ├── /allUsers
-│ │ ├── allUsers.jsx
-│ │ └── allUsers.test.jsx
-│ └── /...
 │
 ├── /hooks
 │ ├── usePost.ts
