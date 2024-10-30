@@ -1,10 +1,10 @@
+import React from "react";
+import Link from "next/link";
 import { Home, Person, Settings } from "@mui/icons-material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import { AuthContext } from "@/state/AuthContext";
-import React, { useContext } from "react";
-import Link from "next/link";
 import styles from "./Leftbar.module.css";
+import { useAppSelector } from "@/hooks/useSelector";
 
 const sidebarItems = [
   { name: "ホーム", icon: <Home />, link: "/" },
@@ -18,12 +18,16 @@ const sidebarItems = [
   },
   { name: "設定", icon: <Settings />, link: "/setting" },
   { name: "フォロワー", icon: <PersonAddAlt1Icon />, link: "/followers" },
-  { name: "フォロー中のユーザー", icon: <PersonAddAlt1Icon />, link: "/followings" },
+  {
+    name: "フォロー中のユーザー",
+    icon: <PersonAddAlt1Icon />,
+    link: "/followings",
+  },
   { name: "全ユーザー", icon: <GroupsIcon />, link: "/all-users" },
 ];
 
 function Sidebar() {
-  const { user } = useContext(AuthContext);
+  const { user } = useAppSelector((state) => state.auth);
 
   return (
     <div className={styles.sidebar}>

@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
-import { AuthContext } from "@/state/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { USERS_ENDPOINT } from "@/constants/api";
+import { useAppSelector } from "@/hooks/useSelector";
 
 function FollowersComponent() {
-  const { user } = useContext(AuthContext);
+  const { user, isLoading, error } = useAppSelector((state) => state.auth);
   const [followingFriends, setFollowingFriends] = useState([]);
 
   useEffect(() => {

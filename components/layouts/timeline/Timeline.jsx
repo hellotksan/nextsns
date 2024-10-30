@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useContext, useEffect, useState, useCallback } from "react";
-import { AuthContext } from "@/state/AuthContext";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import PostForm from "@/components/layouts/postForm/PostForm";
 import Post from "@/components/layouts/post/Post";
 import { POSTS_ENDPOINT } from "@/constants/api";
+import { useAppSelector } from "@/hooks/useSelector";
 
 function Timeline({ toHome = false, username = undefined }) {
-  const { user } = useContext(AuthContext);
+  const { user } = useAppSelector((state) => state.auth);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nextCursor, setNextCursor] = useState(null);

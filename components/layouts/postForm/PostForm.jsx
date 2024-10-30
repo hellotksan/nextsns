@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import PersonIcon from "@mui/icons-material/Person";
 import axios from "axios";
-import { AuthContext } from "@/state/AuthContext";
 import { POSTS_ENDPOINT } from "@/constants/api";
+import { useAppSelector } from "@/hooks/useSelector";
 
 const PostForm = ({ onPostSuccess }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAppSelector((state) => state.auth);
   const desc = useRef();
 
   const handleSubmit = async (e) => {

@@ -1,5 +1,6 @@
-import React from "react";
+// import React from "react";
 import axios from "axios";
+import { AUTH_ENDPOINT } from "@/constants/api";
 
 const instance = axios.create();
 
@@ -13,17 +14,16 @@ instance.interceptors.response.use(
   }
 );
 
-export const loginCall = async (user, dispatch) => {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-
+export const loginCall = async (props) => {
+  const email = props.email;
+  const password = props.password;
+  const dispatch = props.dispatch;
   dispatch({ type: "LOGIN_START" });
 
   try {
-    const response = await instance.post(
-      `${PUBLIC_FOLDER}/api/auth/login`,
-      user
-    );
+    const response = await instance.post(AUTH_ENDPOINT, { email, password });
     dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
+    return response.data;
   } catch (error) {
     if (error.response) {
       if (error.response && error.response.status === 400) {
@@ -40,8 +40,8 @@ export const loginCall = async (user, dispatch) => {
   }
 };
 
-const ActionCalls = () => {
-  return <></>;
-};
+// const ActionCalls = () => {
+//   return <></>;
+// };
 
-export default ActionCalls;
+// export default ActionCalls;

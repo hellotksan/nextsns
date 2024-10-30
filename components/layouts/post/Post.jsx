@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonIcon from "@mui/icons-material/Person";
 // import { MoreVert } from "@mui/icons-material";
-import { AuthContext } from "@/state/AuthContext";
 import { format } from "timeago.js";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { USERS_ENDPOINT, POSTS_ENDPOINT } from "@/constants/api";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
+import { useAppSelector } from "@/hooks/useSelector";
 
 function Post({ post }) {
+  const { user: currentUser } = useAppSelector((state) => state.auth);
   const [like, setLike] = useState(post.likes ? post.likes.length : 0);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
-  const { user: currentUser } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,11 +50,7 @@ function Post({ post }) {
 
   // ローディング中の表示
   if (isLoading) {
-    return (
-      <>
-        <LoadingSpinner />
-      </>
-    );
+    return <LoadingSpinner />;
   }
 
   return (

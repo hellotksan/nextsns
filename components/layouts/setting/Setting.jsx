@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/state/AuthContext";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { USERS_ENDPOINT } from "@/constants/api";
+import { useAppSelector } from "@/hooks/useSelector";
 
 const SettingComponent = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAppSelector((state) => state.auth);
   const [desc, setDesc] = useState("");
   const router = useRouter();
 

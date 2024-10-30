@@ -7,17 +7,17 @@ import {
   Close as CloseIcon,
 } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
-import { AuthContext } from "@/state/AuthContext";
 import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "@/components/layouts/leftbar/Leftbar";
 import styles from "./Header.module.css";
+import { useAppSelector } from "@/hooks/useSelector";
 
 function Topbar() {
-  const { user } = useContext(AuthContext);
+  const { user } = useAppSelector((state) => state.auth);
   const router = useRouter();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);

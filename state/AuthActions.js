@@ -1,3 +1,5 @@
+// AuthActions.js
+
 // ユーザ入力に応じたアクションの設定
 export const LoginStart = () => ({
   type: "LOGIN_START",

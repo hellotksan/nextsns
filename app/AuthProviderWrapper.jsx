@@ -1,7 +1,8 @@
 "use client";
 
-import { AuthContextProvider } from "../state/AuthContext";
+import { Provider } from "react-redux";
+import store from "@/state/store";
 
 export default function AuthProviderWrapper({ children }) {
-  return <AuthContextProvider>{children}</AuthContextProvider>;
+  return <Provider store={store}>{children}</Provider>;
 }

@@ -1,33 +1,50 @@
 "use client";
 
-import { AuthContext } from "@/state/AuthContext";
+import {
+  loginStart,
+  loginSuccess,
+  loginError,
+} from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
+import React from "react";
 import { loginCall } from "../actionCalls";
-import React, { useContext } from "react";
 import RegisterButton from "@/components/layouts/registerButton/RegisterButton";
 import LoginForm from "@/components/layouts/loginForm/LoginForm";
 import Loading from "@/components/layouts/loading/Loading";
 import Error from "@/components/layouts/loading/Loading";
+import { useAppDispatch } from "@/hooks/useDispatch";
+import { useAppSelector } from "@/hooks/useSelector";
 
 function Login() {
   const router = useRouter();
-  const { isFetching, error, dispatch } = useContext(AuthContext);
+  const dispatch = useAppDispatch();
+  // Reduxから状態を取得
+  const { isLoading, error } = useAppSelector((state) => state.auth);
 
   const handleRegisterRedirect = () => {
     router.push("/register");
   };
 
   const handleLoginSubmit = async (email, password) => {
+    // ログイン開始アクションをディスパッチ
+    dispatch(loginStart());
+
     try {
-      await loginCall({ email, password }, dispatch);
+      console.log(dispatch);
+      // API呼び出し
+      const userData = await loginCall({ email, password, dispatch });
+      // ログイン成功アクションをディスパッチ
+      dispatch(loginSuccess(userData));
       router.push("/");
-    } catch (error) {
+    } catch (err) {
+      // ログイン失敗アクションをディスパッチ
+      dispatch(loginError("ログインに失敗しました"));
       alert("エラーが発生しました。");
       router.refresh();
     }
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return <Loading />;
   }
   if (error) {

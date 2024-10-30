@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/state/AuthContext";
+import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
 import axios from "axios";
@@ -10,12 +9,13 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import { USERS_ENDPOINT } from "@/constants/api";
+import { useAppSelector } from "@/hooks/useSelector";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 function ShowProfile({ username }) {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-  const { user } = useContext(AuthContext);
+  const { user } = useAppSelector((state) => state.auth);
   const router = useRouter();
   const [isFollowing, setIsFollowing] = useState(false);
 
@@ -107,7 +107,7 @@ function ShowProfile({ username }) {
         <span className="ml-3">{followingCount} following</span>
       </div>
 
-      {username !== user.username && (
+      {username !== user?.username && (
         <div className="text-center">
           <button
             className={`mt-2 px-5 py-2 rounded text-white ${

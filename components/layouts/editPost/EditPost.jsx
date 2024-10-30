@@ -1,12 +1,12 @@
 "use client";
 
-import { AuthContext } from "@/state/AuthContext";
-import React, { useContext } from "react";
-import usePost from "@/hooks/usePost";
+import React from "react";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
+import { useAppSelector } from "@/hooks/useSelector";
+import usePost from "@/hooks/usePost";
 
 const EditPost = ({ postId }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAppSelector((state) => state.auth);
 
   const { post, postDesc, setPostDesc, handleEdit, handleDelete } =
     usePost(postId);

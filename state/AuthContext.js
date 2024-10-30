@@ -1,5 +1,7 @@
 "use client";
 
+// AuthContxt.js
+
 import React, { createContext, useEffect, useReducer } from "react";
 import AuthReducer from "./AuthReducer";
 import PropTypes from "prop-types";
