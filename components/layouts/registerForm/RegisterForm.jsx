@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import styles from "./RegisterForm.module.css";
 
 function RegisterForm({ onSubmit }) {
   const username = useRef();
@@ -14,6 +13,7 @@ function RegisterForm({ onSubmit }) {
     if (password.current.value !== passwordConfirmation.current.value) {
       passwordConfirmation.current.setCustomValidity("パスワードが違います");
     } else {
+      passwordConfirmation.current.setCustomValidity("");
       onSubmit({
         username: username.current.value,
         email: email.current.value,
@@ -23,25 +23,30 @@ function RegisterForm({ onSubmit }) {
   };
 
   return (
-    <form className={styles.loginBox} onSubmit={handleSubmit}>
-      <p className={styles.loginMsg}>新規登録はこちら</p>
+    <form
+      className="w-full max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg flex flex-col gap-5"
+      onSubmit={handleSubmit}
+    >
+      <p className="text-center font-semibold text-xl text-gray-800">
+        新規登録はこちら
+      </p>
       <input
         type="text"
-        className={styles.loginInput}
+        className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="ユーザ名"
         required
         ref={username}
       />
       <input
         type="email"
-        className={styles.loginInput}
+        className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="Eメール"
         required
         ref={email}
       />
       <input
         type="password"
-        className={styles.loginInput}
+        className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="パスワード"
         required
         minLength="6"
@@ -49,13 +54,16 @@ function RegisterForm({ onSubmit }) {
       />
       <input
         type="password"
-        className={styles.loginInput}
+        className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="確認用パスワード"
         required
         minLength="6"
         ref={passwordConfirmation}
       />
-      <button className={styles.loginButton} type="submit">
+      <button
+        type="submit"
+        className="h-12 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors"
+      >
         サインアップ
       </button>
     </form>

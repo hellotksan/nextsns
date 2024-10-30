@@ -18,7 +18,6 @@ import { useAppSelector } from "@/hooks/useSelector";
 function Login() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  // Reduxから状態を取得
   const { isLoading, error } = useAppSelector((state) => state.auth);
 
   const handleRegisterRedirect = () => {
