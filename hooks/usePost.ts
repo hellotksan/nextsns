@@ -2,15 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { POSTS_ENDPOINT } from "@/constants/api";
-
-// 投稿データの型定義
-interface Post {
-  _id: string;
-  userId: string;
-  desc: string;
-  updatedAt: string;
-  likes?: string[];
-}
+import { Post } from "@/types/post";
 
 // カスタムフックの戻り値の型定義
 interface UsePostResult {

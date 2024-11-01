@@ -11,15 +11,7 @@ const EditPost = ({ postId }) => {
   const { post, postDesc, setPostDesc, handleEdit, handleDelete } =
     usePost(postId);
 
-  if (post === null) {
-    return <div>投稿が見つかりません。</div>;
-  }
-  if (!post)
-    return (
-      <>
-        <LoadingSpinner />
-      </>
-    );
+  if (!post) return <LoadingSpinner />;
 
   return (
     <div className="flex justify-center p-6 bg-white rounded-md max-w-2xl min-h-screen mx-auto">
