@@ -4,4 +4,8 @@ export interface User {
   email: string;
   password: string;
   profilePicture?: string;
+  followings: string[];
+  followers: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -2,19 +2,25 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import PersonIcon from "@mui/icons-material/Person";
 import axios from "axios";
 import { POSTS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
+import PersonIcon from "@mui/icons-material/Person";
+import { User } from "@/types/user";
+import { Post } from "@/types/post";
 
-const PostForm = ({ onPostSuccess }) => {
-  const { user } = useAppSelector((state) => state.auth);
-  const desc = useRef();
+interface PostFormProps {
+  onPostSuccess: (newPost: Post) => void;
+}
 
-  const handleSubmit = async (e) => {
+const PostForm: React.FC<PostFormProps> = ({ onPostSuccess }) => {
+  const { user } = useAppSelector((state) => state.auth) as { user: User };
+  const desc = useRef<HTMLTextAreaElement | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!desc.current.value.trim()) {
+    if (!desc.current?.value.trim()) {
       alert("投稿内容を入力してください。");
       return;
     }
@@ -25,9 +31,13 @@ const PostForm = ({ onPostSuccess }) => {
     };
 
     try {
-      await axios.post(POSTS_ENDPOINT, newPost);
-      onPostSuccess({ ...newPost, _id: Date.now() }); // 新しい投稿を親コンポーネントに通知
-      desc.current.value = "";
+      const response = await axios.post(POSTS_ENDPOINT, newPost);
+      const { _id, createdAt, updatedAt } = response.data;
+      // 新しい投稿を親コンポーネントに通知
+      onPostSuccess({ ...newPost, _id, createdAt, updatedAt });
+      if (desc.current) {
+        desc.current.value = ""; // テキストエリアをクリア
+      }
     } catch (error) {
       alert("エラーが発生しました。");
     }

@@ -6,10 +6,11 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { USERS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
+import { User } from "@/types/user";
 
-const SettingComponent = () => {
-  const { user } = useAppSelector((state) => state.auth);
-  const [desc, setDesc] = useState("");
+const SettingComponent: React.FC = () => {
+  const { user } = useAppSelector((state) => state.auth) as { user: User };
+  const [desc, setDesc] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {

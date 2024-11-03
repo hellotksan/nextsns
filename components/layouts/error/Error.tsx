@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-function Error() {
+const Error: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="mb-4 text-xl font-semibold text-gray-700">
@@ -17,6 +17,6 @@ function Error() {
       </div>
     </div>
   );
-}
+};
 
 export default Error;

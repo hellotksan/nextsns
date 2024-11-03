@@ -4,26 +4,29 @@ import { useSearchParams, useRouter } from "next/navigation";
 import React, { Suspense, useEffect } from "react";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
-import EditPost from "@/components/layouts/editPost/EditPost";
+import ProfileComponent from "@/components/layouts/profile/Profile";
+import Timeline from "@/components/layouts/timeline/Timeline";
 import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
-import Footer from "@/components/layouts/footer/Footer";
 import Error from "@/components/layouts/error/Error";
 import { useAppSelector } from "@/hooks/useSelector";
 
-function PostEditContent() {
+const ProfileContent: React.FC = () => {
   const { user, isLoading, error } = useAppSelector((state) => state.auth);
   const searchParams = useSearchParams();
-  const postId = searchParams.get("post-id");
+  const username = searchParams.get("username");
   const router = useRouter();
 
-  // クエリがない場合にリダイレクト
   useEffect(() => {
-    if (!postId) {
-      alert("投稿が存在しません。");
+    if (!username) {
+      alert("ユーザーが存在しません。");
       router.replace("/");
     }
-  }, [postId, router]);
+  }, [username, router]);
+
+  if (!username) {
+    return null;
+  }
 
   if (!user) {
     return <UserNotFound />;
@@ -35,19 +38,23 @@ function PostEditContent() {
     return <Error />;
   }
 
-  return <EditPost postId={postId} />;
-}
+  return (
+    <>
+      <ProfileComponent username={username} />
+      <Timeline username={username} />
+    </>
+  );
+};
 
-function PostEdit() {
+const Profile: React.FC = () => {
   return (
     <>
       <Topbar />
       <Suspense fallback={<LoadingSpinner />}>
-        <PostEditContent />
+        <ProfileContent />
       </Suspense>
-      <Footer />
     </>
   );
-}
+};
 
-export default PostEdit;
+export default Profile;

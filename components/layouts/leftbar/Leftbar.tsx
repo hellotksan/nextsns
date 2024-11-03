@@ -5,16 +5,25 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import styles from "./Leftbar.module.css";
 import { useAppSelector } from "@/hooks/useSelector";
+import { User } from "@/types/user";
 
-const sidebarItems = [
+interface SidebarItemProps {
+  name: string;
+  icon: JSX.Element;
+  link:
+    | string
+    | ((user: User) => { pathname: string; query?: Record<string, string> });
+}
+
+const sidebarItems: SidebarItemProps[] = [
   { name: "ホーム", icon: <Home />, link: "/" },
   {
     name: "プロフィール",
     icon: <Person />,
-    link: (user) =>
+    link: (user: User) =>
       user?.username
         ? { pathname: "/profile", query: { username: user.username } }
-        : { pathname: "/login", query: {} },
+        : { pathname: "/login" },
   },
   { name: "設定", icon: <Settings />, link: "/setting" },
   { name: "フォロワー", icon: <PersonAddAlt1Icon />, link: "/followers" },
@@ -26,6 +35,23 @@ const sidebarItems = [
   { name: "全ユーザー", icon: <GroupsIcon />, link: "/all-users" },
 ];
 
+const SidebarItem: React.FC<{
+  item: SidebarItemProps;
+  user: User | null;
+}> = ({ item, user }) => (
+  <Link
+    href={typeof item.link === "function" ? item.link(user!) : item.link}
+    passHref
+  >
+    <li className="flex items-center mb-2 p-2 shadow-lg bg-white rounded hover:bg-blue-100 transition-all w-auto max-w-96">
+      <span className="text-2xl mr-3" aria-label={`${item.name} icon`}>
+        {item.icon}
+      </span>
+      <span className={styles.linkname}>{item.name}</span>
+    </li>
+  </Link>
+);
+
 function Sidebar() {
   const { user } = useAppSelector((state) => state.auth);
 
@@ -34,23 +60,7 @@ function Sidebar() {
       <div className="p-5 z-30 max-w-96">
         <ul className="list-none p-0 m-0">
           {sidebarItems.map((item, index) => (
-            <Link
-              key={index}
-              href={
-                typeof item.link === "function" ? item.link(user) : item.link
-              }
-              passHref
-            >
-              <li className="flex items-center mb-2 p-2 shadow-lg bg-white rounded hover:bg-blue-100 transition-all w-auto max-w-96">
-                <span
-                  className="text-2xl mr-3"
-                  aria-label={`${item.name} icon`}
-                >
-                  {item.icon}
-                </span>
-                <span className={styles.linkname}>{item.name}</span>
-              </li>
-            </Link>
+            <SidebarItem key={index} item={item} user={user} />
           ))}
         </ul>
       </div>

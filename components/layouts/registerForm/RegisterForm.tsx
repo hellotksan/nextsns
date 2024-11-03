@@ -1,23 +1,31 @@
 import React, { useRef } from "react";
 
-function RegisterForm({ onSubmit }) {
-  const username = useRef();
-  const email = useRef();
-  const password = useRef();
-  const passwordConfirmation = useRef();
+interface RegisterFormProps {
+  onSubmit: (data: {
+    username: string;
+    email: string;
+    password: string;
+  }) => void; // onSubmitはデータを受け取る関数
+}
 
-  const handleSubmit = (e) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
+  const username = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const passwordConfirmation = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // パスワードと確認用のパスワードがあっているか確認
-    if (password.current.value !== passwordConfirmation.current.value) {
-      passwordConfirmation.current.setCustomValidity("パスワードが違います");
+    if (password.current!.value !== passwordConfirmation.current!.value) {
+      passwordConfirmation.current!.setCustomValidity("パスワードが違います");
     } else {
-      passwordConfirmation.current.setCustomValidity("");
+      passwordConfirmation.current!.setCustomValidity("");
       onSubmit({
-        username: username.current.value,
-        email: email.current.value,
-        password: password.current.value,
+        username: username.current!.value,
+        email: email.current!.value,
+        password: password.current!.value,
       });
     }
   };
@@ -49,7 +57,7 @@ function RegisterForm({ onSubmit }) {
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="パスワード"
         required
-        minLength="6"
+        minLength={6}
         ref={password}
       />
       <input
@@ -57,7 +65,7 @@ function RegisterForm({ onSubmit }) {
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="確認用パスワード"
         required
-        minLength="6"
+        minLength={6}
         ref={passwordConfirmation}
       />
       <button
@@ -68,6 +76,6 @@ function RegisterForm({ onSubmit }) {
       </button>
     </form>
   );
-}
+};
 
 export default RegisterForm;

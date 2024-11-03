@@ -4,7 +4,7 @@ import SettingComponent from "@/components/layouts/setting/Setting";
 import Topbar from "@/components/layouts/header/Header";
 import Footer from "@/components/layouts/footer/Footer";
 
-function Setting() {
+const Setting: React.FC = () => {
   return (
     <>
       <ClientComponent>
@@ -14,6 +14,6 @@ function Setting() {
       </ClientComponent>
     </>
   );
-}
+};
 
 export default Setting;

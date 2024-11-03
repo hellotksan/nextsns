@@ -1,6 +1,6 @@
 import React from "react";
 
-function Loading() {
+const Loading: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="mb-4 text-xl font-semibold text-gray-700">
@@ -8,6 +8,6 @@ function Loading() {
       </div>
     </div>
   );
-}
+};
 
 export default Loading;

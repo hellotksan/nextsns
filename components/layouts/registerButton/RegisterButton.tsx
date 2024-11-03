@@ -1,6 +1,10 @@
 import React from "react";
 
-function RegisterButton({ onClick }) {
+interface RegisterButtonProps {
+  onClick: () => void; // onClickは関数で、引数はなく戻り値もない
+}
+
+const RegisterButton: React.FC<RegisterButtonProps> = ({ onClick }) => {
   return (
     <div className="flex flex-col justify-center flex-1">
       <p className="text-white text-center font-semibold text-lg mb-2">
@@ -14,6 +18,6 @@ function RegisterButton({ onClick }) {
       </button>
     </div>
   );
-}
+};
 
 export default RegisterButton;

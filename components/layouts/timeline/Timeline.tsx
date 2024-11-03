@@ -4,23 +4,30 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import PostForm from "@/components/layouts/postForm/PostForm";
-import Post from "@/components/layouts/post/Post";
+import PostComponent from "@/components/layouts/post/Post";
 import { POSTS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
+import { User } from "@/types/user";
+import { Post } from "@/types/post";
 
-function Timeline({ toHome = false, username = undefined }) {
-  const { user } = useAppSelector((state) => state.auth);
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [nextCursor, setNextCursor] = useState(null);
-  const [isFetching, setIsFetching] = useState(false);
+interface TimelineProps {
+  toHome?: boolean;
+  username?: string;
+}
 
-  const handlePostSuccess = (newPost) => {
+const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
+  const { user } = useAppSelector((state) => state.auth) as { user: User };
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  const handlePostSuccess = (newPost: Post) => {
     setPosts((prev) => [newPost, ...prev]);
   };
 
   const fetchPosts = useCallback(
-    async (cursor = null) => {
+    async (cursor: string | null = null) => {
       setIsFetching(true);
 
       const endpoint = username
@@ -35,11 +42,14 @@ function Timeline({ toHome = false, username = undefined }) {
           const mergedPosts = [...prev, ...newPosts];
           // 重複を削除（IDが重複する投稿を1つだけ残す）
           const uniquePosts = Array.from(
-            new Map(mergedPosts.map((post) => [post._id, post])).values()
+            new Map(
+              mergedPosts.map((post: Post) => [post._id, post])
+            ).values()
           );
           return uniquePosts.sort(
             (post1, post2) =>
-              new Date(post2.createdAt) - new Date(post1.createdAt)
+              new Date(post2.createdAt).getTime() -
+              new Date(post1.createdAt).getTime()
           );
         });
 
@@ -85,13 +95,13 @@ function Timeline({ toHome = false, username = undefined }) {
         {loading ? (
           <LoadingSpinner />
         ) : (
-          posts.map((post) => <Post key={post._id} post={post} />)
+          posts.map((post) => <PostComponent key={post._id} post={post} />)
         )}
         {isFetching && <LoadingSpinner />}{" "}
         {/* 無限スクロール中のローディング表示 */}
       </div>
     </div>
   );
-}
+};
 
 export default Timeline;

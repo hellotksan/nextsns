@@ -1,5 +1,13 @@
 "use client";
 
+import React, { useState } from "react";
+import Cookies from "js-cookie";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import styles from "./Header.module.css";
+import Sidebar from "@/components/layouts/leftbar/Leftbar";
+import { useAppSelector } from "@/hooks/useSelector";
 import {
   Chat,
   Notifications,
@@ -7,27 +15,21 @@ import {
   Close as CloseIcon,
 } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import Cookies from "js-cookie";
-import Image from "next/image";
-import Link from "next/link";
-import Sidebar from "@/components/layouts/leftbar/Leftbar";
-import styles from "./Header.module.css";
-import { useAppSelector } from "@/hooks/useSelector";
 
-function Topbar() {
+const Topbar: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
   const router = useRouter();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("ログアウトしますか？");
+
     if (confirmLogout) {
       try {
         Cookies.remove("user", { path: "/" });
-        router.push("/login");
+        router.replace("/login");
       } catch (error) {
         alert("ログアウトに失敗しました。もう一度お試しください。");
       }
@@ -62,19 +64,15 @@ function Topbar() {
 
       {/* 左側のロゴ */}
       <div className="flex-1 ml-5">
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <span className="text-white font-bold text-2xl">Next SNS</span>
+        <Link href="/" className="text-white font-bold text-2xl no-underline">
+          Next SNS
         </Link>
       </div>
 
       {/* 右側のアイコンとログアウトボタン */}
       <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
-        <div>
-          <Chat className="w-8 h-8 no-underline text-white" />
-        </div>
-        <div>
-          <Notifications className="w-8 h-8 no-underline text-white" />
-        </div>
+        <Chat className="w-8 h-8" />
+        <Notifications className="w-8 h-8" />
         <Link
           href={{
             pathname: "/profile",
@@ -106,6 +104,6 @@ function Topbar() {
       </div>
     </div>
   );
-}
+};
 
 export default Topbar;

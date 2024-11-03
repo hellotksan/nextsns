@@ -10,14 +10,19 @@ import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import { USERS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
+import { User } from "@/types/user";
 
-const fetcher = (url) => axios.get(url).then((res) => res.data);
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-function ShowProfile({ username }) {
+interface ProfileComponentProps {
+  username: string;
+}
+
+const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
   const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth) as { user: User };
   const router = useRouter();
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
   // ユーザー情報の取得
   const {
@@ -30,7 +35,7 @@ function ShowProfile({ username }) {
   useEffect(() => {
     if (user && showingUser) {
       const following = showingUser.followers?.some(
-        (followerId) => followerId === user._id
+        (followerId: string) => followerId === user._id
       );
 
       setIsFollowing(following || false);
@@ -40,7 +45,7 @@ function ShowProfile({ username }) {
   // ユーザーが見つからない場合は何も表示しない
   if (userError) {
     toast.error("ユーザーが見つかりませんでした。");
-    router.push("/");
+    router.replace("/");
     return null;
   }
 
@@ -123,6 +128,6 @@ function ShowProfile({ username }) {
       )}
     </div>
   );
-}
+};
 
-export default ShowProfile;
+export default ProfileComponent;

@@ -3,12 +3,6 @@ import axios from "axios";
 import { ALL_USERS_ENDPOINT } from "@/constants/api";
 import { User } from "@/types/user";
 
-// interface User {
-//   _id: string;
-//   username: string;
-//   profilePicture?: string;
-// }
-
 interface UseUsersResult {
   users: User[];
   loading: boolean;

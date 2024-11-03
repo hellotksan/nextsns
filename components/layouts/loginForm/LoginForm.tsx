@@ -1,18 +1,22 @@
 import React, { useEffect, useRef } from "react";
 
-function LoginForm({ onSubmit }) {
-  const email = useRef();
-  const password = useRef();
+interface LoginFormProps {
+  onSubmit: (email: string, password: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // 自動でメールフィールドにフォーカスを当てる
-    email.current.focus();
+    emailRef.current?.focus();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const emailValue = email.current.value;
-    const passwordValue = password.current.value;
+    const emailValue = emailRef.current?.value || "";
+    const passwordValue = passwordRef.current?.value || "";
     onSubmit(emailValue, passwordValue);
   };
 
@@ -29,24 +33,28 @@ function LoginForm({ onSubmit }) {
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="Eメール"
         required
-        ref={email}
+        ref={emailRef}
+        aria-label="Email"
+        aria-required="true"
       />
       <input
         type="password"
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="パスワード"
         required
-        minLength="6"
-        ref={password}
+        minLength={6}
+        ref={passwordRef}
+        aria-label="Password"
+        aria-required="true"
       />
       <button className="h-12 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors">
         ログイン
       </button>
-      <span className="text-center text-indigo-600 cursor-pointer hover:text-indigo-800 transition-colors disabled:">
+      <span className="text-center text-indigo-600 cursor-pointer hover:text-indigo-800 transition-colors">
         パスワードを忘れた方へ
       </span>
     </form>
   );
-}
+};
 
 export default LoginForm;

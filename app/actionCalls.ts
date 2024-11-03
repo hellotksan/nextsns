@@ -1,6 +1,11 @@
-// import React from "react";
 import axios from "axios";
 import { AUTH_ENDPOINT } from "@/constants/api";
+
+interface LoginProps {
+  email: string;
+  password: string;
+  dispatch: React.Dispatch<{ type: string; payload?: any }>;
+}
 
 const instance = axios.create();
 
@@ -14,7 +19,7 @@ instance.interceptors.response.use(
   }
 );
 
-export const loginCall = async (props) => {
+export const loginCall = async (props: LoginProps): Promise<any> => {
   const email = props.email;
   const password = props.password;
   const dispatch = props.dispatch;
@@ -24,7 +29,7 @@ export const loginCall = async (props) => {
     const response = await instance.post(AUTH_ENDPOINT, { email, password });
     dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     if (error.response) {
       if (error.response && error.response.status === 400) {
         alert("パスワードが間違っています");
@@ -39,9 +44,3 @@ export const loginCall = async (props) => {
     dispatch({ type: "LOGIN_ERROR", payload: error });
   }
 };
-
-// const ActionCalls = () => {
-//   return <></>;
-// };
-
-// export default ActionCalls;
