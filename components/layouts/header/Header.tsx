@@ -2,22 +2,24 @@
 
 import * as React from "react";
 import Cookies from "js-cookie";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import HamburgerMenu from "@/components/layouts/hamburgerMenu/HamburgerMenu";
 import Sidebar from "@/components/layouts/leftbar/Leftbar";
 import { useAppSelector } from "@/hooks/useSelector";
-import { Chat, Notifications } from "@mui/icons-material";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -59,7 +61,7 @@ const Topbar: React.FC = () => {
       </div>
 
       {/* 右側のアイコンとログアウトボタン */}
-      <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
+      <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-10">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon" className="bg-gray-700">
@@ -81,36 +83,44 @@ const Topbar: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Chat className="w-8 h-8" />
-        <Notifications className="w-8 h-8" />
-        <Link
-          href={{
-            pathname: "/profile",
-            query: user?.username ? { username: user.username } : {},
-          }}
-          className="no-underline text-black"
-        >
-          {user?.profilePicture ? (
-            <Image
-              src={`/assets/person/${user.profilePicture}`}
-              alt="Profile"
-              className="w-8 h-8 rounded-full object-cover"
-              width={32}
-              height={32}
-            />
-          ) : (
-            <PersonIcon
-              className="w-8 h-8"
-              style={{ textDecoration: "none", color: "white" }}
-            />
-          )}
-        </Link>
-        <button
-          className="text-sm hover:text-pink-400 transition-colors"
-          onClick={handleLogout}
-        >
-          ログアウト
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {user?.profilePicture ? (
+              <Image
+                src={`/assets/person/${user.profilePicture}`}
+                alt="Profile"
+                className="w-8 h-8 rounded-full object-cover"
+                width={32}
+                height={32}
+              />
+            ) : (
+              <PersonIcon
+                className="w-8 h-8"
+                style={{ textDecoration: "none", color: "white" }}
+              />
+            )}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Link
+                href={{
+                  pathname: "/profile",
+                  query: user?.username ? { username: user.username } : {},
+                }}
+                className="no-underline text-black"
+              >
+                <PersonOutlineIcon />
+                Profile
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogoutIcon />
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

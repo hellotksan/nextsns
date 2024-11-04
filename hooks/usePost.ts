@@ -21,7 +21,7 @@ const usePost = (postId: string): UsePostResult => {
 
   useEffect(() => {
     fetchPost();
-  }, [postId]);
+  }, []);
 
   const fetchPost = async () => {
     try {
@@ -63,7 +63,7 @@ const usePost = (postId: string): UsePostResult => {
           data: { userId },
         });
         alert("投稿が削除されました。");
-        router.refresh();
+        router.replace("/");
       } catch (error) {
         alert("投稿の削除に失敗しました:");
       }

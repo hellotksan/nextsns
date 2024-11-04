@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import PostForm from "@/components/layouts/postForm/PostForm";
-import PostComponent from "@/components/layouts/post/Post";
+import PostComponent from "@/components/layouts/postComponent/Post";
 import { POSTS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
 import { User } from "@/types/user";

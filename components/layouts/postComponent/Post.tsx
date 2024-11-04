@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { MoreVert } from "@mui/icons-material";
+import { MoreVert } from "@mui/icons-material";
 import { format } from "timeago.js";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,12 @@ import { Post as PostType } from "@/types/post";
 import { User } from "@/types/user";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonIcon from "@mui/icons-material/Person";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface PostProps {
   post: PostType;
@@ -87,21 +93,31 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
                 </Link>
                 <span className="text-xs ml-2">{format(post.createdAt)}</span>
               </div>
-              {/* <MoreVert /> */}
+
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <MoreVert />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <Link
+                    href={{
+                      pathname: "/post-edit",
+                      query: post?._id ? { "post-id": post._id } : {},
+                    }}
+                    className="no-underline"
+                  >
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem>Block</DropdownMenuItem>
+                  <DropdownMenuItem>Report</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             {/* 投稿した内容を表示する */}
             <div className="my-5">
-              <Link
-                href={{
-                  pathname: "/post-edit",
-                  query: post?._id ? { "post-id": post._id } : {},
-                }}
-                className="no-underline"
-              >
-                <span className="block text-base">{post.desc}</span>
-                {/* TODO: 投稿記事の画像 */}
-              </Link>
+              <span className="block text-base">{post.desc}</span>
+              {/* TODO: 投稿記事の画像 */}
             </div>
 
             {/* 投稿記事のいいね数とコメント数を表示する */}
