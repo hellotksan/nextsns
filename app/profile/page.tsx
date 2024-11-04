@@ -25,6 +25,8 @@ const ProfileContent: React.FC = () => {
   }, [username, router]);
 
   if (!username) {
+    alert("ユーザーが存在しません。");
+    router.replace("/");
     return null;
   }
 

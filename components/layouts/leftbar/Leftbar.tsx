@@ -1,11 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { Home, Person, Settings } from "@mui/icons-material";
-import GroupsIcon from "@mui/icons-material/Groups";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import styles from "./Leftbar.module.css";
 import { useAppSelector } from "@/hooks/useSelector";
 import { User } from "@/types/user";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import { Home, Person, Settings } from "@mui/icons-material";
+import GroupsIcon from "@mui/icons-material/Groups";
 
 interface SidebarItemProps {
   name: string;
@@ -43,11 +42,11 @@ const SidebarItem: React.FC<{
     href={typeof item.link === "function" ? item.link(user!) : item.link}
     passHref
   >
-    <li className="flex items-center mb-2 p-2 shadow-lg bg-white rounded hover:bg-blue-100 transition-all w-auto max-w-96">
+    <li className="flex items-center mb-2 p-2 shadow-lg rounded hover:bg-gray-400 transition-all w-auto max-w-96">
       <span className="text-2xl mr-3" aria-label={`${item.name} icon`}>
         {item.icon}
       </span>
-      <span className={styles.linkname}>{item.name}</span>
+      <span className="text-xl">{item.name}</span>
     </li>
   </Link>
 );
@@ -56,7 +55,7 @@ function Sidebar() {
   const { user } = useAppSelector((state) => state.auth);
 
   return (
-    <div className={styles.sidebar}>
+    <div className="fixed mt-12 h-screen z-50 ml-5 w-[300px] max-w-[300px] transition-width duration-300 ease-in-out overflow-hidden">
       <div className="p-5 z-30 max-w-96">
         <ul className="list-none p-0 m-0">
           {sidebarItems.map((item, index) => (

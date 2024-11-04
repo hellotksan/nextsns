@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import AuthProviderWrapper from "./AuthProviderWrapper";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,16 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
-        <AuthProviderWrapper>{children}</AuthProviderWrapper>
+        <AuthProviderWrapper>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}{" "}
+          </ThemeProvider>
+        </AuthProviderWrapper>
       </body>
     </html>
   );

@@ -68,7 +68,7 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
                     pathname: "/profile",
                     query: user?.username ? { username: user.username } : {},
                   }}
-                  className="no-underline text-black flex items-center"
+                  className="no-underline flex items-center"
                 >
                   {user?.profilePicture ? (
                     <Image
@@ -97,18 +97,10 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
                   pathname: "/post-edit",
                   query: post?._id ? { "post-id": post._id } : {},
                 }}
-                className="no-underline text-black"
+                className="no-underline"
               >
                 <span className="block text-base">{post.desc}</span>
-                {/* {post.img && (
-                  <Image
-                    src={`/assets/person/${user.profilePicture}`}
-                    alt="post-image"
-                    className="mt-5 w-full max-h-500 object-contain"
-                    width={50}
-                    height={50}
-                  />
-                )} */}
+                {/* TODO: 投稿記事の画像 */}
               </Link>
             </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -10,22 +10,8 @@ import { User } from "@/types/user";
 
 const SettingComponent: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth) as { user: User };
-  const [desc, setDesc] = useState<string>("");
+  const [desc, setDesc] = useState<string>(user.desc || "");
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(USERS_ENDPOINT, {
-          params: { username: user.username },
-        });
-        setDesc(response.data.desc);
-      } catch (error) {
-        alert("ユーザ情報の取得に失敗しました。");
-      }
-    };
-    fetchUser();
-  }, [user.username]);
 
   const handleEdit = async () => {
     try {
@@ -53,7 +39,7 @@ const SettingComponent: React.FC = () => {
         });
         alert("ユーザを削除しました。");
         Cookies.remove("user", { path: "/" });
-        router.push("/login");
+        router.replace("/login");
       } else {
         alert("ユーザ削除をキャンセルしました");
       }
@@ -63,7 +49,7 @@ const SettingComponent: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center p-6 rounded-lg bg-white shadow-2xl max-w-2xl min-h-screen mx-auto">
+    <div className="flex justify-center p-6 rounded-lg shadow-2xl max-w-2xl min-h-screen mx-auto">
       <div className="p-6 w-full">
         <h2 className="text-2xl font-bold mb-4">ユーザ設定</h2>
         <div className="space-y-4">

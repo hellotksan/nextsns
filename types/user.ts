@@ -6,6 +6,7 @@ export interface User {
   profilePicture?: string;
   followings: string[];
   followers: string[];
+  desc: string;
   createdAt: Date;
   updatedAt: Date;
 }

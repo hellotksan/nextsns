@@ -9,7 +9,7 @@ interface UseUsersResult {
   error: Error | null;
 }
 
-const useUsers = (): UseUsersResult => {
+const useAllUsers = (): UseUsersResult => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -31,4 +31,4 @@ const useUsers = (): UseUsersResult => {
   return { users, loading, error };
 };
 
-export default useUsers;
+export default useAllUsers;

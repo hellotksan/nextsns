@@ -8,6 +8,7 @@ import { useAppSelector } from "@/hooks/useSelector";
 import PersonIcon from "@mui/icons-material/Person";
 import { User } from "@/types/user";
 import { Post } from "@/types/post";
+import PostButton from "@/components/elements/PostButton";
 
 interface PostFormProps {
   onPostSuccess: (newPost: Post) => void;
@@ -44,7 +45,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostSuccess }) => {
   };
 
   return (
-    <div className="sticky top-5 bg-white h-auto shadow-lg rounded-lg py-5 z-10">
+    <div className="top-5 h-auto shadow-lg rounded-lg py-5 z-50">
       <div className="p-2">
         <div className="flex items-center">
           {user.profilePicture ? (
@@ -65,17 +66,12 @@ const PostForm: React.FC<PostFormProps> = ({ onPostSuccess }) => {
             rows={3}
           />
         </div>
-        <hr className="my-5" />
+        <hr className="my-2" />
         <form
           className="flex items-center justify-between"
           onSubmit={handleSubmit}
         >
-          <button
-            className="bg-blue-800 text-white py-1 px-4 rounded-md hover:bg-blue-900 transition"
-            type="submit"
-          >
-            投稿
-          </button>
+          <PostButton />
         </form>
       </div>
     </div>

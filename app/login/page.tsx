@@ -19,9 +19,9 @@ import { User } from "@/types/user";
 interface LoginPageProps {}
 
 const LoginPage: React.FC<LoginPageProps> = () => {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleRegisterRedirect = () => {
     router.push("/register");

@@ -35,7 +35,7 @@ function FollowersComponent() {
                       : {},
                   }}
                   key={friend._id}
-                  className="no-underline text-black flex items-center p-2 rounded hover:bg-gray-200 transition duration-200"
+                  className="no-underline flex items-center p-2 rounded hover:bg-gray-800 transition duration-200"
                 >
                   <div className="flex items-center" key={friend._id}>
                     {friend.profilePicture ? (

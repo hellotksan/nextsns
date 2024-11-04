@@ -1,27 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import * as React from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import styles from "./Header.module.css";
+import HamburgerMenu from "@/components/layouts/hamburgerMenu/HamburgerMenu";
 import Sidebar from "@/components/layouts/leftbar/Leftbar";
 import { useAppSelector } from "@/hooks/useSelector";
-import {
-  Chat,
-  Notifications,
-  Menu as MenuIcon,
-  Close as CloseIcon,
-} from "@mui/icons-material";
+import { Chat, Notifications } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Topbar: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
   const router = useRouter();
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+  const { setTheme } = useTheme();
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("ログアウトしますか？");
@@ -37,30 +41,15 @@ const Topbar: React.FC = () => {
   };
 
   return (
-    <div className="bg-blue-800 h-12 w-full flex items-center sticky top-0 z-20">
-      {/* ハンバーガーメニューアイコン - モバイル専用 */}
-      <button
-        onClick={toggleSidebar}
-        className="ml-5 z-20 lg:hidden"
-        aria-label="ham-menu"
-      >
-        {isSidebarOpen ? (
-          <CloseIcon className="text-white" />
-        ) : (
-          <MenuIcon className="text-white" />
-        )}
-      </button>
-
-      <div className={styles.sidebarWrapper}>
+    <div className="bg-gray-700 h-14 w-full flex items-center sticky top-0 z-50">
+      <div className="hidden xl:block">
         <Sidebar />
       </div>
 
-      {/* モバイルサイズでサイドバーをトグル */}
-      {isSidebarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-10">
-          <Sidebar />
-        </div>
-      )}
+      {/* ハンバーガーメニュー（モバイル用） */}
+      <div className="xl:hidden">
+        <HamburgerMenu />
+      </div>
 
       {/* 左側のロゴ */}
       <div className="flex-1 ml-5">
@@ -71,6 +60,27 @@ const Topbar: React.FC = () => {
 
       {/* 右側のアイコンとログアウトボタン */}
       <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon" className="bg-gray-700">
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setTheme("light")}>
+              Light
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              Dark
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")}>
+              System
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <Chat className="w-8 h-8" />
         <Notifications className="w-8 h-8" />
         <Link

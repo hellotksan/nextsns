@@ -1,16 +1,16 @@
 "use client";
 
-import PersonIcon from "@mui/icons-material/Person";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import Error from "@/components/layouts/error/Error";
-import useUsers from "@/hooks/useUsers";
+import useAllUsers from "@/hooks/useAllUsers";
 import { User } from "@/types/user";
+import PersonIcon from "@mui/icons-material/Person";
 
 const AllUsers: React.FC = () => {
-  const { users, loading, error } = useUsers();
+  const { users, loading, error } = useAllUsers();
 
   return (
     <>
@@ -30,7 +30,7 @@ const AllUsers: React.FC = () => {
                     query: user?.username ? { username: user.username } : {},
                   }}
                   key={user._id}
-                  className="flex items-center p-2 rounded hover:bg-gray-200 transition duration-200"
+                  className="flex items-center p-2 rounded hover:bg-gray-800 transition duration-200"
                 >
                   <div className="flex items-center">
                     {user.profilePicture ? (

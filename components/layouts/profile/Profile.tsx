@@ -4,32 +4,25 @@ import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
 import axios from "axios";
-import useSWR from "swr";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import { USERS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
 import { User } from "@/types/user";
-
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+import { useUser } from "@/hooks/useUser";
 
 interface ProfileComponentProps {
   username: string;
 }
 
 const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
-  const PUBLIC_FOLDER = process.env.NEXT_PUBLIC_API_URL;
   const { user } = useAppSelector((state) => state.auth) as { user: User };
   const router = useRouter();
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
   // ユーザー情報の取得
-  const {
-    data: showingUser,
-    error: userError,
-    isLoading,
-  } = useSWR(`${PUBLIC_FOLDER}/api/users?username=${username}`, fetcher);
+  const { userData: showingUser, isLoading, isError } = useUser(username);
 
   // ユーザーのフォロー状態を確認
   useEffect(() => {
@@ -43,7 +36,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
   }, [user, showingUser]);
 
   // ユーザーが見つからない場合は何も表示しない
-  if (userError) {
+  if (isError) {
     toast.error("ユーザーが見つかりませんでした。");
     router.replace("/");
     return null;
@@ -86,7 +79,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
     : 0;
 
   return (
-    <div className="p-4 mt-5 bg-white shadow-2xl rounded-lg max-w-2xl mx-auto">
+    <div className="p-4 mt-5 shadow-md rounded-lg max-w-xl mx-auto">
       <div className="flex items-center space-x-4">
         {showingUser.profilePicture ? (
           <Image

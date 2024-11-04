@@ -58,7 +58,6 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
         }
       } catch (error) {
         alert("投稿の取得に失敗しました。もう一度お試しください。");
-        console.error(error);
       } finally {
         setIsFetching(false);
         setLoading(false);
@@ -87,8 +86,8 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
   }, [handleScroll]);
 
   return (
-    <div className="flex justify-center p-5 bg-white shadow-md rounded-lg w-full max-w-2xl mx-auto">
-      <div className="w-full p-5 relative">
+    <div className="flex justify-center shadow-md rounded-lg w-full max-w-xl mx-auto">
+      <div className="w-full mx-10 relative">
         {toHome || username === user.username ? (
           <PostForm onPostSuccess={handlePostSuccess} />
         ) : null}
@@ -98,7 +97,6 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
           posts.map((post) => <PostComponent key={post._id} post={post} />)
         )}
         {isFetching && <LoadingSpinner />}{" "}
-        {/* 無限スクロール中のローディング表示 */}
       </div>
     </div>
   );

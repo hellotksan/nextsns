@@ -20,7 +20,7 @@ const EditPost: React.FC<EditPostProps> = ({ postId }) => {
       {!post ? (
         <LoadingSpinner />
       ) : (
-        <div className="flex justify-center p-6 bg-white rounded-md max-w-2xl min-h-screen mx-auto">
+        <div className="flex justify-center p-6 rounded-md max-w-2xl min-h-screen mx-auto">
           <div className="p-6 w-full shadow-2xl">
             <h2 className="text-2xl font-bold mb-4">投稿設定</h2>
             <div className="space-y-4">
