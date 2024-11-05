@@ -1,17 +1,24 @@
+"use client";
+
 import React from "react";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Topbar from "@/components/layouts/header/Header";
-import ClientComponent from "@/components/layouts/clientComponent/ClientComponent";
+import { useAppSelector } from "@/hooks/useSelector";
+import GuestTimeline from "@/components/layouts/guestTimeline/GuestTimeline";
 
-function Home() {
+const Home = () => {
+  const { user } = useAppSelector((state) => state.auth);
+
   return (
     <>
-      <ClientComponent>
-        <Topbar />
+      <Topbar />
+      {user ? (
         <Timeline toHome={true} username={undefined} />
-      </ClientComponent>
+      ) : (
+        <GuestTimeline />
+      )}
     </>
   );
-}
+};
 
 export default Home;

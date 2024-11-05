@@ -105,20 +105,24 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
         <span className="ml-3">{followingCount} following</span>
       </div>
 
-      {username !== user?.username && (
-        <div className="text-center">
-          <button
-            className={`mt-2 px-5 py-2 rounded text-white ${
-              isFollowing
-                ? "bg-red-500 hover:bg-red-600"
-                : "bg-blue-500 hover:bg-blue-600"
-            }`}
-            onClick={isFollowing ? handleUnfollow : handleFollow}
-          >
-            {isFollowing ? "フォロー解除" : "フォロー"}
-          </button>
-        </div>
-      )}
+      {user ? (
+        <>
+          {username !== user?.username && (
+            <div className="text-center">
+              <button
+                className={`mt-2 px-5 py-2 rounded text-white ${
+                  isFollowing
+                    ? "bg-red-500 hover:bg-red-600"
+                    : "bg-blue-500 hover:bg-blue-600"
+                }`}
+                onClick={isFollowing ? handleUnfollow : handleFollow}
+              >
+                {isFollowing ? "フォロー解除" : "フォロー"}
+              </button>
+            </div>
+          )}
+        </>
+      ) : null}
     </div>
   );
 };

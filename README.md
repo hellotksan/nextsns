@@ -20,7 +20,7 @@
 
 ## デモ
 
-[https://nextsns-one.vercel.app/](https://real-sns-front-end.vercel.app/)
+[https://nextsns-one.vercel.app](https://nextsns-one.vercel.app)
 
 ## 特徴
 

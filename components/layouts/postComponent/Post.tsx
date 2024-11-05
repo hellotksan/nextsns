@@ -48,6 +48,10 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
 
   // いいねボタンの処理
   const handleLike = async () => {
+    if (!currentUser) {
+      alert("いいねするにはログインしてください。");
+    }
+
     try {
       await axios.put(`${POSTS_ENDPOINT}/${post._id}/like`, {
         userId: currentUser?._id,
@@ -99,15 +103,19 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
                   <MoreVert />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <Link
-                    href={{
-                      pathname: "/post-edit",
-                      query: post?._id ? { "post-id": post._id } : {},
-                    }}
-                    className="no-underline"
-                  >
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                  </Link>
+                  {currentUser ? (
+                    <>
+                      <Link
+                        href={{
+                          pathname: "/post-edit",
+                          query: post?._id ? { "post-id": post._id } : {},
+                        }}
+                        className="no-underline"
+                      >
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                      </Link>
+                    </>
+                  ) : null}
                   <DropdownMenuItem>Block</DropdownMenuItem>
                   <DropdownMenuItem>Report</DropdownMenuItem>
                 </DropdownMenuContent>

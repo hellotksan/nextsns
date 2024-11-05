@@ -9,9 +9,9 @@ import { useAppSelector } from "@/hooks/useSelector";
 const ClientComponent = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading, error } = useAppSelector((state) => state.auth);
 
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
-  if (!user) return <UserNotFound />;
+  // if (isLoading) return <Loading />;
+  // if (error) return <Error />;
+  // if (!user) return <UserNotFound />;
 
   return <>{children}</>;
 };

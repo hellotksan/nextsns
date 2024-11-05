@@ -1,18 +1,17 @@
+"use client";
+
 import React, { useRef } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { AUTH_REGISTER_ENDPOINT } from "@/constants/api";
 
-interface RegisterFormProps {
-  onSubmit: (data: {
-    username: string;
-    email: string;
-    password: string;
-  }) => void; // onSubmitはデータを受け取る関数
-}
-
-const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
+const RegisterForm: React.FC = () => {
   const username = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const passwordConfirmation = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +26,20 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
         email: email.current!.value,
         password: password.current!.value,
       });
+    }
+  };
+
+  const onSubmit = async (user: {
+    username: string;
+    email: string;
+    password: string;
+  }) => {
+    try {
+      await axios.post(AUTH_REGISTER_ENDPOINT, user);
+      router.push("/login");
+    } catch (err) {
+      alert("ユーザー登録に失敗しました。もう一度お試しください。");
+      router.refresh();
     }
   };
 

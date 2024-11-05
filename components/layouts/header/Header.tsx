@@ -11,6 +11,7 @@ import { useAppSelector } from "@/hooks/useSelector";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
@@ -61,7 +62,7 @@ const Topbar: React.FC = () => {
       </div>
 
       {/* 右側のアイコンとログアウトボタン */}
-      <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-10">
+      <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon" className="bg-gray-700">
@@ -103,22 +104,41 @@ const Topbar: React.FC = () => {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link
-                href={{
-                  pathname: "/profile",
-                  query: user?.username ? { username: user.username } : {},
-                }}
-                className="no-underline text-black"
-              >
-                <PersonOutlineIcon />
-                Profile
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleLogout}>
-              <LogoutIcon />
-              Log out
-            </DropdownMenuItem>
+
+            {user ? (
+              // ログインしていればプロフィールとログアウトを表示する
+              <>
+                <DropdownMenuItem>
+                  <Link
+                    href={{
+                      pathname: "/profile",
+                      query: user?.username ? { username: user.username } : {},
+                    }}
+                    className="no-underline text-black"
+                  >
+                    <PersonOutlineIcon />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogoutIcon />
+                  Log out
+                </DropdownMenuItem>
+              </>
+            ) : (
+              // ログインしていなければログインを表示する
+              <>
+                <DropdownMenuItem>
+                  <Link
+                    href={{ pathname: "/login" }}
+                    className="no-underline text-black"
+                  >
+                    <LoginIcon />
+                    Login
+                  </Link>
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

@@ -28,6 +28,8 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
 
   const fetchPosts = useCallback(
     async (cursor: string | null = null) => {
+      if (!user && toHome) return null;
+
       setIsFetching(true);
 
       const endpoint = username
@@ -42,9 +44,7 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
           const mergedPosts = [...prev, ...newPosts];
           // 重複を削除（IDが重複する投稿を1つだけ残す）
           const uniquePosts = Array.from(
-            new Map(
-              mergedPosts.map((post: Post) => [post._id, post])
-            ).values()
+            new Map(mergedPosts.map((post: Post) => [post._id, post])).values()
           );
           return uniquePosts.sort(
             (post1, post2) =>
@@ -63,7 +63,7 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
         setLoading(false);
       }
     },
-    [username, user._id]
+    [username, user, toHome]
   );
 
   useEffect(() => {
@@ -85,10 +85,12 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  if (!user && toHome) return null;
+
   return (
     <div className="flex justify-center shadow-md rounded-lg w-full max-w-xl mx-auto">
       <div className="w-full mx-10 relative">
-        {toHome || username === user.username ? (
+        {toHome || username === user?.username ? (
           <PostForm onPostSuccess={handlePostSuccess} />
         ) : null}
         {loading ? (
@@ -96,7 +98,7 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
         ) : (
           posts.map((post) => <PostComponent key={post._id} post={post} />)
         )}
-        {isFetching && <LoadingSpinner />}{" "}
+        {isFetching && <LoadingSpinner />}
       </div>
     </div>
   );

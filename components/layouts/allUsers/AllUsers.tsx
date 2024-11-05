@@ -30,7 +30,7 @@ const AllUsers: React.FC = () => {
                     query: user?.username ? { username: user.username } : {},
                   }}
                   key={user._id}
-                  className="flex items-center p-2 rounded hover:bg-gray-800 transition duration-200"
+                  className="flex items-center p-2 rounded hover:bg-gray-300 transition duration-200"
                 >
                   <div className="flex items-center">
                     {user.profilePicture ? (

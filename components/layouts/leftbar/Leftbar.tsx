@@ -34,6 +34,11 @@ const sidebarItems: SidebarItemProps[] = [
   { name: "全ユーザー", icon: <GroupsIcon />, link: "/all-users" },
 ];
 
+const sidebarItemsWithNoUser: SidebarItemProps[] = [
+  { name: "ホーム", icon: <Home />, link: "/" },
+  { name: "全ユーザー", icon: <GroupsIcon />, link: "/all-users" },
+];
+
 const SidebarItem: React.FC<{
   item: SidebarItemProps;
   user: User | null;
@@ -57,11 +62,19 @@ function Sidebar() {
   return (
     <div className="fixed mt-12 h-screen z-50 ml-5 w-[300px] max-w-[300px] transition-width duration-300 ease-in-out overflow-hidden">
       <div className="p-5 z-30 max-w-96">
-        <ul className="list-none p-0 m-0">
-          {sidebarItems.map((item, index) => (
-            <SidebarItem key={index} item={item} user={user} />
-          ))}
-        </ul>
+        {user ? (
+          <ul className="list-none p-0 m-0">
+            {sidebarItems.map((item, index) => (
+              <SidebarItem key={index} item={item} user={user} />
+            ))}
+          </ul>
+        ) : (
+          <ul className="list-none p-0 m-0">
+            {sidebarItemsWithNoUser.map((item, index) => (
+              <SidebarItem key={index} item={item} user={null} />
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

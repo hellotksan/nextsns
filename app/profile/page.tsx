@@ -30,16 +30,6 @@ const ProfileContent: React.FC = () => {
     return null;
   }
 
-  if (!user) {
-    return <UserNotFound />;
-  }
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (error) {
-    return <Error />;
-  }
-
   return (
     <>
       <ProfileComponent username={username} />

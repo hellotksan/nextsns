@@ -10,7 +10,7 @@ import { User } from "@/types/user";
 
 const SettingComponent: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth) as { user: User };
-  const [desc, setDesc] = useState<string>(user.desc || "");
+  const [desc, setDesc] = useState<string>(user?.desc || "");
   const router = useRouter();
 
   const handleEdit = async () => {
@@ -48,12 +48,14 @@ const SettingComponent: React.FC = () => {
     }
   };
 
+  if (!user) return null;
+
   return (
     <div className="flex justify-center p-6 rounded-lg shadow-2xl max-w-2xl min-h-screen mx-auto">
       <div className="p-6 w-full">
         <h2 className="text-2xl font-bold mb-4">ユーザ設定</h2>
         <div className="space-y-4">
-          <h4 className="text-lg font-medium">ユーザ名：{user.username}</h4>
+          <h4 className="text-lg font-medium">ユーザ名：{user?.username}</h4>
           <div>
             <span className="text-lg font-medium">ユーザ情報：</span>
             <textarea
