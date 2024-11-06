@@ -1,24 +1,14 @@
-"use client";
-
 import React from "react";
-import Timeline from "@/components/layouts/timeline/Timeline";
 import Topbar from "@/components/layouts/header/Header";
-import { useAppSelector } from "@/hooks/useSelector";
-import GuestTimeline from "@/components/layouts/guestTimeline/GuestTimeline";
+import TimelineWrapper from "@/components/layouts/timeline/TimelineWrapper";
 
-const Home = () => {
-  const { user } = useAppSelector((state) => state.auth);
-
+const HomePage = () => {
   return (
     <>
       <Topbar />
-      {user ? (
-        <Timeline toHome={true} username={undefined} />
-      ) : (
-        <GuestTimeline />
-      )}
+      <TimelineWrapper />
     </>
   );
 };
 
-export default Home;
+export default HomePage;

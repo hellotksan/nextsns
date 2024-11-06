@@ -7,7 +7,6 @@ import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import EditPost from "@/components/layouts/editPost/EditPost";
 import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
-import Footer from "@/components/layouts/footer/Footer";
 import Error from "@/components/layouts/error/Error";
 import { useAppSelector } from "@/hooks/useSelector";
 
@@ -45,7 +44,6 @@ const PostEdit: React.FC = () => {
       <Suspense fallback={<LoadingSpinner />}>
         <PostEditContent />
       </Suspense>
-      <Footer />
     </>
   );
 };

@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/hooks/useSelector";
 import { User } from "@/types/user";
-import { Home, Person, Settings, Menu as MenuIcon } from "@mui/icons-material";
+import {
+  Home,
+  Person,
+  Settings,
+  Close as CloseIcon,
+  Menu as MenuIcon,
+} from "@mui/icons-material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import GroupsIcon from "@mui/icons-material/Groups";
 
@@ -36,6 +42,7 @@ const sidebarItems: SidebarItemProps[] = [
 
 const HamburgerMenu: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -43,19 +50,24 @@ const HamburgerMenu: React.FC = () => {
   };
 
   return (
-    <div className="md:hidden relative">
+    <div className="relative">
       {/* ハンバーガーボタン */}
       <button
         onClick={toggleMenu}
-        className="p-2 ml-2 bg-gray-700 text-white rounded focus:outline-none"
+        className="p-2 ml-2 rounded focus:outline-none"
+        aria-label="Toggle menu"
       >
-        {/* 三本線のアイコン */}
-        <MenuIcon className="text-white" />
+        {/* メニューアイコンの切り替え */}
+        {isOpen ? (
+          <CloseIcon className="text-2xl" />
+        ) : (
+          <MenuIcon className="text-2xl" />
+        )}
       </button>
 
       {/* メニューアイテム */}
       {isOpen && (
-        <div className="absolute top-12 left-0 bg-white shadow-lg rounded-lg p-4 w-48 z-50">
+        <div className="absolute bg-white top-12 left-0 shadow-lg rounded-lg p-4 w-96 z-10">
           <ul className="list-none p-0 m-0">
             {sidebarItems.map((item, index) => (
               <li key={index} className="mb-2">
@@ -67,14 +79,14 @@ const HamburgerMenu: React.FC = () => {
                   }
                   passHref
                 >
-                  <div className="flex items-center p-2 text-gray-800 hover:bg-gray-100 rounded transition-all">
+                  <div className="flex items-center p-2 hover:bg-gray-400 rounded transition-all">
                     <span
-                      className="text-2xl mr-3"
+                      className="text-2xl mr-3 text-black"
                       aria-label={`${item.name} icon`}
                     >
                       {item.icon}
                     </span>
-                    <span className="text-lg">{item.name}</span>
+                    <span className="text-lg text-black">{item.name}</span>
                   </div>
                 </Link>
               </li>

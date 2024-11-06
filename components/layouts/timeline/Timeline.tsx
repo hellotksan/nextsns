@@ -93,6 +93,7 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
         {toHome || username === user?.username ? (
           <PostForm onPostSuccess={handlePostSuccess} />
         ) : null}
+
         {loading ? (
           <LoadingSpinner />
         ) : (

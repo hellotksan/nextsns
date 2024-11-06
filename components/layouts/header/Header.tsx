@@ -44,7 +44,7 @@ const Topbar: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-700 h-14 w-full flex items-center sticky top-0 z-50">
+    <header className="h-16 w-full flex items-center sticky top-0 z-50 backdrop-blur border-b border-gray-300">
       <div className="hidden xl:block">
         <Sidebar />
       </div>
@@ -56,16 +56,16 @@ const Topbar: React.FC = () => {
 
       {/* 左側のロゴ */}
       <div className="flex-1 ml-5">
-        <Link href="/" className="text-white font-bold text-2xl no-underline">
+        <Link href="/" className="font-bold text-2xl no-underline">
           Next SNS
         </Link>
       </div>
 
       {/* 右側のアイコンとログアウトボタン */}
-      <div className="flex-1 flex items-center justify-end space-x-4 text-white mr-5">
+      <div className="flex-1 flex items-center justify-end space-x-4 mr-5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="bg-gray-700">
+            <Button variant="outline" size="icon">
               <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
@@ -95,10 +95,7 @@ const Topbar: React.FC = () => {
                 height={32}
               />
             ) : (
-              <PersonIcon
-                className="w-8 h-8"
-                style={{ textDecoration: "none", color: "white" }}
-              />
+              <PersonIcon className="w-8 h-8 no-underline" />
             )}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -114,7 +111,7 @@ const Topbar: React.FC = () => {
                       pathname: "/profile",
                       query: user?.username ? { username: user.username } : {},
                     }}
-                    className="no-underline text-black"
+                    className="no-underline"
                   >
                     <PersonOutlineIcon />
                     Profile
@@ -129,10 +126,7 @@ const Topbar: React.FC = () => {
               // ログインしていなければログインを表示する
               <>
                 <DropdownMenuItem>
-                  <Link
-                    href={{ pathname: "/login" }}
-                    className="no-underline text-black"
-                  >
+                  <Link href={{ pathname: "/login" }} className="no-underline">
                     <LoginIcon />
                     Login
                   </Link>
@@ -142,7 +136,7 @@ const Topbar: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </div>
+    </header>
   );
 };
 

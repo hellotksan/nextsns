@@ -15,6 +15,8 @@ function FollowingUsersComponent() {
     user?.followings || null
   );
 
+  if (!user) return null;
+
   return (
     <>
       {loading ? (

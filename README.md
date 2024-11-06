@@ -50,13 +50,13 @@
 - Redux
 - TailwindCSS
 - Vitest
+- Shadcn/ui
 - ...
 
 ### ToBe
 
 - NextAuth
 - useSWR
-- Shadcn/ui
 
 ## 前提条件
 
@@ -120,11 +120,13 @@
 │   │   └── /loadingSpinner  # 読み込みスピナー
 │   │       ├── loadingSpinner.tsx   # スピナーの定義
 │   │       └── ...
-│   └── /layouts             # レイアウト関連のコンポーネント
-│       ├── /clientComponent # クライアント専用のレイアウト
-│       │   ├── clientComponents.tsx # クライアント用コンポーネントの定義
-│       │   └── ...
-│       └── ...
+│   ├── /layouts             # レイアウト関連のコンポーネント
+│   │   ├── /allUsers        # 全ユーザーを表示するコンポーネントのレイアウト
+│   │   │   ├── allUsers.tsx
+│   │   │   └── ...
+│   │   └── ...
+│   ├── /ui                  # ShadCnのコンポーネント
+│   └── theme-provider.tsx   # 画面全体のテーマの設定
 │
 ├── /constants               # 頻繁に使う定数を定義する
 │   ├── api.ts               # APIのエンドポイントURLを格納
@@ -139,6 +141,9 @@
 │   ├── useDispatch.ts       # Dispatch関数用のフック
 │   ├── useSelector.ts       # Reduxのセレクター用フック
 │   └── ...
+│
+├── /lib                     #
+│   └── utils.ts             #
 │
 ├── /public                  # 公開リソースや画像を格納
 │   ├── /assets              # アセットをまとめる
