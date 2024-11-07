@@ -1,16 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import PersonIcon from "@mui/icons-material/Person";
-import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import { USERS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
-import { User } from "@/types/user";
 import { useUser } from "@/hooks/useUser";
+import { User } from "@/types/user";
+import PersonIcon from "@mui/icons-material/Person";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 interface ProfileComponentProps {
   username: string;
@@ -21,7 +20,6 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
   const router = useRouter();
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
-  // ユーザー情報の取得
   const { userData: showingUser, isLoading, isError } = useUser(username);
 
   // ユーザーのフォロー状態を確認
@@ -35,16 +33,15 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
     }
   }, [user, showingUser]);
 
-  // ユーザーが見つからない場合は何も表示しない
-  if (isError) {
-    toast.error("ユーザーが見つかりませんでした。");
-    router.replace("/");
-    return null;
-  }
+  // ユーザーが見つからない場合のリダイレクト処理
+  useEffect(() => {
+    if (isError) {
+      toast.error("ユーザーが見つかりませんでした。");
+      router.replace("/");
+    }
+  }, [isError, router]);
 
-  if (isLoading || !showingUser) {
-    return <LoadingSpinner />;
-  }
+  if (!showingUser) return null;
 
   const handleFollow = async () => {
     try {
@@ -79,21 +76,20 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
     : 0;
 
   return (
-    <div className="p-4 mt-5 shadow-md rounded-lg max-w-xl mx-auto">
+    <div className="p-4 mt-2 mb-2 border-2 shadow-md rounded-lg max-w-xl mx-auto">
       <div className="flex items-center space-x-4">
         {showingUser.profilePicture ? (
-          <Image
-            src={`/assets/person/${showingUser.profilePicture}`}
-            alt="profile-picture"
-            width={50}
-            height={50}
-            className="ml-2 rounded-full"
-          />
+          <RocketLaunchIcon fontSize="large" className="ml-2" />
         ) : (
           <PersonIcon fontSize="large" className="ml-2" />
         )}
-        <h2 className="text-xl font-semibold">{showingUser.username}</h2>
-        <p className="text-gray-500">@{showingUser.username}</p>
+        <div className="text-xl font-semibold">
+          {showingUser.username}{" "}
+          {username === user?.username && (
+            <span className="text-xl font-semibold">(you)</span>
+          )}
+        </div>
+        <span className="text-gray-500">@{showingUser.username}</span>
       </div>
       <div className="mt-5 text-lg">
         {showingUser.desc || "自己紹介がありません。"}
@@ -105,24 +101,20 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
         <span className="ml-3">{followingCount} following</span>
       </div>
 
-      {user ? (
-        <>
-          {username !== user?.username && (
-            <div className="text-center">
-              <button
-                className={`mt-2 px-5 py-2 rounded text-white ${
-                  isFollowing
-                    ? "bg-red-500 hover:bg-red-600"
-                    : "bg-blue-500 hover:bg-blue-600"
-                }`}
-                onClick={isFollowing ? handleUnfollow : handleFollow}
-              >
-                {isFollowing ? "フォロー解除" : "フォロー"}
-              </button>
-            </div>
-          )}
-        </>
-      ) : null}
+      {user && username !== user?.username && (
+        <div className="text-center">
+          <button
+            className={`mt-2 px-5 py-2 rounded text-white ${
+              isFollowing
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
+            onClick={isFollowing ? handleUnfollow : handleFollow}
+          >
+            {isFollowing ? "フォロー解除" : "フォロー"}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

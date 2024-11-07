@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { POSTS_ENDPOINT } from "@/constants/api";
@@ -9,6 +9,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { User } from "@/types/user";
 import { Post } from "@/types/post";
 import PostButton from "@/components/elements/PostButton";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 interface PostFormProps {
   onPostSuccess: (newPost: Post) => void;
@@ -44,36 +45,39 @@ const PostForm: React.FC<PostFormProps> = ({ onPostSuccess }) => {
     }
   };
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // クライアントサイドでのレンダリングを有効化
+  }, []);
+
+  if (!isClient) return null; // クライアントサイドでない場合、何も表示しない
+
   return (
-    <div className="top-5 h-auto shadow-lg rounded-lg py-5 z-50">
-      <div className="p-2">
-        <div className="flex items-center">
-          {user.profilePicture ? (
-            <Image
-              src={`/assets/person/${user.profilePicture}`}
-              alt="profile-picture"
-              className="w-12 h-12 rounded-full object-cover mr-2"
-              width={50}
-              height={50}
-            />
-          ) : (
-            <PersonIcon className="w-12 h-12 mr-2" />
-          )}
-          <textarea
-            className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 resize-vertical"
-            placeholder="今何してるの？"
-            ref={desc}
-            rows={3}
+    <div className="top-10 h-auto border-2 shadow-md rounded-lg p-2 mt-3">
+      <div className="flex items-center py-1">
+        {user.profilePicture ? (
+          <RocketLaunchIcon
+            fontSize="large"
+            className="w-8 h-8 mx-2 no-underline"
           />
-        </div>
-        <hr className="my-2" />
-        <form
-          className="flex items-center justify-between"
-          onSubmit={handleSubmit}
-        >
-          <PostButton />
-        </form>
+        ) : (
+          <PersonIcon className="w-12 h-12 mx-2" />
+        )}
+        <textarea
+          className="w-full mx-2 px-3 py-2 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 resize-vertical"
+          placeholder="What's Happend??"
+          ref={desc}
+          rows={3}
+        />
       </div>
+      <hr className="my-2" />
+      <form
+        className="flex items-center justify-between my-1"
+        onSubmit={handleSubmit}
+      >
+        <PostButton />
+      </form>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -48,23 +48,29 @@ const SettingComponent: React.FC = () => {
     }
   };
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // クライアントサイドでのレンダリングを有効化
+  }, []);
+
+  if (!isClient) return null; // クライアントサイドでない場合、何も表示しない
+
   if (!user) return null;
 
   return (
-    <div className="flex justify-center p-6 rounded-lg shadow-2xl max-w-2xl min-h-screen mx-auto">
+    <div className="flex justify-center p-3 border-x-2 rounded-lg shadow-md max-w-xl min-h-screen mx-auto">
       <div className="p-6 w-full">
-        <h2 className="text-2xl font-bold mb-4">ユーザ設定</h2>
-        <div className="space-y-4">
-          <h4 className="text-lg font-medium">ユーザ名：{user?.username}</h4>
-          <div>
-            <span className="text-lg font-medium">ユーザ情報：</span>
-            <textarea
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-              rows={3}
-            />
-          </div>
+        <h2 className="text-2xl font-bold mb-4">ユーザー設定</h2>
+        <div className="space-y-2">
+          <div className="text-lg font-medium">ユーザー名：{user?.username}</div>
+          <div className="text-lg font-medium">ユーザー情報：</div>
+          <textarea
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            rows={2}
+          />
           <div className="flex space-x-4">
             <button
               onClick={handleEdit}

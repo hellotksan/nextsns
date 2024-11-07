@@ -17,6 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 interface PostProps {
   post: PostType;
@@ -50,6 +51,7 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
   const handleLike = async () => {
     if (!currentUser) {
       alert("いいねするにはログインしてください。");
+      return;
     }
 
     try {
@@ -68,7 +70,7 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <div className="w-full shadow-md rounded-lg mt-2">
+        <div className="w-full border-2 shadow-md rounded-lg my-3">
           <div className="p-2">
             {/* 投稿したユーザーのプロフィールを表示 */}
             <div className="flex justify-between items-center mb-4">
@@ -78,18 +80,18 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
                     pathname: "/profile",
                     query: user?.username ? { username: user.username } : {},
                   }}
-                  className="no-underline flex items-center"
+                  className="flex items-center"
                 >
                   {user?.profilePicture ? (
-                    <Image
-                      src={`/assets/person/${user.profilePicture}`}
-                      alt="user-profile-picture"
-                      className="w-8 h-8 rounded-full object-cover"
-                      width={32}
-                      height={32}
+                    <RocketLaunchIcon
+                      fontSize="medium"
+                      className="w-8 h-8 rounded-full"
                     />
                   ) : (
-                    <PersonIcon className="w-8 h-8 rounded-full" />
+                    <PersonIcon
+                      fontSize="medium"
+                      className="w-8 h-8 rounded-full"
+                    />
                   )}
                   <span className="ml-2 text-sm font-semibold">
                     {user?.username}
@@ -99,7 +101,7 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
               </div>
 
               <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger aria-label="edit-post-icon">
                   <MoreVert />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -124,7 +126,7 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
 
             {/* 投稿した内容を表示する */}
             <div className="my-5">
-              <span className="block text-base">{post.desc}</span>
+              <span className="block text-base mx-1">{post.desc}</span>
               {/* TODO: 投稿記事の画像 */}
             </div>
 
@@ -134,7 +136,6 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
               <div className="flex items-center">
                 <FavoriteIcon
                   className="text-red-500 cursor-pointer w-6 h-6 mr-1"
-                  style={{ color: "red" }}
                   onClick={() => {
                     handleLike();
                   }}

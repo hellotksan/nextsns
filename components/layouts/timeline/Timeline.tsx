@@ -22,6 +22,12 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // クライアントサイドでのレンダリングを有効化
+  }, []);
+
   const handlePostSuccess = (newPost: Post) => {
     setPosts((prev) => [newPost, ...prev]);
   };
@@ -87,18 +93,19 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
 
   if (!user && toHome) return null;
 
+  if (!isClient) return null; // クライアントサイドでない場合、何も表示しない
+
   return (
-    <div className="flex justify-center shadow-md rounded-lg w-full max-w-xl mx-auto">
+    <div className="flex justify-center border-x-2 rounded-lg w-full max-w-xl mx-auto">
       <div className="w-full mx-10 relative">
         {toHome || username === user?.username ? (
           <PostForm onPostSuccess={handlePostSuccess} />
         ) : null}
 
-        {loading ? (
-          <LoadingSpinner />
-        ) : (
-          posts.map((post) => <PostComponent key={post._id} post={post} />)
-        )}
+        {loading
+          ? null
+          : posts.map((post) => <PostComponent key={post._id} post={post} />)}
+
         {isFetching && <LoadingSpinner />}
       </div>
     </div>

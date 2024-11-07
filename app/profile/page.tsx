@@ -6,6 +6,7 @@ import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner"
 import ProfileComponent from "@/components/layouts/profile/Profile";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Topbar from "@/components/layouts/header/Header";
+import SideBar from "@/components/layouts/sideBar/SideBar";
 
 const ProfileContent: React.FC = () => {
   const searchParams = useSearchParams();
@@ -37,6 +38,9 @@ const Profile: React.FC = () => {
   return (
     <>
       <Topbar />
+      <div className="hidden xl:block">
+        <SideBar />
+      </div>
       <Suspense fallback={<LoadingSpinner />}>
         <ProfileContent />
       </Suspense>

@@ -65,18 +65,12 @@ const InfiniteScrollPosts: React.FC = () => {
   return (
     <div className="flex justify-center shadow-md rounded-lg w-full max-w-xl mx-auto">
       <div className="w-full mx-10 relative">
-        <div className="flex justify-center p-4">
-          <div className="w-full max-w-md">
-            <h4 className="text-xl font-bold mb-4 text-center">最近の投稿</h4>
-          </div>
-        </div>
         {loading ? (
           <LoadingSpinner />
         ) : (
           posts.map((post) => <PostComponent key={post._id} post={post} />)
         )}
         {isFetching && <LoadingSpinner />}
-        {!nextCursor && !isFetching && <p>これ以上の投稿はありません。</p>}
       </div>
     </div>
   );

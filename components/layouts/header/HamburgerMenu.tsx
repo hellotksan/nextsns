@@ -49,6 +49,8 @@ const HamburgerMenu: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  if (!user) return null;
+
   return (
     <div className="relative">
       {/* ハンバーガーボタン */}
@@ -67,7 +69,7 @@ const HamburgerMenu: React.FC = () => {
 
       {/* メニューアイテム */}
       {isOpen && (
-        <div className="absolute bg-white top-12 left-0 shadow-lg rounded-lg p-4 w-96 z-10">
+        <div className="absolute bg-white top-12 left-0 shadow-lg rounded-lg p-4 w-72 z-10">
           <ul className="list-none p-0 m-0">
             {sidebarItems.map((item, index) => (
               <li key={index} className="mb-2">

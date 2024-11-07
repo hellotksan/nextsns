@@ -7,7 +7,7 @@ function PostButton() {
   return (
     <div>
       <button
-        className={`bg-blue-600 text-white py-1 px-4 rounded-md hover:bg-blue-900 transition
+        className={`border-2 bg-black text-white py-1 px-4 rounded-md hover:bg-gray-400 transition
         ${pending && "cursor-not-allowed"}`}
         type="submit"
         disabled={pending}

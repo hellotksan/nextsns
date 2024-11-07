@@ -9,6 +9,7 @@ import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
 import { useAppSelector } from "@/hooks/useSelector";
+import SideBar from "@/components/layouts/sideBar/SideBar";
 
 const PostEditContent: React.FC = () => {
   const { user, isLoading, error } = useAppSelector((state) => state.auth);
@@ -41,6 +42,9 @@ const PostEdit: React.FC = () => {
   return (
     <>
       <Topbar />
+      <div className="hidden xl:block">
+        <SideBar />
+      </div>
       <Suspense fallback={<LoadingSpinner />}>
         <PostEditContent />
       </Suspense>

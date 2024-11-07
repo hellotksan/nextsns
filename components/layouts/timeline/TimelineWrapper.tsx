@@ -6,7 +6,9 @@ import GuestTimeline from "./GuestTimeline";
 import { useAppSelector } from "@/hooks/useSelector";
 
 const TimelineWrapper = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, isLoading } = useAppSelector((state) => state.auth);
+
+  if (isLoading) return null;
 
   return user ? (
     <Timeline toHome={true} username={undefined} />

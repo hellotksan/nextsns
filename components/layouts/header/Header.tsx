@@ -3,10 +3,8 @@
 import * as React from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import HamburgerMenu from "@/components/layouts/hamburgerMenu/HamburgerMenu";
-import Sidebar from "@/components/layouts/leftbar/Leftbar";
+import HamburgerMenu from "./HamburgerMenu";
 import { useAppSelector } from "@/hooks/useSelector";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PersonIcon from "@mui/icons-material/Person";
@@ -23,6 +21,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 const Topbar: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -43,12 +42,18 @@ const Topbar: React.FC = () => {
     }
   };
 
-  return (
-    <header className="h-16 w-full flex items-center sticky top-0 z-50 backdrop-blur border-b border-gray-300">
-      <div className="hidden xl:block">
-        <Sidebar />
-      </div>
+  const [isClient, setIsClient] = React.useState(false);
 
+  React.useEffect(() => {
+    setIsClient(true); // クライアントサイドでのレンダリングを有効化
+  }, []);
+
+  if (!isClient) return null;
+
+  // if (!user) return null;
+
+  return (
+    <div className="h-16 w-full flex items-center sticky top-0 z-50 backdrop-blur border-b border-gray-300">
       {/* ハンバーガーメニュー（モバイル用） */}
       <div className="xl:hidden">
         <HamburgerMenu />
@@ -85,17 +90,14 @@ const Topbar: React.FC = () => {
         </DropdownMenu>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            {user?.profilePicture ? (
-              <Image
-                src={`/assets/person/${user.profilePicture}`}
-                alt="Profile"
-                className="w-8 h-8 rounded-full object-cover"
-                width={32}
-                height={32}
+          <DropdownMenuTrigger aria-label="user-icon">
+            {user && user.profilePicture ? (
+              <RocketLaunchIcon
+                fontSize="medium"
+                className="w-8 h-8 no-underline"
               />
             ) : (
-              <PersonIcon className="w-8 h-8 no-underline" />
+              <PersonIcon fontSize="medium" className="w-8 h-8 no-underline" />
             )}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -127,7 +129,7 @@ const Topbar: React.FC = () => {
               <>
                 <DropdownMenuItem>
                   <Link href={{ pathname: "/login" }} className="no-underline">
-                    <LoginIcon />
+                    <LoginIcon className="mr-2" />
                     Login
                   </Link>
                 </DropdownMenuItem>
@@ -136,7 +138,7 @@ const Topbar: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </header>
+    </div>
   );
 };
 
