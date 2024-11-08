@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import axios from "axios";
 import { POSTS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";

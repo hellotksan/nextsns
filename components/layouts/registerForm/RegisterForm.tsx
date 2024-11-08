@@ -1,41 +1,30 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { AUTH_REGISTER_ENDPOINT } from "@/constants/api";
+import RegisterButton from "./RegisterButton";
 
 const RegisterForm: React.FC = () => {
-  const username = useRef<HTMLInputElement>(null);
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
-  const passwordConfirmation = useRef<HTMLInputElement>(null);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // パスワードと確認用のパスワードがあっているか確認
-    if (password.current!.value !== passwordConfirmation.current!.value) {
-      passwordConfirmation.current!.setCustomValidity("パスワードが違います");
-    } else {
-      passwordConfirmation.current!.setCustomValidity("");
-      onSubmit({
-        username: username.current!.value,
-        email: email.current!.value,
-        password: password.current!.value,
-      });
+    if (password !== passwordConfirmation) {
+      alert("パスワードが一致しません");
+      return;
     }
-  };
 
-  const onSubmit = async (user: {
-    username: string;
-    email: string;
-    password: string;
-  }) => {
     try {
-      await axios.post(AUTH_REGISTER_ENDPOINT, user);
+      await axios.post(AUTH_REGISTER_ENDPOINT, { username, email, password });
+      alert("ユーザーを登録しました。");
       router.push("/login");
     } catch (err) {
       alert("ユーザー登録に失敗しました。もう一度お試しください。");
@@ -53,40 +42,39 @@ const RegisterForm: React.FC = () => {
       </p>
       <input
         type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="ユーザ名"
         required
-        ref={username}
       />
       <input
         type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="Eメール"
         required
-        ref={email}
       />
       <input
         type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="パスワード"
         required
         minLength={6}
-        ref={password}
       />
       <input
         type="password"
+        value={passwordConfirmation}
+        onChange={(e) => setPasswordConfirmation(e.target.value)}
         className="h-12 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         placeholder="確認用パスワード"
         required
         minLength={6}
-        ref={passwordConfirmation}
       />
-      <button
-        type="submit"
-        className="h-12 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors"
-      >
-        サインアップ
-      </button>
+      <RegisterButton />
     </form>
   );
 };

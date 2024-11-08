@@ -1,6 +1,6 @@
+import LoginForm from "@/components/layouts/loginComponents/LoginForm";
+import RegisterRedirectButton from "@/components/layouts/loginComponents/RegisterRedirectButton";
 import React from "react";
-import RegisterButton from "@/components/layouts/registerButton/RegisterButton";
-import LoginForm from "@/components/layouts/loginForm/LoginForm";
 
 const LoginPage: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const LoginPage: React.FC = () => {
         </div>
         <div className="flex-1 flex flex-col justify-center space-y-4">
           <LoginForm />
-          <RegisterButton />
+          <RegisterRedirectButton />
         </div>
       </div>
     </div>

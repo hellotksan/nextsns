@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-const RegisterButton: React.FC = () => {
+const RegisterRedirectButton: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -21,4 +21,4 @@ const RegisterButton: React.FC = () => {
   );
 };
 
-export default RegisterButton;
+export default RegisterRedirectButton;
