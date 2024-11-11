@@ -39,7 +39,7 @@
     "react-toastify": "^10.0.6",
     "redux-mock-store": "^1.5.5",
     "remark": "^15.0.1",
-    "shadcn": "^2.1.4",
+    "shadcn": "^2.1.6",
     "styled-components": "^6.1.13",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.5.4",
