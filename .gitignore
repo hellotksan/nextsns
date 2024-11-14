@@ -35,7 +35,6 @@ yarn-error.log*
 next-env.d.ts
 
 # Lint-staged/husky temporary files
-.husky/_/
 
 # Ignore Storybook build output
 storybook-static/
