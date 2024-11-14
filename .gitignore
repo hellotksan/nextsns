@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -35,3 +33,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Lint-staged/husky temporary files
+.husky/_/
+
+# Ignore Storybook build output
+storybook-static/
+
+# Ignore specific configuration for .storybook (as per provided settings)
+!.storybook
