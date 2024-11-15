@@ -1,12 +1,11 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
 import React, { Suspense, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import ProfileComponent from "@/components/layouts/profile/Profile";
 import Timeline from "@/components/layouts/timeline/Timeline";
 import Topbar from "@/components/layouts/header/Header";
-import SideBar from "@/components/layouts/sideBar/SideBar";
 
 const ProfileContent: React.FC = () => {
   const searchParams = useSearchParams();
@@ -34,18 +33,17 @@ const ProfileContent: React.FC = () => {
   );
 };
 
-const Profile: React.FC = () => {
+const ProfilePage: React.FC = () => {
   return (
-    <>
+    <div className="w-full flex flex-col">
       <Topbar />
-      <div className="hidden xl:block">
-        <SideBar />
+      <div className="max-w-xl mx-auto">
+        <Suspense fallback={<LoadingSpinner />}>
+          <ProfileContent />
+        </Suspense>
       </div>
-      <Suspense fallback={<LoadingSpinner />}>
-        <ProfileContent />
-      </Suspense>
-    </>
+    </div>
   );
 };
 
-export default Profile;
+export default ProfilePage;

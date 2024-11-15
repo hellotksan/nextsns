@@ -1,18 +1,16 @@
 import React from "react";
-import FollowersComponent from "@/components/layouts/followers/Followers";
 import Topbar from "@/components/layouts/header/Header";
-import SideBar from "@/components/layouts/sideBar/SideBar";
+import FollowersComponent from "@/components/layouts/followers/Followers";
 
-function Followers() {
+const FollowersPage: React.FC = () => {
   return (
-    <>
+    <div className="w-full flex flex-col">
       <Topbar />
-      <div className="hidden xl:block">
-        <SideBar />
+      <div className="max-w-xl mx-auto">
+        <FollowersComponent />
       </div>
-      <FollowersComponent />
-    </>
+    </div>
   );
-}
+};
 
-export default Followers;
+export default FollowersPage;

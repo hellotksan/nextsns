@@ -1,6 +1,6 @@
+import React from "react";
 import LoginForm from "@/components/layouts/loginComponents/LoginForm";
 import RegisterRedirectButton from "@/components/layouts/loginComponents/RegisterRedirectButton";
-import React from "react";
 
 const LoginPage: React.FC = () => {
   return (

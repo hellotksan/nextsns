@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
@@ -25,11 +25,11 @@ export default function RootLayout({
         <AuthProviderWrapper>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
-            {children}{" "}
+            {children}
           </ThemeProvider>
         </AuthProviderWrapper>
       </body>

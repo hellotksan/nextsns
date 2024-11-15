@@ -48,14 +48,6 @@ const SettingComponent: React.FC = () => {
     }
   };
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true); // クライアントサイドでのレンダリングを有効化
-  }, []);
-
-  if (!isClient) return null; // クライアントサイドでない場合、何も表示しない
-
   if (!user) return null;
 
   return (
@@ -63,7 +55,9 @@ const SettingComponent: React.FC = () => {
       <div className="p-6 w-full">
         <h2 className="text-2xl font-bold mb-4">ユーザー設定</h2>
         <div className="space-y-2">
-          <div className="text-lg font-medium">ユーザー名：{user?.username}</div>
+          <div className="text-lg font-medium">
+            ユーザー名：{user?.username}
+          </div>
           <div className="text-lg font-medium">ユーザー情報：</div>
           <textarea
             value={desc}

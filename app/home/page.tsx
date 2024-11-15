@@ -1,16 +1,16 @@
 import React from "react";
 import Topbar from "@/components/layouts/header/Header";
-import AllUsers from "@/components/layouts/allUsers/AllUsers";
+import TimelineWrapper from "@/components/layouts/timeline/TimelineWrapper";
 
-const AllUsersPage: React.FC = () => {
+const HomePage: React.FC = () => {
   return (
     <div className="w-full flex flex-col">
       <Topbar />
       <div className="max-w-xl mx-auto">
-        <AllUsers />
+        <TimelineWrapper />
       </div>
     </div>
   );
 };
 
-export default AllUsersPage;
+export default HomePage;

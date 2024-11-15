@@ -1,18 +1,16 @@
 import React from "react";
 import SettingComponent from "@/components/layouts/setting/Setting";
 import Topbar from "@/components/layouts/header/Header";
-import SideBar from "@/components/layouts/sideBar/SideBar";
 
-const Setting: React.FC = () => {
+const SettingPage: React.FC = () => {
   return (
-    <>
+    <div className="w-full flex flex-col">
       <Topbar />
-      <div className="hidden xl:block">
-        <SideBar />
+      <div className="min-w-96 max-w-xl mx-auto">
+        <SettingComponent />
       </div>
-      <SettingComponent />
-    </>
+    </div>
   );
 };
 
-export default Setting;
+export default SettingPage;

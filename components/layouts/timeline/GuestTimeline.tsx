@@ -63,14 +63,13 @@ const InfiniteScrollPosts: React.FC = () => {
   }, [handleScroll]);
 
   return (
-    <div className="flex justify-center shadow-md rounded-lg w-full max-w-xl mx-auto">
+    <div className="flex justify-center shadow-md rounded-lg w-full">
       <div className="w-full mx-10 relative">
         {loading ? (
           <LoadingSpinner />
         ) : (
           posts.map((post) => <PostComponent key={post._id} post={post} />)
         )}
-        {isFetching && <LoadingSpinner />}
       </div>
     </div>
   );

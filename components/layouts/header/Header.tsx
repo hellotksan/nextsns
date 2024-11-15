@@ -22,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Topbar: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -35,33 +36,20 @@ const Topbar: React.FC = () => {
     if (confirmLogout) {
       try {
         Cookies.remove("user", { path: "/" });
-        router.replace("/login");
+        router.replace("/");
       } catch (error) {
         alert("ログアウトに失敗しました。もう一度お試しください。");
       }
     }
   };
 
-  const [isClient, setIsClient] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsClient(true); // クライアントサイドでのレンダリングを有効化
-  }, []);
-
-  if (!isClient) return null;
-
-  // if (!user) return null;
-
   return (
-    <div className="h-16 w-full flex items-center sticky top-0 z-50 backdrop-blur border-b border-gray-300">
-      {/* ハンバーガーメニュー（モバイル用） */}
-      <div className="xl:hidden">
-        <HamburgerMenu />
-      </div>
+    <div className="h-16 w-full flex items-center sticky top-0 z-20 backdrop-blur border-b border-gray-300">
+      <SidebarTrigger className="ml-4" />
 
       {/* 左側のロゴ */}
       <div className="flex-1 ml-5">
-        <Link href="/" className="font-bold text-2xl no-underline">
+        <Link href="/home" className="font-bold text-2xl no-underline">
           Next SNS
         </Link>
       </div>

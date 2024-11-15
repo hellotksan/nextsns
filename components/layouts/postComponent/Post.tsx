@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MoreVert } from "@mui/icons-material";
 import { format } from "timeago.js";
-import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { USERS_ENDPOINT, POSTS_ENDPOINT } from "@/constants/api";
@@ -109,7 +108,7 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
                     <>
                       <Link
                         href={{
-                          pathname: "/post-edit",
+                          pathname: "/post/edit",
                           query: post?._id ? { "post-id": post._id } : {},
                         }}
                         className="no-underline"

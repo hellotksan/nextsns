@@ -8,6 +8,7 @@ import Error from "@/components/layouts/error/Error";
 import useAllUsers from "@/hooks/useAllUsers";
 import { User } from "@/types/user";
 import PersonIcon from "@mui/icons-material/Person";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 const AllUsers: React.FC = () => {
   const { users, loading, error } = useAllUsers();
@@ -34,12 +35,9 @@ const AllUsers: React.FC = () => {
                 >
                   <div className="flex items-center">
                     {user.profilePicture ? (
-                      <Image
-                        src={`/assets/person/${user.profilePicture}`}
-                        alt={user.username}
-                        className="rounded-full"
-                        width={32}
-                        height={32}
+                      <RocketLaunchIcon
+                        fontSize="medium"
+                        className="w-8 h-8 rounded-full"
                       />
                     ) : (
                       <PersonIcon

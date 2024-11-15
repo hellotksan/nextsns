@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
     try {
       const userData: User = await loginCall({ email, password, dispatch });
       dispatch(loginSuccess(userData));
-      router.push("/");
+      router.push("/home");
     } catch (err) {
       dispatch(loginError("ログインに失敗しました"));
       alert("エラーが発生しました。");

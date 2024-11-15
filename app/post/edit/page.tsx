@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
 import React, { Suspense, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import UserNotFound from "@/components/layouts/userNotFound/UserNotFound";
 import EditPost from "@/components/layouts/editPost/EditPost";
@@ -9,7 +9,6 @@ import Loading from "@/components/layouts/loading/Loading";
 import Topbar from "@/components/layouts/header/Header";
 import Error from "@/components/layouts/error/Error";
 import { useAppSelector } from "@/hooks/useSelector";
-import SideBar from "@/components/layouts/sideBar/SideBar";
 
 const PostEditContent: React.FC = () => {
   const { user, isLoading, error } = useAppSelector((state) => state.auth);
@@ -27,29 +26,26 @@ const PostEditContent: React.FC = () => {
 
   if (!user) {
     return <UserNotFound />;
-  }
-  if (isLoading) {
+  } else if (isLoading) {
     return <Loading />;
-  }
-  if (error) {
+  } else if (error) {
     return <Error />;
   }
 
   return <EditPost postId={postId || ""} />;
 };
 
-const PostEdit: React.FC = () => {
+const PostEditPage: React.FC = () => {
   return (
-    <>
+    <div className="w-full flex flex-col">
       <Topbar />
-      <div className="hidden xl:block">
-        <SideBar />
+      <div className="max-w-xl mx-auto">
+        <Suspense fallback={<LoadingSpinner />}>
+          <PostEditContent />
+        </Suspense>
       </div>
-      <Suspense fallback={<LoadingSpinner />}>
-        <PostEditContent />
-      </Suspense>
-    </>
+    </div>
   );
 };
 
-export default PostEdit;
+export default PostEditPage;
