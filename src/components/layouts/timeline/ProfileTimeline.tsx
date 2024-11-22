@@ -2,31 +2,23 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import PostForm from "@/components/layouts/postForm/PostForm";
-import PostComponent from "@/components/layouts/postComponent/Post";
+import PostForm from "./PostForm";
+import PostComponent from "./Post";
 import { POSTS_ENDPOINT } from "@/constants/api";
 import { useAppSelector } from "@/hooks/useSelector";
 import { User } from "@/types/user";
 import { Post } from "@/types/post";
 
 interface TimelineProps {
-  toHome?: boolean;
-  username?: string;
+  username: string | null;
 }
 
-const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
+const ProfileTimeline: React.FC<TimelineProps> = ({ username = null }) => {
   const { user } = useAppSelector((state) => state.auth) as { user: User };
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [isFetching, setIsFetching] = useState<boolean>(false);
-
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true); // クライアントサイドでのレンダリングを有効化
-  }, []);
 
   const handlePostSuccess = (newPost: Post) => {
     setPosts((prev) => [newPost, ...prev]);
@@ -34,13 +26,9 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
 
   const fetchPosts = useCallback(
     async (cursor: string | null = null) => {
-      if (!user && toHome) return null;
-
+      if (!user) return null;
       setIsFetching(true);
-
-      const endpoint = username
-        ? `${POSTS_ENDPOINT}/profile/${username}`
-        : `${POSTS_ENDPOINT}/timeline/${user._id}`;
+      const endpoint = `${POSTS_ENDPOINT}/profile/${username}`;
 
       try {
         const response = await axios.get(endpoint, { params: { cursor } });
@@ -62,14 +50,14 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
         if (response.data.nextCursor) {
           setNextCursor(response.data.nextCursor);
         }
-      } catch (error) {
+      } catch (err) {
         alert("投稿の取得に失敗しました。もう一度お試しください。");
       } finally {
         setIsFetching(false);
         setLoading(false);
       }
     },
-    [username, user, toHome]
+    [username, user]
   );
 
   useEffect(() => {
@@ -91,25 +79,21 @@ const Timeline: React.FC<TimelineProps> = ({ toHome = false, username }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  if (!user && toHome) return null;
-
-  if (!isClient) return null; // クライアントサイドでない場合、何も表示しない
+  if (!user) return null;
 
   return (
     <div className="flex justify-center border-x-2 rounded-lg w-full max-w-xl mx-auto">
       <div className="w-full mx-10 relative">
-        {toHome || username === user?.username ? (
+        {username === user?.username ? (
           <PostForm onPostSuccess={handlePostSuccess} />
         ) : null}
 
         {loading
           ? null
           : posts.map((post) => <PostComponent key={post._id} post={post} />)}
-
-        {isFetching && <LoadingSpinner />}
       </div>
     </div>
   );
 };
 
-export default Timeline;
+export default ProfileTimeline;

@@ -3,15 +3,26 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import PostComponent from "@/components/layouts/postComponent/Post";
+import PostComponent from "./Post";
 import { Post } from "@/types/post";
 import { POSTS_ALL_ENDPOINT } from "@/constants/api";
+import PostForm from "./PostForm";
+import { useAuth } from "@/hooks/useAuth";
 
-const InfiniteScrollPosts: React.FC = () => {
+interface TimelineProps {
+  isForm: boolean;
+}
+
+const HomeTimeline: React.FC<TimelineProps> = ({ isForm = false }) => {
+  const { user } = useAuth();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [isFetching, setIsFetching] = useState(false);
+
+  const handlePostSuccess = (newPost: Post) => {
+    setPosts((prev) => [newPost, ...prev]);
+  };
 
   const fetchPosts = useCallback(async (cursor: string | null = null) => {
     setLoading(true);
@@ -65,6 +76,8 @@ const InfiniteScrollPosts: React.FC = () => {
   return (
     <div className="flex justify-center shadow-md rounded-lg w-full">
       <div className="w-full mx-10 relative">
+        {isForm && user ? <PostForm onPostSuccess={handlePostSuccess} /> : null}
+
         {loading ? (
           <LoadingSpinner />
         ) : (
@@ -75,4 +88,4 @@ const InfiniteScrollPosts: React.FC = () => {
   );
 };
 
-export default InfiniteScrollPosts;
+export default HomeTimeline;

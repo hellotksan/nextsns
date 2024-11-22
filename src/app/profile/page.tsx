@@ -1,23 +1,16 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import ProfileComponent from "@/components/layouts/profile/Profile";
-import Timeline from "@/components/layouts/timeline/Timeline";
+import ProfileTimeline from "@/components/layouts/timeline/ProfileTimeline";
 import Topbar from "@/components/layouts/header/Header";
 
 const ProfileContent: React.FC = () => {
   const searchParams = useSearchParams();
   const username = searchParams.get("username");
   const router = useRouter();
-
-  useEffect(() => {
-    if (!username) {
-      alert("ユーザーが存在しません。");
-      router.replace("/");
-    }
-  }, [username, router]);
 
   if (!username) {
     alert("ユーザーが存在しません。");
@@ -28,7 +21,7 @@ const ProfileContent: React.FC = () => {
   return (
     <>
       <ProfileComponent username={username} />
-      <Timeline username={username} />
+      <ProfileTimeline username={username} />
     </>
   );
 };
@@ -37,7 +30,7 @@ const ProfilePage: React.FC = () => {
   return (
     <div className="w-full flex flex-col">
       <Topbar />
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-md mx-auto">
         <Suspense fallback={<LoadingSpinner />}>
           <ProfileContent />
         </Suspense>

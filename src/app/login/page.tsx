@@ -1,6 +1,5 @@
 import React from "react";
-import LoginForm from "@/components/layouts/loginComponents/LoginForm";
-import RegisterRedirectButton from "@/components/layouts/loginComponents/RegisterRedirectButton";
+import * as Login from "@/components/layouts/login/index";
 
 const LoginPage: React.FC = () => {
   return (
@@ -15,8 +14,8 @@ const LoginPage: React.FC = () => {
           </span>
         </div>
         <div className="flex-1 flex flex-col justify-center space-y-4 mt-6 md:mt-0">
-          <LoginForm />
-          <RegisterRedirectButton />
+          <Login.LoginForm />
+          <Login.RegisterRedirectButton />
         </div>
       </div>
     </div>

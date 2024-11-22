@@ -20,43 +20,27 @@
 
 ## デモ
 
-[https://nextsns-one.vercel.app](https://nextsns-one.vercel.app)
+[https://nextsns.net](https://nextsns.net)
 
 ## 特徴
 
 このソースコードは OSS として公開しているので、MIT ライセンスを使用していただければ、
 どんな風に利用してもよいです。
 
+[LICENSE](LICENSE)
+
 ## このプロジェクトに興味がありますか
 
 こちらから確認してください。
 プロジェクトへの貢献を歓迎します！
 
-[CONTRIBUTING.md](./CONTRIBUTING.md)
+[CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## 依存関係
 
 このプロジェクトは以下の主要なライブラリに依存しています：
 
-### Language
-
-- JavaScript
-- TypeScript
-
-### FrameWork and Libraries
-
-- React
-- NextJs
-- Redux
-- TailwindCSS
-- Vitest
-- Shadcn/ui
-- ...
-
-### ToBe
-
-- NextAuth
-- useSWR
+[package.json](package.json)
 
 ## 前提条件
 
@@ -98,10 +82,10 @@
 /
 ├── .github/        # GitHub設定
 ├── .husky/         # コミットフック
-├── public/         # 静的ファイル（Next.jsがルートに必要）
+├── public/         # 静的ファイル
 ├── src/
 │   ├── app/        # Next.jsのApp Router
-│   ├── components/ # 再利用可能なUIコンポーネント
+│   ├── components/
 │   ├── constants/  # 定数（APIエンドポイントなど）
 │   ├── features/   # 機能単位のモジュール（例: 認証）
 │   ├── hooks/      # カスタムフック

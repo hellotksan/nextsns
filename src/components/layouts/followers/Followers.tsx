@@ -7,7 +7,7 @@ import { useAppSelector } from "@/hooks/useSelector";
 import useFollowers from "@/hooks/useFollowers";
 import PersonIcon from "@mui/icons-material/Person";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import Error from "@/components/layouts/error/Error";
+import * as Feedback from "@/components/shared/feedback/index";
 
 function FollowersComponent() {
   const { user } = useAppSelector((state) => state.auth);
@@ -22,7 +22,7 @@ function FollowersComponent() {
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
-        <Error />
+        <Feedback.Error />
       ) : (
         <div className="flex justify-center p-4">
           <div className="w-full max-w-md">

@@ -4,19 +4,21 @@ import { format } from "timeago.js";
 import Link from "next/link";
 import axios from "axios";
 import { USERS_ENDPOINT, POSTS_ENDPOINT } from "@/constants/api";
-import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import { useAppSelector } from "@/hooks/useSelector";
 import { Post as PostType } from "@/types/post";
 import { User } from "@/types/user";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonIcon from "@mui/icons-material/Person";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
+
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PersonIcon from "@mui/icons-material/Person";
 
 interface PostProps {
   post: PostType;
@@ -141,7 +143,7 @@ const PostComponent: React.FC<PostProps> = ({ post }) => {
                 />
                 <span className="text-base">{like}</span>
               </div>
-              {/* コメント数の表示 */}
+              {/* TODO:コメント数の表示 */}
             </div>
           </div>
         </div>
