@@ -4,7 +4,6 @@ import * as React from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import HamburgerMenu from "./HamburgerMenu";
 import { useAppSelector } from "@/hooks/useSelector";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PersonIcon from "@mui/icons-material/Person";

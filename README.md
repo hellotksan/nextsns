@@ -20,43 +20,27 @@
 
 ## デモ
 
-[https://nextsns-one.vercel.app](https://nextsns-one.vercel.app)
+[https://nextsns.net](https://nextsns.net)
 
 ## 特徴
 
 このソースコードは OSS として公開しているので、MIT ライセンスを使用していただければ、
 どんな風に利用してもよいです。
 
+[LICENSE](LICENSE)
+
 ## このプロジェクトに興味がありますか
 
 こちらから確認してください。
 プロジェクトへの貢献を歓迎します！
 
-[CONTRIBUTING.md](./CONTRIBUTING.md)
+[CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## 依存関係
 
 このプロジェクトは以下の主要なライブラリに依存しています：
 
-### Language
-
-- JavaScript
-- TypeScript
-
-### FrameWork
-
-- React
-- NextJs
-- Redux
-- TailwindCSS
-- Vitest
-- Shadcn/ui
-- ...
-
-### ToBe
-
-- NextAuth
-- useSWR
+[package.json](package.json)
 
 ## 前提条件
 
@@ -82,22 +66,10 @@
    npm install
    ```
 
-   または
-
-   ```bash
-   yarn install
-   ```
-
 3. 開発サーバーを起動します。
 
    ```bash
    npm run dev
-   ```
-
-   または
-
-   ```bash
-   yarn start
    ```
 
 4. ブラウザで [http://localhost:3000](http://localhost:3000) を開き、アプリを確認します。
@@ -107,65 +79,22 @@
 ## プロジェクトのディレクトリ構造
 
 ```sh
-├── /app                     # アプリの主要なページやレイアウト、ルート構成を含むディレクトリ
-│   ├── /followers           # フォロワーページ
-│   │   └── page.tsx         # フォロワーページのメインコンポーネント
-│   ├── /...                 # 他のページやコンポーネント
-│   ├── layouts.tsx          # 全体のレイアウトコンポーネント
-│   ├── page.tsx             # トップページのコンポーネント
-│   └── ...
-│
-├── /components              # 再利用可能なUIコンポーネントをまとめる
-│   ├── /elements            # 小規模なコンポーネント
-│   │   └── /loadingSpinner  # 読み込みスピナー
-│   │       ├── loadingSpinner.tsx   # スピナーの定義
-│   │       └── ...
-│   ├── /layouts             # レイアウト関連のコンポーネント
-│   │   ├── /allUsers        # 全ユーザーを表示するコンポーネントのレイアウト
-│   │   │   ├── allUsers.tsx
-│   │   │   └── ...
-│   │   └── ...
-│   ├── /ui                  # ShadCnのコンポーネント
-│   └── theme-provider.tsx   # 画面全体のテーマの設定
-│
-├── /constants               # 頻繁に使う定数を定義する
-│   ├── api.ts               # APIのエンドポイントURLを格納
-│   └── ...
-│
-├── /features                # 機能ごとにまとめた機能ベースのディレクトリ
-│   └── /auth                # 認証機能
-│       └── authSlice.tsx    # 認証の状態管理
-│
-├── /hooks                   # React Hooksのカスタムフックを定義
-│   ├── useAuth.ts           # 認証関連のフック
-│   ├── useDispatch.ts       # Dispatch関数用のフック
-│   ├── useSelector.ts       # Reduxのセレクター用フック
-│   └── ...
-│
-├── /lib                     #
-│   └── utils.ts             #
-│
-├── /public                  # 公開リソースや画像を格納
-│   ├── /assets              # アセットをまとめる
-│   │   └── /person          # 人物関連の画像
-│   │       └── admin.png    # 管理者画像
-│   └── ...
-│
-├── /state                   # グローバルステート管理用
-│   └── store.ts             # Reduxストアの定義
-│
-├── /styles                  # CSSやスタイル定義をまとめる
-│   └── globals.css          # グローバルなスタイル定義
-│
-├── /test                    # テスト関連の設定
-│   └── setup.ts             # テスト環境の設定ファイル
-│
-├── /types                   # TypeScriptで使う型定義をまとめる
-│   ├── user.ts              # ユーザー型の定義
-│   └── ...
-│
-├── README.md                # プロジェクトの概要や説明を記載
-└── ...
+/
+├── .github/        # GitHub設定
+├── .husky/         # コミットフック
+├── public/         # 静的ファイル
+├── src/
+│   ├── app/        # Next.jsのApp Router
+│   ├── components/
+│   ├── constants/  # 定数（APIエンドポイントなど）
+│   ├── features/   # 機能単位のモジュール（例: 認証）
+│   ├── hooks/      # カスタムフック
+│   ├── lib/        # ユーティリティ関数
+│   ├── state/      # グローバル状態管理
+│   ├── styles/     # CSSやスタイル関連
+│   ├── test/       # テストコード（src内に移動も可）
+│   └── types/      # TypeScriptの型定義
+└── next.config.js  # Next.jsの設定
 ```
 
 ## コンポーネント間の依存関係
@@ -173,6 +102,10 @@
 ## ページ設計
 
 - /
+
+  サイトの紹介ページ
+
+- /home
 
   ホームページ
 

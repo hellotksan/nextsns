@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import Error from "@/components/layouts/error/Error";
+import * as Feedback from "@/components/shared/feedback/index";
 import { useAppSelector } from "@/hooks/useSelector";
 import useFollowingFriends from "@/hooks/useFollowingFriends";
 import PersonIcon from "@mui/icons-material/Person";
@@ -22,7 +22,7 @@ function FollowingUsersComponent() {
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
-        <Error />
+        <Feedback.Error />
       ) : (
         <div className="flex justify-center p-4">
           <div className="w-full max-w-md">

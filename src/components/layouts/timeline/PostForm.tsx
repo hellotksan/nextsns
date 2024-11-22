@@ -7,7 +7,7 @@ import { useAppSelector } from "@/hooks/useSelector";
 import PersonIcon from "@mui/icons-material/Person";
 import { User } from "@/types/user";
 import { Post } from "@/types/post";
-import PostButton from "@/components/elements/PostButton";
+import PostButton from "./PostButton";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 interface PostFormProps {

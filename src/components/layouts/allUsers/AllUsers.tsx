@@ -1,16 +1,15 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import Error from "@/components/layouts/error/Error";
+import * as Feedback from "@/components/shared/feedback/index";
 import useAllUsers from "@/hooks/useAllUsers";
 import { User } from "@/types/user";
 import PersonIcon from "@mui/icons-material/Person";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
-const AllUsers: React.FC = () => {
+const AllUsersComponent: React.FC = () => {
   const { users, loading, error } = useAllUsers();
 
   return (
@@ -18,10 +17,10 @@ const AllUsers: React.FC = () => {
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
-        <Error />
+        <Feedback.Error />
       ) : (
-        <div className="flex justify-center p-4">
-          <div className="w-full max-w-md">
+        <div className="w-full flex justify-center p-4">
+          <div className="w-96">
             <h4 className="text-xl font-bold mb-4 text-center">全ユーザー</h4>
             <div className="space-y-2">
               {users.map((user: User) => (
@@ -41,8 +40,8 @@ const AllUsers: React.FC = () => {
                       />
                     ) : (
                       <PersonIcon
-                        className="text-gray-500"
-                        style={{ width: 32, height: 32 }}
+                        fontSize="medium"
+                        className="w-8 h-8 rounded-full"
                       />
                     )}
                     <span className="ml-2 text-lg">{user.username}</span>
@@ -57,4 +56,4 @@ const AllUsers: React.FC = () => {
   );
 };
 
-export default AllUsers;
+export default AllUsersComponent;

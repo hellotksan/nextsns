@@ -8,14 +8,21 @@ import {
 } from "@/features/auth/authSlice";
 import { User } from "@/types/user";
 
-export const useAuth = () => {
+interface UseAuthReturn {
+  user: User | null;
+  isLoading: boolean;
+  error: string | null;
+  login: (userData: User) => Promise<void>;
+  logoutUser: () => void;
+}
+
+export const useAuth = (): UseAuthReturn => {
   const dispatch = useAppDispatch();
   const { user, isLoading, error } = useAppSelector((state) => state.auth);
 
   const login = async (userData: User) => {
     dispatch(loginStart());
     try {
-      // ここでAPI通信などを行う
       dispatch(loginSuccess(userData));
     } catch (err) {
       dispatch(loginError("ログインに失敗しました"));
