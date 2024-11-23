@@ -66,15 +66,21 @@
    npm install
    ```
 
-3. 開発サーバーを起動します。
+3. .env ファイルの配置
+
+   .env
+
+   ```env
+   NEXT_PUBLIC_API_URL="https://real-sns-back-end.vercel.app"
+   ```
+
+4. 開発サーバーを起動します。
 
    ```bash
    npm run dev
    ```
 
-4. ブラウザで [http://localhost:3000](http://localhost:3000) を開き、アプリを確認します。
-
-## 使用方法
+5. ブラウザで [http://localhost:3000](http://localhost:3000) を開き、アプリを確認します。
 
 ## プロジェクトのディレクトリ構造
 
@@ -96,8 +102,6 @@
 │   └── types/      # TypeScriptの型定義
 └── next.config.js  # Next.jsの設定
 ```
-
-## コンポーネント間の依存関係
 
 ## ページ設計
 
