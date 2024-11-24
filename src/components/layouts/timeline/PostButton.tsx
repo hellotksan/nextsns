@@ -12,7 +12,7 @@ function PostButton() {
         type="submit"
         disabled={pending}
       >
-        投稿
+        {pending ? "投稿" : "投稿中..."}
       </button>
     </div>
   );

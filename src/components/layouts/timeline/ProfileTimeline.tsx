@@ -3,18 +3,18 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import PostForm from "./PostForm";
-import PostComponent from "./Post";
+import SinglePost from "./SinglePost";
 import { POSTS_ENDPOINT } from "@/constants/api";
-import { useAppSelector } from "@/hooks/useSelector";
 import { User } from "@/types/user";
 import { Post } from "@/types/post";
+import { useAuth } from "@/hooks/useAuth";
 
 interface TimelineProps {
   username: string | null;
 }
 
 const ProfileTimeline: React.FC<TimelineProps> = ({ username = null }) => {
-  const { user } = useAppSelector((state) => state.auth) as { user: User };
+  const { user } = useAuth() as { user: User };
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
@@ -82,15 +82,15 @@ const ProfileTimeline: React.FC<TimelineProps> = ({ username = null }) => {
   if (!user) return null;
 
   return (
-    <div className="flex justify-center border-x-2 rounded-lg w-full max-w-xl mx-auto">
-      <div className="w-full mx-10 relative">
+    <div className="w-full flex justify-center">
+      <div className="relative">
         {username === user?.username ? (
           <PostForm onPostSuccess={handlePostSuccess} />
         ) : null}
 
         {loading
           ? null
-          : posts.map((post) => <PostComponent key={post._id} post={post} />)}
+          : posts.map((post) => <SinglePost key={post._id} post={post} />)}
       </div>
     </div>
   );

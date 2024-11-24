@@ -51,14 +51,14 @@ export function AppSidebar() {
     else if (item.title === "Profile") {
       return {
         ...item,
-        url: user ? `/profile?username=${user.username}` : "#",
+        url: user ? `/profile?username=${user.username}` : "/login",
       };
     }
     // 設定ページ
     else if (item.title === "Settings") {
       return {
         ...item,
-        url: user ? `/setting` : "#",
+        url: user ? `/setting` : "/login",
       };
     }
     // 全ユーザページ

@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAppSelector } from "@/hooks/useSelector";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -22,11 +20,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useAuth } from "@/hooks/useAuth";
 
 const Topbar: React.FC = () => {
-  const { user } = useAppSelector((state) => state.auth);
   const router = useRouter();
-
+  const { user, logoutUser } = useAuth();
   const { setTheme } = useTheme();
 
   const handleLogout = () => {
@@ -34,27 +32,27 @@ const Topbar: React.FC = () => {
 
     if (confirmLogout) {
       try {
-        Cookies.remove("user", { path: "/" });
+        logoutUser();
         router.replace("/");
       } catch (error) {
         alert("ログアウトに失敗しました。もう一度お試しください。");
+        router.refresh();
       }
     }
   };
 
   return (
     <div className="h-16 w-full flex items-center sticky top-0 z-20 backdrop-blur border-b border-gray-300">
-      <SidebarTrigger className="ml-4" />
+      <SidebarTrigger className="ml-5"/>
 
-      {/* 左側のロゴ */}
-      <div className="flex-1 ml-5">
-        <Link href="/home" className="font-bold text-2xl no-underline">
+      <div className="flex-1 flex items-center justify-start space-x-4 ml-5 xl:ml-60">
+        <Link href="/home" className="ml-2 font-bold text-2xl no-underline">
           Next SNS
         </Link>
       </div>
 
       {/* 右側のアイコンとログアウトボタン */}
-      <div className="flex-1 flex items-center justify-end space-x-4 mr-5">
+      <div className="flex-1 flex items-center justify-end space-x-4 mr-5 xl:mr-80">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon">
@@ -92,17 +90,16 @@ const Topbar: React.FC = () => {
             <DropdownMenuSeparator />
 
             {user ? (
-              // ログインしていればプロフィールとログアウトを表示する
               <>
                 <DropdownMenuItem>
                   <Link
                     href={{
                       pathname: "/profile",
-                      query: user?.username ? { username: user.username } : {},
+                      query: user.username ? { username: user.username } : {},
                     }}
                     className="no-underline"
                   >
-                    <PersonOutlineIcon />
+                    <PersonOutlineIcon fontSize="medium" />
                     Profile
                   </Link>
                 </DropdownMenuItem>
@@ -112,15 +109,12 @@ const Topbar: React.FC = () => {
                 </DropdownMenuItem>
               </>
             ) : (
-              // ログインしていなければログインを表示する
-              <>
-                <DropdownMenuItem>
-                  <Link href={{ pathname: "/login" }} className="no-underline">
-                    <LoginIcon className="mr-2" />
-                    Login
-                  </Link>
-                </DropdownMenuItem>
-              </>
+              <DropdownMenuItem>
+                <Link href={{ pathname: "/login" }} className="no-underline">
+                  <LoginIcon className="mr-2" />
+                  Login
+                </Link>
+              </DropdownMenuItem>
             )}
           </DropdownMenuContent>
         </DropdownMenu>

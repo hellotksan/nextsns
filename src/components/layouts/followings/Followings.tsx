@@ -5,12 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import * as Feedback from "@/components/shared/feedback/index";
-import { useAppSelector } from "@/hooks/useSelector";
 import useFollowingFriends from "@/hooks/useFollowingFriends";
 import PersonIcon from "@mui/icons-material/Person";
+import { useAuth } from "@/hooks/useAuth";
 
 function FollowingUsersComponent() {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAuth();
   const { followingFriends, loading, error } = useFollowingFriends(
     user?.followings || null
   );

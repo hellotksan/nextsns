@@ -31,7 +31,7 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isLoading = false;
       state.error = null;
-      Cookies.set("user", JSON.stringify(action.payload), {
+      Cookies.set("nextuser", JSON.stringify(action.payload), {
         secure: true,
         sameSite: "Strict",
         expires: 7,
@@ -45,12 +45,11 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
-      Cookies.remove("user");
+      Cookies.remove("nextuser");
     },
   },
 });
 
-// アクションとreducerのエクスポート
 export const { loginStart, loginSuccess, loginError, logout } =
   authSlice.actions;
 export default authSlice.reducer;

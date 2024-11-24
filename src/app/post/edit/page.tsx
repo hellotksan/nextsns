@@ -6,10 +6,10 @@ import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner"
 import * as Feedback from "@/components/shared/feedback/index";
 import PostEditComponent from "@/components/layouts/postEdit/PostEdit";
 import Topbar from "@/components/layouts/header/Header";
-import { useAppSelector } from "@/hooks/useSelector";
+import { useAuth } from "@/hooks/useAuth";
 
 const PostEditContent: React.FC = () => {
-  const { user, isLoading, error } = useAppSelector((state) => state.auth);
+  const { user, isLoading, error } = useAuth();
   const searchParams = useSearchParams();
   const postId = searchParams.get("post-id");
   const router = useRouter();

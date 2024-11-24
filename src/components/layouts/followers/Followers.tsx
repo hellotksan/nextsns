@@ -3,14 +3,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useAppSelector } from "@/hooks/useSelector";
+import { useAuth } from "@/hooks/useAuth";
 import useFollowers from "@/hooks/useFollowers";
 import PersonIcon from "@mui/icons-material/Person";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
 import * as Feedback from "@/components/shared/feedback/index";
 
 function FollowersComponent() {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAuth();
   const { followingFriends, loading, error } = useFollowers(
     user?.followings || []
   );

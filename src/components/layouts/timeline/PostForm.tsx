@@ -3,19 +3,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { POSTS_ENDPOINT } from "@/constants/api";
-import { useAppSelector } from "@/hooks/useSelector";
 import PersonIcon from "@mui/icons-material/Person";
 import { User } from "@/types/user";
 import { Post } from "@/types/post";
 import PostButton from "./PostButton";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import { useAuth } from "@/hooks/useAuth";
 
 interface PostFormProps {
   onPostSuccess: (newPost: Post) => void;
 }
 
 const PostForm: React.FC<PostFormProps> = ({ onPostSuccess }) => {
-  const { user } = useAppSelector((state) => state.auth) as { user: User };
+  const { user } = useAuth() as { user: User };
   const desc = useRef<HTMLTextAreaElement | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

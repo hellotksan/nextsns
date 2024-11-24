@@ -5,22 +5,22 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { USERS_ENDPOINT } from "@/constants/api";
-import { useAppSelector } from "@/hooks/useSelector";
 import { useUser } from "@/hooks/useUser";
-import { User } from "@/types/user";
 import PersonIcon from "@mui/icons-material/Person";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import { useAuth } from "@/hooks/useAuth";
+import { User } from "@/types/user";
 
 interface ProfileComponentProps {
   username: string;
 }
 
 const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
-  const { user } = useAppSelector((state) => state.auth) as { user: User };
+  const { user } = useAuth() as { user: User };
   const router = useRouter();
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
-  const { userData: showingUser, isLoading, isError } = useUser(username);
+  const { userData: showingUser, isError } = useUser(username);
 
   // ユーザーのフォロー状態を確認
   useEffect(() => {
@@ -44,14 +44,16 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
   if (!showingUser) return null;
 
   const handleFollow = async () => {
-    try {
-      await axios.put(`${USERS_ENDPOINT}/${showingUser._id}/follow`, {
-        userId: user._id,
-      });
-      setIsFollowing(true);
-      toast.success("フォローしました！");
-    } catch (error) {
-      toast.error("フォローに失敗しました。");
+    if (user && user._id) {
+      try {
+        await axios.put(`${USERS_ENDPOINT}/${showingUser._id}/follow`, {
+          userId: user._id,
+        });
+        setIsFollowing(true);
+        toast.success("フォローしました！");
+      } catch (err) {
+        toast.error("フォローに失敗しました。");
+      }
     }
   };
 

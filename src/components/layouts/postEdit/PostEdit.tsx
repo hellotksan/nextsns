@@ -2,16 +2,16 @@
 
 import React from "react";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import { useAppSelector } from "@/hooks/useSelector";
 import usePost from "@/hooks/usePost";
 import * as Feedback from "@/components/shared/feedback/index";
+import { useAuth } from "@/hooks/useAuth";
 
 interface PostEditProps {
   postId: string;
 }
 
 const PostEditComponent = ({ postId }: PostEditProps): JSX.Element | null => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAuth();
 
   const {
     post,

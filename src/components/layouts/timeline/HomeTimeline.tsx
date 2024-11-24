@@ -3,9 +3,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner";
-import PostComponent from "./Post";
 import { Post } from "@/types/post";
 import { POSTS_ALL_ENDPOINT } from "@/constants/api";
+import SinglePost from "./SinglePost";
 import PostForm from "./PostForm";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -74,14 +74,14 @@ const HomeTimeline: React.FC<TimelineProps> = ({ isForm = false }) => {
   }, [handleScroll]);
 
   return (
-    <div className="flex justify-center shadow-md rounded-lg w-full">
-      <div className="w-full mx-10 relative">
+    <div className="w-full flex justify-center">
+      <div className="relative">
         {isForm && user ? <PostForm onPostSuccess={handlePostSuccess} /> : null}
 
         {loading ? (
           <LoadingSpinner />
         ) : (
-          posts.map((post) => <PostComponent key={post._id} post={post} />)
+          posts.map((post) => <SinglePost key={post._id} post={post} />)
         )}
       </div>
     </div>
