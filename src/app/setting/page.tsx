@@ -6,7 +6,7 @@ const SettingPage: React.FC = () => {
   return (
     <div className="w-full flex flex-col">
       <Topbar />
-      <div className="min-w-96 max-w-xl mx-auto">
+      <div className="max-w-[480px] xl:w-[480px] mx-auto">
         <SettingComponent />
       </div>
     </div>
