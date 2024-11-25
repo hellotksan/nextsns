@@ -6,7 +6,7 @@ const FollowersPage: React.FC = () => {
   return (
     <div className="w-full flex flex-col">
       <Topbar />
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-[480px] xl:w-[480px] mx-auto">
         <FollowersComponent />
       </div>
     </div>

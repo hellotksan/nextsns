@@ -1,18 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import { AUTH_REGISTER_ENDPOINT } from "@/constants/api";
 import RegisterButton from "./RegisterButton";
+import { User } from "@/types/user";
+import { loginCall } from "@/app/actionCalls";
+import { useAppDispatch } from "@/hooks/useDispatch";
+import { useAuth } from "@/hooks/useAuth";
 
 const RegisterForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-
-  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,10 +28,10 @@ const RegisterForm: React.FC = () => {
     try {
       await axios.post(AUTH_REGISTER_ENDPOINT, { username, email, password });
       alert("ユーザーを登録しました。");
-      router.push("/login");
+      const userData: User = await loginCall({ email, password, dispatch });
+      login(userData);
     } catch (err) {
       alert("ユーザー登録に失敗しました。もう一度お試しください。");
-      router.refresh();
     }
   };
 
