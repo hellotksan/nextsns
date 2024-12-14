@@ -9,7 +9,9 @@ interface AuthState {
   error: string | null;
 }
 
-const savedUser = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
+const savedUser = Cookies.get("nextuser")
+  ? JSON.parse(Cookies.get("nextuser")!)
+  : null;
 
 const initialState: AuthState = {
   user: savedUser,

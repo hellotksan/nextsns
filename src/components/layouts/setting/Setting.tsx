@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { USERS_ENDPOINT } from "@/constants/api";
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const SettingComponent: React.FC = () => {
   const { user, logoutUser } = useAuth();
@@ -49,10 +51,10 @@ const SettingComponent: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex justify-center p-3 border-x-2 rounded-lg shadow-md max-w-xl min-h-screen mx-auto">
+    <div className="w-full flex justify-center p-3 max-w-xl min-h-screen mx-auto">
       <div className="p-6 w-96">
         <h2 className="text-2xl font-bold mb-4">ユーザー設定</h2>
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="text-lg font-medium">
             ユーザー名：{user?.username}
           </div>
@@ -64,19 +66,31 @@ const SettingComponent: React.FC = () => {
             rows={2}
           />
           <div className="flex space-x-4">
-            <button
+            <Button
               onClick={handleEdit}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              variant="outline"
+              className="hover:bg-gray-300"
             >
-              編集
-            </button>
-            <button
+              Edit
+            </Button>
+            {/* TODO: アカウント削除時にもう一度メールアドレスとパスワードで認証すること。 */}
+            {/* <Button
               onClick={handleDelete}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+              variant="outline"
+              className="text-white bg-red-500 hover:bg-red-600"
             >
-              ユーザ削除
-            </button>
+              Delete
+            </Button> */}
           </div>
+        </div>
+        <div className="mt-5">
+          <Link
+            href="#"
+            onClick={() => alert("現在、アカウントの削除はできません。")}
+            className="hover:underline"
+          >
+            アカウント削除はこちらから
+          </Link>
         </div>
       </div>
     </div>

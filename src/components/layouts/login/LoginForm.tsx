@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-// import { useRouter } from "next/navigation";
 import { loginCall } from "@/app/actionCalls";
-// import {
-//   loginStart,
-//   loginSuccess,
-//   loginError,
-// } from "@/features/auth/authSlice";
 import { useAppDispatch } from "@/hooks/useDispatch";
 import { User } from "@/types/user";
 import { useAuth } from "@/hooks/useAuth";
@@ -15,10 +9,8 @@ import { useAuth } from "@/hooks/useAuth";
 const LoginForm: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-
   const dispatch = useAppDispatch();
   const { login } = useAuth();
-  // const router = useRouter();
 
   useEffect(() => {
     // 自動でメールフィールドにフォーカスを当てる
@@ -34,17 +26,11 @@ const LoginForm: React.FC = () => {
   };
 
   const onSubmit = async (email: string, password: string): Promise<void> => {
-    // dispatch(loginStart());
-
     try {
       const userData: User = await loginCall({ email, password, dispatch });
       login(userData);
-      // dispatch(loginSuccess(userData));
-      // router.push("/home");
     } catch (err) {
-      // dispatch(loginError("ログインに失敗しました"));
       alert("エラーが発生しました。");
-      // router.refresh();
     }
   };
 

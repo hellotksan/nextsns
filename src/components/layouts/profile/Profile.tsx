@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { USERS_ENDPOINT } from "@/constants/api";
 import { useUser } from "@/hooks/useUser";
 import PersonIcon from "@mui/icons-material/Person";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import RocketIcon from "@mui/icons-material/Rocket";
 import { useAuth } from "@/hooks/useAuth";
 import { User } from "@/types/user";
 
@@ -80,11 +80,13 @@ const ProfileComponent: React.FC<ProfileComponentProps> = ({ username }) => {
   return (
     <div className="p-4 mt-2 mb-2 border-2 shadow-md rounded-lg max-w-xl mx-auto">
       <div className="flex items-center space-x-4">
-        {showingUser.profilePicture ? (
-          <RocketLaunchIcon fontSize="large" className="ml-2" />
-        ) : (
-          <PersonIcon fontSize="large" className="ml-2" />
-        )}
+        <div className="ml-2">
+          {showingUser.profilePicture ? (
+            <RocketIcon fontSize="large" />
+          ) : (
+            <PersonIcon fontSize="large" />
+          )}
+        </div>
         <div className="text-xl font-semibold">
           {showingUser.username}{" "}
           {username === user?.username && (

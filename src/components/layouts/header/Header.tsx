@@ -18,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import RocketIcon from "@mui/icons-material/Rocket";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -43,7 +43,7 @@ const Topbar: React.FC = () => {
 
   return (
     <div className="h-16 w-full flex items-center sticky top-0 z-20 backdrop-blur border-b border-gray-300">
-      <SidebarTrigger className="ml-5"/>
+      <SidebarTrigger className="ml-5" />
 
       <div className="flex-1 flex items-center justify-start space-x-4 ml-5 xl:ml-60">
         <Link href="/home" className="ml-2 font-bold text-2xl no-underline">
@@ -76,14 +76,7 @@ const Topbar: React.FC = () => {
 
         <DropdownMenu>
           <DropdownMenuTrigger aria-label="user-icon">
-            {user && user.profilePicture ? (
-              <RocketLaunchIcon
-                fontSize="medium"
-                className="w-8 h-8 no-underline"
-              />
-            ) : (
-              <PersonIcon fontSize="medium" className="w-8 h-8 no-underline" />
-            )}
+            {user && user.profilePicture ? <RocketIcon /> : <PersonIcon />}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -99,7 +92,7 @@ const Topbar: React.FC = () => {
                     }}
                     className="no-underline"
                   >
-                    <PersonOutlineIcon fontSize="medium" />
+                    <PersonOutlineIcon />
                     Profile
                   </Link>
                 </DropdownMenuItem>

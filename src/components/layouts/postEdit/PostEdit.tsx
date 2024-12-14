@@ -5,6 +5,7 @@ import LoadingSpinner from "@/components/elements/loadingSpinner/LoadingSpinner"
 import usePost from "@/hooks/usePost";
 import * as Feedback from "@/components/shared/feedback/index";
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 
 interface PostEditProps {
   postId: string;
@@ -33,7 +34,7 @@ const PostEditComponent = ({ postId }: PostEditProps): JSX.Element | null => {
   }
 
   return (
-    <div className="flex justify-center p-3 border-x-2 rounded-md max-w-xl min-h-screen mx-auto">
+    <div className="flex justify-center p-3 max-w-xl min-h-screen mx-auto">
       <div className="p-6 w-full">
         <h2 className="text-2xl font-bold mb-4">投稿設定</h2>
         <div className="space-y-2">
@@ -55,18 +56,20 @@ const PostEditComponent = ({ postId }: PostEditProps): JSX.Element | null => {
             />
           </div>
           <div className="flex space-x-4">
-            <button
+            <Button
               onClick={() => handleEdit(user?._id || "")}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              variant="outline"
+              className="hover:bg-gray-300"
             >
-              編集
-            </button>
-            <button
+              Edit
+            </Button>
+            <Button
               onClick={() => handleDelete(user?._id || "")}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+              variant="outline"
+              className="bg-red-500 text-white rounded-md hover:bg-red-600"
             >
-              投稿削除
-            </button>
+              Delete
+            </Button>
           </div>
         </div>
       </div>
