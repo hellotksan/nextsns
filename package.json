@@ -46,7 +46,7 @@
     "react-toastify": "^10.0.6",
     "remark": "^15.0.1",
     "swr": "^2.2.5",
-    "tailwind-merge": "^2.5.4",
+    "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "timeago.js": "^4.0.2",
     "vite": "^5.4.10",
