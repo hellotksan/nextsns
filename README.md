@@ -1,7 +1,5 @@
 # Next SNS
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
 ## 概要
 
 このプロジェクトは、NextJs と NodeJs と MongoDB を使用して作成された SNS クローンアプリケーションです。
@@ -86,8 +84,6 @@
 
 ```sh
 /
-├── .github/        # GitHub設定
-├── .husky/         # コミットフック
 ├── public/         # 静的ファイル
 ├── src/
 │   ├── app/        # Next.jsのApp Router
