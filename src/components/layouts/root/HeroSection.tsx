@@ -20,7 +20,7 @@ const HeroSection = () => {
 
           <div className="flex justify-center space-x-4 mb-20">
             <Link href="/home" className="text-black">
-              <Button variant="outline" className="hover:bg-gray-300">
+              <Button variant="outline" className="bg-gray-100 hover:bg-gray-300">
                 Get Started
               </Button>
             </Link>

@@ -4,6 +4,8 @@
 
 このプロジェクトは、NextJs と NodeJs と MongoDB を使用して作成された SNS クローンアプリケーションです。
 
+[https://nextsns.net](https://nextsns.net)
+
 ## 注意事項
 
 ### 個人情報の取り扱い
@@ -14,71 +16,25 @@
 万が一、個人情報が流出しても責任を取ることはできません。
 この事項に同意したうえで使用してください。
 
-楽しんで！
-
 ## デモ
 
-[https://nextsns.net](https://nextsns.net)
+**TOP**
+![demo1](public/assets/images/demo-1-top.png)
 
-## 特徴
+**Unlogined Timeline**
+![demo2](public/assets/images/demo-2-unlogin-timeline.png)
 
-このソースコードは OSS として公開しているので、MIT ライセンスを使用していただければ、
-どんな風に利用してもよいです。
+**Profile**
+![demo3](public/assets/images/demo-3-profile.png)
 
-[LICENSE](LICENSE)
-
-## このプロジェクトに興味がありますか
-
-こちらから確認してください。
-プロジェクトへの貢献を歓迎します！
-
-[CONTRIBUTING.md](CONTRIBUTING.md)
+**User Settings**
+![demo4](public/assets/images/demo-4-user-setting.png)
 
 ## 依存関係
 
 このプロジェクトは以下の主要なライブラリに依存しています：
 
 [package.json](package.json)
-
-## 前提条件
-
-このプロジェクトをローカルで実行するには、以下が必要です：
-
-- Node.js (バージョン 20.0 以上推奨)
-- npm または yarn
-
-## セットアップ
-
-以下の手順に従ってプロジェクトをセットアップします：
-
-1. リポジトリをクローンします。
-
-   ```bash
-   git clone https://github.com/hellotksan/nextsns
-   cd nextsns
-   ```
-
-2. 依存関係をインストールします。
-
-   ```bash
-   npm install
-   ```
-
-3. .env ファイルの配置
-
-   .env
-
-   ```env
-   NEXT_PUBLIC_API_URL="https://real-sns-back-end.vercel.app"
-   ```
-
-4. 開発サーバーを起動します。
-
-   ```bash
-   npm run dev
-   ```
-
-5. ブラウザで [http://localhost:3000](http://localhost:3000) を開き、アプリを確認します。
 
 ## プロジェクトのディレクトリ構造
 
@@ -98,41 +54,3 @@
 │   └── types/      # TypeScriptの型定義
 └── next.config.js  # Next.jsの設定
 ```
-
-## ページ設計
-
-- /
-
-  サイトの紹介ページ
-
-- /home
-
-  ホームページ
-
-- /register
-
-  ユーザ登録ページ
-
-- /login
-
-  ユーザログインページ
-
-- /profile?username=
-
-  ユーザプロフィールページ
-
-- /setting
-
-  ユーザ設定ページ
-
-- /post-edit
-
-  投稿記事編集ページ
-
-- /all-users
-
-  全ユーザを表示するページ
-
-- /followers
-
-  フォロワーを表示するページ
