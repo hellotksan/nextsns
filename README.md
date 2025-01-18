@@ -6,17 +6,7 @@
 
 [https://nextsns.net](https://nextsns.net)
 
-## 注意事項
-
-### 個人情報の取り扱い
-
-この web サイトはユーザ情報や投稿記事の情報を作者が管理するデータベースに保存します。
-そのため、私はデータベースの情報を見ることができます。
-絶対に機密な個人情報を入力しないでください。
-万が一、個人情報が流出しても責任を取ることはできません。
-この事項に同意したうえで使用してください。
-
-## デモ
+## DEMO
 
 **TOP**
 ![demo1](public/assets/images/demo-1-top.png)
@@ -30,13 +20,13 @@
 **User Settings**
 ![demo4](public/assets/images/demo-4-user-setting.png)
 
-## 依存関係
+## Using Stacks
 
-このプロジェクトは以下の主要なライブラリに依存しています：
+![frontend-stacks](public/assets/images/frontend-stacks.PNG)
 
-[package.json](package.json)
+![backend-stacks](public/assets/images/backend-stacks.PNG)
 
-## プロジェクトのディレクトリ構造
+## Directory Stracture
 
 ```sh
 /
